@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360" fill="none" role="img" aria-label="F1 Taxi — Taksi 24/7 në Tiranë">
   <defs>
-    <!-- Forest → olive base gradient (site tokens) -->
+    <!-- Grey base gradient -->
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#181f0d"/>
-      <stop offset="0.5" stop-color="#283618"/>
-      <stop offset="1" stop-color="#0b120c"/>
+      <stop offset="0" stop-color="#3a3d40"/>
+      <stop offset="0.5" stop-color="#4a4e52"/>
+      <stop offset="1" stop-color="#26282a"/>
     </linearGradient>
     <!-- Green signature glow -->
     <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
