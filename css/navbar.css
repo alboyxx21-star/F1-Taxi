@@ -1,0 +1,101 @@
+/* ============================================================
+   F1 TAXI — navbar.css
+   Fixed top bar (logo + hamburger). Transparent: it rides on
+   the stage's glass top letterbox bar, which is its background.
+   ============================================================ */
+
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-height);
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(20px, 5vw, 64px);
+  /* Frosted glass over the hero video — faintly visible as a bar. */
+  background: rgba(40, 54, 24, .22);
+  -webkit-backdrop-filter: blur(10px) saturate(130%);
+  backdrop-filter: blur(10px) saturate(130%);
+  border-bottom: 1px solid rgba(255, 255, 255, .14);
+  pointer-events: none; /* only its children are interactive */
+  transition: background .35s ease, backdrop-filter .35s ease, border-color .35s ease;
+}
+
+/* Once scrolled off the hero, the bar takes on its solid green band. */
+.nav.is-scrolled {
+  background: #223d03;
+  border-bottom-color: rgba(0, 0, 0, .2);
+}
+
+/* While the overlay menu is open the bar rides on the light menu —
+   drop its band entirely so no line shows across the top. */
+body.menu-open .nav {
+  background: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border-color: transparent;
+}
+
+.nav__logo,
+.nav__toggle { pointer-events: auto; }
+
+/* ---- Logo ---- */
+.nav__logo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: none;
+  z-index: 1002;
+  transition: left .5s var(--ease-out-expo), transform .5s var(--ease-out-expo);
+}
+
+.nav__logo img {
+  height: 36px;
+  width: auto;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .28));
+}
+
+/* Centered logo on mobile while the menu is open */
+@media (max-width: 759px) {
+  body.menu-open .nav__logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* ---- Hamburger → X ---- */
+.nav__toggle {
+  position: relative;
+  z-index: 1002;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 7px;
+}
+
+.nav__toggle span {
+  display: block;
+  height: 2.5px;
+  border-radius: 2px;
+  background: var(--c-accent);
+  transition:
+    transform .45s var(--ease-inout-hard),
+    width .35s ease,
+    opacity .3s ease,
+    background .3s ease;
+}
+
+.nav__toggle span:nth-child(1) { width: 30px; }
+.nav__toggle span:nth-child(2) { width: 22px; }
+.nav__toggle span:nth-child(3) { width: 26px; }
+
+/* Open state: dark lines (over the light overlay), crossed */
+body.menu-open .nav__toggle span { background: var(--c-forest); width: 30px; }
+body.menu-open .nav__toggle span:nth-child(1) { transform: translateY(9.5px) rotate(45deg); }
+body.menu-open .nav__toggle span:nth-child(2) { opacity: 0; transform: translateX(12px); }
+body.menu-open .nav__toggle span:nth-child(3) { transform: translateY(-9.5px) rotate(-45deg); }

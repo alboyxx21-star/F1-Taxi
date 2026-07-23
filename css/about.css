@@ -1,0 +1,396 @@
+/* ============================================================
+   F1 TAXI — about.css
+   "Rreth Nesh" section: editorial layout with rounded media
+   panels, accent card, stats bar and notched vision/mission
+   cards.
+   ============================================================ */
+
+.slide--rreth-nesh {
+  padding: clamp(90px, 14vh, 150px) 0 clamp(70px, 10vh, 120px);
+  font-family: Verdana, Geneva, sans-serif;
+  /* Soft sage-and-cream wash (overrides stage.css's flat grey),
+     topped with an inline-SVG wave pattern echoing the brand artwork */
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 1200' preserveAspectRatio='xMidYMid slice'%3E%3Cpath d='M0 0h600v150c-110 62-230 8-330 66C170 274 80 236 0 296Z' fill='%236f9c6a' opacity='.22'/%3E%3Cpath d='M600 150c-110 62-230 8-330 66C170 274 80 236 0 296v250c130-64 240 6 350-58 100-58 180-24 250-86Z' fill='%23f4f3e5' opacity='.5'/%3E%3Cpath d='M0 546c130-64 240 6 350-58 100-58 180-24 250-86v260c-120 70-230 20-340 84-100 58-190 30-260 74Z' fill='%23a8c5a1' opacity='.3'/%3E%3Cpath d='M0 820c70-44 160-16 260-74 110-64 220-14 340-84v250c-120 66-240 16-350 78-95 54-180 30-250 66Z' fill='%23eeeadb' opacity='.45'/%3E%3Cpath d='M0 976c70-36 155-12 250-66 110-62 230-12 350-78v368H0Z' fill='%23659460' opacity='.24'/%3E%3C/svg%3E") center / cover no-repeat,
+    radial-gradient(90% 60% at 10% 6%, rgba(111, 156, 106, .40) 0%, transparent 62%),
+    radial-gradient(75% 55% at 90% 26%, rgba(244, 243, 229, .95) 0%, transparent 65%),
+    radial-gradient(85% 60% at 82% 96%, rgba(101, 148, 96, .38) 0%, transparent 60%),
+    radial-gradient(60% 45% at 26% 58%, rgba(170, 197, 161, .5) 0%, transparent 65%),
+    linear-gradient(135deg, #dce5cf 0%, #eeeee0 48%, #ccdabf 100%);
+}
+
+.about {
+  position: relative;
+  z-index: 2;
+  width: min(1180px, 92vw);
+  margin: 0 auto;
+  color: var(--c-cornsilk);
+  /* Dark edge behind the light text so it reads bold on the sage waves */
+  text-shadow:
+    0 1px 2px rgba(11, 18, 12, .5),
+    0 2px 12px rgba(11, 18, 12, .3);
+  display: grid;
+  gap: clamp(28px, 4.5vh, 52px);
+}
+
+/* ---- Header: big title left, small intro right ---- */
+.about__head {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  align-items: end;
+  gap: clamp(20px, 3vw, 48px);
+}
+
+.about__title {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(38px, 5.2vw, 70px);
+  line-height: 1.02;
+  letter-spacing: -.02em;
+}
+
+.about__title {
+  color: var(--c-cornsilk); /* same tone as the hero "Mirë se vini" heading */
+  text-shadow:
+    0 1px 0 rgba(11, 18, 12, .55),
+    0 2px 4px rgba(11, 18, 12, .45),
+    0 6px 22px rgba(11, 18, 12, .3);
+}
+
+.about__intro {
+  margin: 0 0 .4em;
+  justify-self: end;
+  max-width: 36ch;
+  font-size: clamp(13.5px, 1.1vw, 15px);
+  line-height: 1.65;
+  color: var(--c-cornsilk);
+  text-shadow:
+    0 1px 2px rgba(11, 18, 12, .6),
+    0 2px 10px rgba(11, 18, 12, .4);
+}
+
+/* ---- Hero panel: dark rounded stage for the car ---- */
+.about__hero {
+  position: relative;
+  margin: 0;
+  border-radius: 28px;
+  min-height: clamp(300px, 50vh, 500px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #d3d7db;
+  box-shadow:
+    0 30px 60px -30px rgba(11, 18, 12, .3),
+    0 12px 44px -6px rgba(47, 140, 60, .35);
+}
+
+/* The image is rounded itself so the overlapping arrow stays unclipped. */
+.about__hero-img {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+/* Round accent button overlapping the panel's bottom-right edge */
+.about__arrow {
+  position: absolute;
+  right: clamp(22px, 5vw, 56px);
+  bottom: -28px;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--c-accent);
+  color: var(--c-forest);
+  box-shadow: 0 14px 30px -10px rgba(0, 255, 57, .55);
+  transition: transform .35s var(--ease-out-expo), box-shadow .35s ease;
+}
+
+.about__arrow:hover {
+  transform: translateY(5px);
+  box-shadow: 0 18px 34px -10px rgba(0, 255, 57, .7);
+}
+
+/* ---- Two columns: quote + small media | accent card ---- */
+.about__cols {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(20px, 2.6vw, 32px);
+  align-items: stretch;
+}
+
+.about__quote {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 2.6vh, 28px);
+}
+
+.about__quotemark {
+  font-size: clamp(54px, 5vw, 72px);
+  font-weight: 700;
+  line-height: .35;
+  letter-spacing: -.06em;
+  color: color-mix(in srgb, var(--c-cornsilk) 40%, transparent);
+  user-select: none;
+}
+
+.about__quote-text {
+  margin: 0;
+  font-size: clamp(17px, 1.7vw, 22px);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -.01em;
+}
+
+.about__quote-media {
+  margin: 0;
+  margin-top: auto;
+  border-radius: 20px;
+  height: clamp(220px, 30vh, 300px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 160% at 20% 0%, rgba(0, 255, 57, .14) 0%, transparent 55%),
+    linear-gradient(120deg, #10170c 0%, #1c2712 100%);
+  box-shadow: 0 14px 38px -10px rgba(47, 140, 60, .38);
+}
+
+.about__quote-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 60%;
+}
+
+/* Dark-green feature card (Flaire's blue card, in brand colors) */
+.about__card {
+  border-radius: 24px;
+  padding: clamp(26px, 3vw, 42px);
+  background:
+    radial-gradient(120% 120% at 100% 0%, rgba(0, 255, 57, .12) 0%, transparent 50%),
+    var(--c-forest);
+  color: var(--c-cornsilk);
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.about__card-tag {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: clamp(10px, 2vh, 22px);
+  color: var(--c-accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .16em;
+}
+
+.about__card p {
+  margin: 0;
+  font-size: clamp(13.5px, 1.1vw, 15px);
+  line-height: 1.7;
+  color: color-mix(in oklch, var(--c-cornsilk), transparent 14%);
+}
+
+/* Asterisk / flower shape */
+.about__star {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+}
+
+/* ---- Stats bar ---- */
+.about__stats {
+  list-style: none;
+  margin: 0;
+  padding: clamp(20px, 3vh, 30px) clamp(18px, 3vw, 40px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1.5px solid rgba(254, 250, 224, .28);
+  border-radius: 18px;
+  background: rgba(24, 31, 13, .45);
+}
+
+.about__stat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.about__stat + .about__stat {
+  border-left: 1.5px solid rgba(254, 250, 224, .22);
+}
+
+.about__stat strong {
+  font-size: clamp(30px, 3.4vw, 46px);
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+
+.about__stat > span {
+  max-width: 11ch;
+  font-size: clamp(11.5px, 1vw, 13.5px);
+  line-height: 1.35;
+  color: color-mix(in srgb, var(--c-cornsilk) 75%, transparent);
+}
+
+/* ---- Vision / Mission notched cards + media ---- */
+.about__vm {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.12fr;
+  gap: clamp(18px, 2.2vw, 28px);
+  align-items: stretch;
+}
+
+.about__vm-card {
+  position: relative;
+  border-radius: 20px;
+  padding: clamp(24px, 2.6vw, 34px);
+  background: var(--c-cornsilk);
+  box-shadow: 0 18px 40px -28px rgba(11, 18, 12, .35);
+}
+
+/* Corner notch: a slide-background square "cut" into the top-right */
+.about__vm-card::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 76px;
+  height: 56px;
+  background: #e2e8d4;
+  border-bottom-left-radius: 20px;
+}
+
+.about__vm-star {
+  position: absolute;
+  top: 14px;
+  right: 20px;
+  width: 26px;
+  height: 26px;
+  color: #17b845;
+}
+
+.about__vm-card h3 {
+  margin: 0 0 .55em;
+  font-size: clamp(26px, 2.7vw, 40px);
+  font-weight: 700;
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+}
+
+.about__vm-card p {
+  margin: 0;
+  font-size: clamp(13px, 1.05vw, 14.5px);
+  line-height: 1.65;
+  color: rgba(11, 18, 12, .68);
+}
+
+/* Cards keep dark text on light backgrounds — no dark halo there */
+.about__vm-card,
+.about__card {
+  text-shadow: none;
+  color: var(--c-ink);
+}
+
+.about__card { color: var(--c-cornsilk); }
+
+.about__vm-media {
+  margin: 0;
+  border-radius: 20px;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    radial-gradient(130% 150% at 80% 0%, rgba(0, 255, 57, .15) 0%, transparent 55%),
+    linear-gradient(150deg, #141c0f 0%, #0b120c 100%);
+  box-shadow: 0 14px 38px -10px rgba(47, 140, 60, .38);
+}
+
+.about__vm-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 55%;
+}
+
+/* ---- Word-reveal spans (built by js/scroll.js) ----
+   Each word sits in an overflow-hidden mask and rises into place.
+   The small bottom padding keeps descenders (g, j, ç…) unclipped. */
+.aw-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: .12em;
+  margin-bottom: -.12em;
+}
+
+.aw {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 940px) {
+  .about__head {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .about__intro { justify-self: start; }
+
+  .about__cols { grid-template-columns: 1fr; }
+
+  .about__vm { grid-template-columns: 1fr 1fr; }
+
+  .about__vm-media { grid-column: 1 / -1; min-height: 180px; }
+
+  /* Landscape photos: shallower panels so they aren't over-cropped */
+  .about__hero { min-height: clamp(220px, 34vh, 360px); }
+
+  .about__quote-media { height: clamp(180px, 26vh, 260px); }
+}
+
+@media (max-width: 640px) {
+  .about__stats {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .about__stat {
+    justify-content: flex-start;
+  }
+
+  .about__stat + .about__stat {
+    border-left: 0;
+    border-top: 1.5px solid rgba(254, 250, 224, .22);
+    padding-top: 18px;
+  }
+
+  .about__vm { grid-template-columns: 1fr; }
+
+  .about__arrow {
+    width: 54px;
+    height: 54px;
+    bottom: -22px;
+  }
+
+  .about__hero { min-height: clamp(180px, 26vh, 260px); }
+
+  /* Keep the lead taxi in frame in the tight phone crop */
+  .about__hero-img { object-position: 38% 55%; }
+
+  .about__quote-media { height: clamp(160px, 24vh, 220px); }
+
+  .about__vm-media { min-height: 160px; }
+}

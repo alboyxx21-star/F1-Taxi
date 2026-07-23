@@ -1,0 +1,254 @@
+/* ============================================================
+   F1 TAXI — stage.css
+   Plain vertically-scrolling page: each slide is a full-height
+   section stacked in normal document flow (no scroll-hijacking,
+   no transitions).
+   ============================================================ */
+
+@keyframes glowDrift {
+  0%   { transform: translate(-50%, 0) scale(1) }
+  50%  { transform: translate(-50%, -4%) scale(1.08) }
+  100% { transform: translate(-50%, 0) scale(1) }
+}
+
+/* ============ SHELL ============ */
+
+.stage {
+  position: relative;
+  z-index: 0;
+  background: #dee2e6;
+}
+
+/* Former cinematic scroll wrappers → neutralised to plain flow */
+.stage__scroller,
+.stage__track,
+.stage__sticky {
+  position: static;
+  height: auto;
+  overflow: visible;
+}
+
+/* ============ SLIDES ============ */
+
+.slide {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  padding: 18vh 0;
+  overflow: hidden;
+}
+
+/* Per-slide backdrops — every slide shares the same flat backdrop */
+.slide--kreu       { background: #dee2e6; }
+
+/* Kreu full-bleed background video */
+.kreu-video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Darkening scrim so the copy stays legible over the video */
+.kreu-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    rgba(11, 18, 12, .74) 0%,
+    rgba(11, 18, 12, .42) 42%,
+    rgba(11, 18, 12, 0) 78%
+  );
+}
+
+/* Hero copy — left-aligned, vertically centred */
+.kreu-content {
+  position: relative;
+  z-index: 2;
+  max-width: min(680px, 92%);
+  padding: 0 clamp(24px, 4vw, 48px) 0 clamp(28px, 7vw, 110px);
+  color: var(--c-cornsilk);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, .35);
+}
+
+.kreu-heading {
+  margin: 0 0 clamp(14px, 2.4vh, 26px);
+  font-weight: 700;
+  line-height: .95;
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+  font-size: clamp(40px, 6.4vw, 92px);
+  white-space: nowrap; /* only the <br> breaks: "WELCOME" / "TO F1 TAXI" */
+}
+
+/* Brand mark: Verdana, green "F", red "1", green "TAXI" */
+.kreu-brand {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: inherit; /* same cornsilk as the rest of the heading */
+  font-size: 1em; /* same size as the rest of the heading */
+  letter-spacing: 0; /* Verdana runs wide — drop the heading's tight tracking */
+  white-space: nowrap; /* keep "F1 TAXI" together on one line */
+}
+.kreu-brand__f { color: inherit; }
+.kreu-brand__1 { color: inherit; }
+
+.kreu-lead {
+  margin: 0 0 clamp(12px, 1.8vh, 18px);
+  font-weight: 600;
+  line-height: 1.3;
+  font-size: clamp(18px, 2.2vw, 27px);
+}
+
+.kreu-text {
+  margin: 0;
+  font-weight: 400;
+  line-height: 1.55;
+  font-size: clamp(15px, 1.5vw, 18px);
+  color: color-mix(in oklch, var(--c-cornsilk), transparent 12%);
+}
+
+/* Entrance: the heading slides in from off the left edge */
+@keyframes kreuSlideIn {
+  from { opacity: 0; transform: translateX(-160px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.kreu-heading {
+  animation: kreuSlideIn .9s var(--ease-out-expo) both;
+  animation-delay: .15s;
+}
+
+/* The two paragraphs are typed in by js/hero.js — hidden until then. */
+.kreu-lead,
+.kreu-text { opacity: 0; }
+
+/* Blinking caret on whichever line is currently being typed */
+.kreu-lead.is-typing::after,
+.kreu-text.is-typing::after {
+  content: '';
+  display: inline-block;
+  width: .07em;
+  height: 1.05em;
+  margin-left: .06em;
+  vertical-align: -.14em;
+  background: var(--c-accent);
+  animation: kreuCaret .8s steps(1) infinite;
+}
+
+@keyframes kreuCaret { 50% { opacity: 0; } }
+
+/* Social icons — revealed after the text finishes typing */
+.kreu-social {
+  display: flex;
+  gap: 25px;
+  margin-top: clamp(20px, 3.2vh, 36px);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+
+.kreu-social.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.kreu-social a {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(254, 250, 224, .38);
+  color: var(--c-cornsilk);
+  transition: color .3s ease, border-color .3s ease, background .3s ease, transform .3s ease;
+}
+
+.kreu-social a:hover {
+  color: var(--c-accent);
+  border-color: var(--c-accent);
+  background: rgba(0, 255, 57, .1);
+  transform: translateY(-2px);
+}
+.slide--rreth-nesh { background: #dee2e6; }
+.slide--sherbimet  { background: #dee2e6; }
+.slide--cmimet     { background: #dee2e6; justify-content: flex-end; }
+.slide--rezervo {
+  /* Soft green-and-cream flowing palette (real artwork) */
+  background: #3f5b34 url("../assets/media/rezervo-bg.jpg") center / cover no-repeat;
+}
+.slide--kontakt    { background: #dee2e6; justify-content: center; }
+
+/* ---- Drifting glow orbs ---- */
+.slide__orb {
+  position: absolute;
+  left: 50%;
+  width: 72vw;
+  height: 72vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,255,57,.22) 0%, rgba(0,255,57,.06) 44%, transparent 68%);
+  animation: glowDrift 12s ease-in-out infinite;
+}
+
+.slide--rreth-nesh .slide__orb { top: -16%; }
+.slide--sherbimet  .slide__orb { top: -20%; width: 70vw; height: 70vw; animation-duration: 13s; }
+.slide--cmimet     .slide__orb { bottom: -16%; animation-duration: 14s; }
+.slide--rezervo    .slide__orb { top: -18%; left: auto; right: 6%; width: 70vw; height: 70vw; animation-duration: 12.5s; }
+
+/* ---- Giant page numbers ---- */
+.slide__num {
+  position: absolute;
+  font-size: 38vw;
+  font-weight: 700;
+  line-height: .8;
+  color: rgba(0, 180, 45, .06);
+  user-select: none;
+}
+
+.slide__num--tl { top: 8%;    left: 4%;  }
+.slide__num--tr { top: 8%;    right: 4%; }
+.slide__num--bl { bottom: 6%; left: 3%;  }
+.slide__num--br { bottom: 6%; right: 3%; }
+
+/* ---- Titles (melt animation is driven inline by js) ---- */
+.slide__title {
+  position: relative;
+  z-index: 2;
+  padding: 0 8vw;
+  max-width: 1200px;
+  text-align: left;
+}
+
+.slide__title--right  { text-align: right; }
+.slide__title--center { text-align: center; }
+
+.slide__title h1 {
+  margin: 0;
+  font-weight: 700;
+  color: var(--c-ink);
+  line-height: .98;
+  font-size: clamp(48px, 8vw, 124px);
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+}
+
+.slide--kontakt .slide__title h1 {
+  line-height: .9;
+  font-size: clamp(64px, 11vw, 180px);
+  letter-spacing: -.03em;
+}
+
+/* ============ ACCESSIBILITY ============ */
+
+@media (prefers-reduced-motion: reduce) {
+  .slide__orb { animation: none; }
+  .kreu-heading { animation: none; }
+  .kreu-lead,
+  .kreu-text { opacity: 1; }
+  .kreu-social { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}

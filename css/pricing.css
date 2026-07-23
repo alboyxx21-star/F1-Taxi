@@ -1,0 +1,538 @@
+/* ============================================================
+   F1 TAXI — pricing.css
+   "Çmimet" section: official tariff list + interactive fare
+   calculator on the brand sage-wave backdrop.
+   ============================================================ */
+
+.slide--cmimet {
+  padding: clamp(90px, 14vh, 150px) 0 clamp(70px, 10vh, 120px);
+  font-family: Verdana, Geneva, sans-serif;
+  /* Same sage-and-cream wash + wave pattern as Rreth Nesh */
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 1200' preserveAspectRatio='xMidYMid slice'%3E%3Cpath d='M0 0h600v150c-110 62-230 8-330 66C170 274 80 236 0 296Z' fill='%236f9c6a' opacity='.22'/%3E%3Cpath d='M600 150c-110 62-230 8-330 66C170 274 80 236 0 296v250c130-64 240 6 350-58 100-58 180-24 250-86Z' fill='%23f4f3e5' opacity='.5'/%3E%3Cpath d='M0 546c130-64 240 6 350-58 100-58 180-24 250-86v260c-120 70-230 20-340 84-100 58-190 30-260 74Z' fill='%23a8c5a1' opacity='.3'/%3E%3Cpath d='M0 820c70-44 160-16 260-74 110-64 220-14 340-84v250c-120 66-240 16-350 78-95 54-180 30-250 66Z' fill='%23eeeadb' opacity='.45'/%3E%3Cpath d='M0 976c70-36 155-12 250-66 110-62 230-12 350-78v368H0Z' fill='%23659460' opacity='.24'/%3E%3C/svg%3E") center / cover no-repeat,
+    radial-gradient(90% 60% at 10% 6%, rgba(111, 156, 106, .40) 0%, transparent 62%),
+    radial-gradient(75% 55% at 90% 26%, rgba(244, 243, 229, .95) 0%, transparent 65%),
+    radial-gradient(85% 60% at 82% 96%, rgba(101, 148, 96, .38) 0%, transparent 60%),
+    radial-gradient(60% 45% at 26% 58%, rgba(170, 197, 161, .5) 0%, transparent 65%),
+    linear-gradient(135deg, #dce5cf 0%, #eeeee0 48%, #ccdabf 100%);
+}
+
+.pricing {
+  position: relative;
+  z-index: 2;
+  width: min(1180px, 92vw);
+  margin: 0 auto;
+  color: var(--c-cornsilk);
+  display: grid;
+  gap: clamp(28px, 4.5vh, 52px);
+  text-shadow:
+    0 1px 2px rgba(11, 18, 12, .5),
+    0 2px 12px rgba(11, 18, 12, .3);
+}
+
+/* ---- Header ---- */
+.pricing__head {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  align-items: end;
+  gap: clamp(20px, 3vw, 48px);
+}
+
+.pricing__title {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(38px, 5.2vw, 70px);
+  line-height: 1.02;
+  letter-spacing: -.02em;
+  text-shadow:
+    0 1px 0 rgba(11, 18, 12, .55),
+    0 2px 4px rgba(11, 18, 12, .45),
+    0 6px 22px rgba(11, 18, 12, .3);
+}
+
+.pricing__intro {
+  margin: 0 0 .4em;
+  justify-self: end;
+  max-width: 44ch;
+  font-size: clamp(13.5px, 1.1vw, 15px);
+  line-height: 1.65;
+}
+
+/* ---- Columns: tariff list | calculator ---- */
+.pricing__cols {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: clamp(20px, 2.6vw, 32px);
+  align-items: stretch;
+}
+
+.pricing__tariffs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  align-content: stretch;
+  gap: clamp(12px, 1.8vh, 18px);
+}
+
+.pricing__tariff {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: clamp(16px, 2.2vh, 22px) clamp(18px, 2vw, 26px);
+  border-radius: 16px;
+  background: rgba(24, 31, 13, .45);
+  border: 1.5px solid rgba(254, 250, 224, .25);
+  font-size: clamp(13px, 1.05vw, 14.5px);
+  line-height: 1.5;
+}
+
+.pricing__tariff strong {
+  font-size: clamp(15px, 1.35vw, 19px);
+  font-weight: 700;
+  color: var(--c-accent);
+  white-space: nowrap;
+  text-shadow: 0 1px 3px rgba(11, 18, 12, .6);
+}
+
+/* ---- Calculator card ---- */
+.fare-calc {
+  position: relative;
+  border-radius: 24px;
+  padding: clamp(24px, 2.8vw, 40px);
+  /* Glassmorphism: frosted dark-green glass over the sage waves */
+  background:
+    linear-gradient(150deg, rgba(40, 58, 30, .55) 0%, rgba(11, 18, 12, .42) 100%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+  border: 1.5px solid rgba(254, 250, 224, .22);
+  box-shadow:
+    0 24px 60px -22px rgba(11, 18, 12, .55),
+    0 8px 30px -12px rgba(47, 140, 60, .35),
+    inset 0 1px 0 rgba(255, 255, 255, .14);
+  text-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2.2vh, 22px);
+}
+
+/* Soft green sheen in the top corner for depth */
+.fare-calc::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(120% 120% at 100% 0%, rgba(0, 255, 57, .14) 0%, transparent 45%);
+}
+
+.fare-calc > * { position: relative; z-index: 1; }
+
+.fare-calc h3 {
+  margin: 0;
+  font-size: clamp(22px, 2.2vw, 30px);
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+
+/* Day / Night segmented toggle */
+.fare-calc__toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 12px;
+  background: rgba(11, 18, 12, .32);
+  border: 1px solid rgba(254, 250, 224, .12);
+}
+
+.fare-calc__mode {
+  border: 0;
+  cursor: pointer;
+  border-radius: 9px;
+  padding: 10px 8px;
+  background: transparent;
+  color: color-mix(in srgb, var(--c-cornsilk) 75%, transparent);
+  font-family: inherit;
+  font-size: clamp(13px, 1.1vw, 15px);
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transition: background .3s ease, color .3s ease;
+}
+
+.fare-calc__mode small {
+  font-weight: 400;
+  font-size: 11px;
+  opacity: .75;
+}
+
+.fare-calc__mode.is-active {
+  background: var(--c-accent);
+  color: var(--c-forest);
+}
+
+/* Location / destination fields */
+.fare-calc__field {
+  display: grid;
+  gap: 7px;
+}
+
+.fare-calc__field--geo {
+  position: relative; /* anchor for the suggestions dropdown */
+}
+
+/* Raise the active field so its dropdown overlays the fields/button below */
+.fare-calc__field--geo:focus-within {
+  z-index: 30;
+}
+
+.fare-calc__label {
+  font-size: clamp(12.5px, 1vw, 14px);
+  font-weight: 600;
+  color: color-mix(in oklch, var(--c-cornsilk), transparent 12%);
+}
+
+.fare-calc__input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.fare-calc__input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(254, 250, 224, .22);
+  background: rgba(255, 255, 255, .07);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: var(--c-cornsilk);
+  font-family: inherit;
+  font-size: clamp(13px, 1.05vw, 14.5px);
+  transition: border-color .3s ease, box-shadow .3s ease, background .3s ease;
+}
+
+.fare-calc__input::placeholder { color: rgba(254, 250, 224, .4); }
+
+.fare-calc__input:focus {
+  outline: none;
+  border-color: var(--c-accent);
+  background: rgba(255, 255, 255, .1);
+  box-shadow: 0 0 0 3px rgba(0, 255, 57, .18);
+}
+
+/* Round "use my location" button */
+.fare-calc__geo-btn {
+  flex: 0 0 auto;
+  width: 46px;
+  border: 1.5px solid rgba(254, 250, 224, .22);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .08);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: var(--c-accent);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background .3s ease, transform .3s ease;
+}
+
+.fare-calc__geo-btn:hover { background: rgba(0, 255, 57, .2); }
+.fare-calc__geo-btn:active { transform: scale(.94); }
+
+.fare-calc__geo-btn.is-loading svg {
+  animation: fareSpin .8s linear infinite;
+}
+
+@keyframes fareSpin { to { transform: rotate(360deg); } }
+
+/* Autocomplete suggestions */
+.fare-calc__suggest {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  list-style: none;
+  margin: 0;
+  padding: 5px;
+  max-height: 220px;
+  overflow-y: auto;
+  border-radius: 12px;
+  border: 1.5px solid rgba(254, 250, 224, .2);
+  background: rgba(16, 23, 11, .96);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
+  box-shadow: 0 18px 44px -12px rgba(11, 18, 12, .8);
+  text-shadow: none;
+}
+
+.fare-calc__suggest[hidden] { display: none; }
+
+.fare-calc__suggest-item {
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  line-height: 1.35;
+  color: color-mix(in srgb, var(--c-cornsilk) 88%, transparent);
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+
+.fare-calc__suggest-item:hover {
+  background: rgba(0, 255, 57, .14);
+  color: var(--c-cornsilk);
+}
+
+/* Curated Albanian places get a green pin marker */
+.fare-calc__suggest-item.is-local {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fare-calc__suggest-item.is-local::before {
+  content: '';
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300ff39' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21.5s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11Z'/%3E%3Ccircle cx='12' cy='10.3' r='2.6'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Calculate button */
+.fare-calc__go {
+  margin-top: 2px;
+  padding: 13px 18px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--c-accent);
+  color: var(--c-forest);
+  font-family: inherit;
+  font-size: clamp(14px, 1.15vw, 16px);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 12px 26px -10px rgba(0, 255, 57, .55);
+  transition: transform .3s var(--ease-out-expo), box-shadow .3s ease, opacity .3s ease;
+}
+
+.fare-calc__go:hover { transform: translateY(-2px); box-shadow: 0 16px 32px -10px rgba(0, 255, 57, .7); }
+.fare-calc__go.is-loading { opacity: .6; pointer-events: none; }
+
+/* Embedded Google map */
+.fare-map {
+  width: 100%;
+  height: clamp(200px, 30vh, 260px);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1.5px solid rgba(254, 250, 224, .2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 12px 30px -14px rgba(11, 18, 12, .6);
+}
+.fare-map[hidden] { display: none; }
+
+/* Google Places autocomplete dropdown → match the dark glass theme
+   (.pac-container is appended to <body>, so these are global) */
+.pac-container {
+  margin-top: 6px;
+  border: 1.5px solid rgba(254, 250, 224, .2);
+  border-radius: 12px;
+  background: rgba(16, 23, 11, .97);
+  box-shadow: 0 18px 44px -12px rgba(11, 18, 12, .8);
+  font-family: Verdana, Geneva, sans-serif;
+  z-index: 60;
+}
+.pac-container::after { display: none; } /* remove Google logo row spacing */
+.pac-item {
+  padding: 9px 12px;
+  border-top: 1px solid rgba(255, 255, 255, .06);
+  color: color-mix(in srgb, var(--c-cornsilk) 78%, transparent);
+  font-size: 13.5px;
+  cursor: pointer;
+}
+.pac-item:hover { background: rgba(0, 255, 57, .14); }
+.pac-item-query { color: var(--c-cornsilk); font-size: 13.5px; }
+.pac-matched { color: var(--c-accent); }
+.pac-icon { filter: grayscale(1) brightness(2); opacity: .5; }
+
+/* Status line */
+.fare-calc__status {
+  margin: 0;
+  min-height: 1.1em;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--c-cornsilk) 70%, transparent);
+}
+
+.fare-calc__status.is-error { color: #ff8f8f; }
+.fare-calc__status.is-ok { color: var(--c-accent); }
+
+/* Result */
+.fare-calc__result {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  text-align: center;
+  padding-top: clamp(14px, 2vh, 20px);
+  border-top: 1.5px solid rgba(254, 250, 224, .2);
+}
+
+.fare-calc__result[hidden] { display: none; }
+
+.fare-calc__route {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+  font-size: clamp(13px, 1.1vw, 15px);
+  color: color-mix(in srgb, var(--c-cornsilk) 85%, transparent);
+}
+
+.fare-calc__route strong { color: var(--c-cornsilk); font-size: 1.15em; }
+.fare-calc__route-sep { opacity: .5; }
+
+.fare-calc__result-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--c-cornsilk) 70%, transparent);
+}
+
+.fare-calc__price {
+  font-size: clamp(24px, 2.6vw, 36px);
+  font-weight: 700;
+  color: var(--c-accent);
+  line-height: 1.1;
+}
+
+.fare-calc__eur {
+  font-size: clamp(13px, 1.1vw, 15px);
+  color: color-mix(in srgb, var(--c-cornsilk) 75%, transparent);
+}
+
+.fare-calc__note {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--c-cornsilk) 65%, transparent);
+}
+
+/* ---- Company fixed destination prices ---- */
+.pricing__fixed {
+  display: grid;
+  gap: clamp(16px, 2.4vh, 26px);
+}
+
+.pricing__fixed-title {
+  margin: 0;
+  text-align: center;
+  font-size: clamp(22px, 2.6vw, 34px);
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+
+.pricing__dests {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(10px, 1.4vw, 16px);
+}
+
+.pricing__dest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  text-align: center;
+  padding: 10px 10px clamp(14px, 1.8vh, 18px);
+  border-radius: 14px;
+  background: rgba(24, 31, 13, .45);
+  border: 1.5px solid rgba(254, 250, 224, .25);
+  transition: transform .35s var(--ease-out-expo), background .35s ease;
+}
+
+/* Brochure thumbnail */
+.pricing__dest-img {
+  margin: 0 0 2px;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.pricing__dest-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s var(--ease-out-expo);
+}
+
+.pricing__dest:hover .pricing__dest-img img {
+  transform: scale(1.07);
+}
+
+/* Placeholder until the destination photo is added: soft green + map pin */
+.pricing__dest-img--soon {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fefae0' stroke-opacity='.55' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21.5s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11Z'/%3E%3Ccircle cx='12' cy='10.3' r='2.6'/%3E%3C/svg%3E") center / 30px no-repeat,
+    radial-gradient(120% 120% at 30% 20%, rgba(254, 250, 224, .12) 0%, transparent 55%),
+    linear-gradient(140deg, #35603f 0%, #1c2712 100%);
+}
+
+.pricing__dest:hover {
+  transform: translateY(-4px);
+  background: rgba(24, 31, 13, .6);
+}
+
+.pricing__dest span {
+  font-size: clamp(11.5px, .95vw, 13px);
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+.pricing__dest strong {
+  font-size: clamp(16px, 1.5vw, 21px);
+  font-weight: 700;
+  color: var(--c-accent);
+  text-shadow: 0 1px 3px rgba(11, 18, 12, .6);
+}
+
+/* ---- Source footnote ---- */
+.pricing__source {
+  margin: 0;
+  text-align: center;
+  font-size: 12.5px;
+}
+
+.pricing__source a {
+  color: var(--c-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 940px) {
+  .pricing__head {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .pricing__intro { justify-self: start; }
+
+  .pricing__cols { grid-template-columns: 1fr; }
+
+  .pricing__dests { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .pricing__dests { grid-template-columns: repeat(2, 1fr); }
+}

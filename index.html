@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="F1 Taxi — shërbim taksi 24/7 në Prishtinë dhe mbarë Kosovën. Rezervo online, çmime të qarta dhe udhëtim i shpejtë e i sigurt.">
+  <title>F1 Taxi — Taksi 24/7 në Prishtinë</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="assets/media/favicon.ico">
+  <link rel="icon" type="image/png" sizes="256x256" href="assets/media/favicon.png">
+  <link rel="apple-touch-icon" href="assets/media/apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="css/stage.css">
+  <link rel="stylesheet" href="css/about.css">
+  <link rel="stylesheet" href="css/services.css">
+  <link rel="stylesheet" href="css/pricing.css">
+
+  <!-- Libraries: GSAP + ScrollTrigger + Lenis smooth scroll (vendored locally) -->
+  <script defer src="js/vendor/gsap.min.js"></script>
+  <script defer src="js/vendor/ScrollTrigger.min.js"></script>
+  <script defer src="js/vendor/lenis.min.js"></script>
+
+  <!-- Scripts (defer: run after parse, in order) -->
+  <script defer src="js/navbar.js"></script>
+  <script defer src="js/main.js"></script>
+  <script defer src="js/hero.js"></script>
+  <script defer src="js/scroll.js"></script>
+  <script defer src="js/maps-config.js"></script>
+  <script defer src="js/al-places.js"></script>
+  <script defer src="js/fare.js"></script>
+  <script defer src="js/fare-map.js"></script>
+</head>
+<body>
+
+  <!-- ============ NAVBAR (rides on the stage's glass top bar) ============ -->
+  <header class="nav" id="nav">
+    <a class="nav__logo" href="#kreu" data-page="kreu" aria-label="F1 Taxi">
+      <img src="assets/media/logo.webp" alt="F1 Taxi">
+    </a>
+    <button class="nav__toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ============ FULLSCREEN MENU OVERLAY ============ -->
+  <div class="menu" id="menu" aria-hidden="true">
+
+    <div class="menu__panel">
+      <div class="menu__grid"></div>
+      <div class="menu__accent"></div>
+      <div class="menu__car-wrap">
+        <div class="menu__car">
+          <img class="menu__car-img menu__car-img--open" src="assets/media/car-open.png" alt="">
+          <img class="menu__car-img menu__car-img--close" src="assets/media/car-lights.png" alt="">
+          <span class="menu__glow"></span>
+          <span class="menu__headlight menu__headlight--l"></span>
+          <span class="menu__headlight menu__headlight--r"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu__content">
+      <nav class="menu__links" aria-label="Navigimi kryesor">
+        <a class="menu__link" href="#kreu" data-page="kreu">
+          <span class="menu__dash"></span>
+          <span class="menu__label" data-sq="Kreu" data-en="Home">Kreu</span>
+        </a>
+        <a class="menu__link" href="#rreth-nesh" data-page="rreth-nesh">
+          <span class="menu__dash"></span>
+          <span class="menu__label" data-sq="Rreth Nesh" data-en="About Us">Rreth Nesh</span>
+        </a>
+        <a class="menu__link" href="#sherbimet" data-page="sherbimet">
+          <span class="menu__dash"></span>
+          <span class="menu__label" data-sq="Shërbimet" data-en="Services">Shërbimet</span>
+        </a>
+        <a class="menu__link" href="#cmimet" data-page="cmimet">
+          <span class="menu__dash"></span>
+          <span class="menu__label" data-sq="Çmimet" data-en="Pricing">Çmimet</span>
+        </a>
+        <a class="menu__link" href="#rezervo" data-page="rezervo">
+          <span class="menu__dash"></span>
+          <span class="menu__label" data-sq="Rezervo Taxi" data-en="Book a Taxi">Rezervo Taxi</span>
+        </a>
+        <a class="menu__link" href="#kontakt" data-page="kontakt">
+          <span class="menu__dash"></span>
+          <span class="menu__label" data-sq="Kontakt" data-en="Contact">Kontakt</span>
+        </a>
+      </nav>
+
+      <div class="menu__social">
+        <a href="#" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5A1.94 1.94 0 1 1 5 3.06 1.94 1.94 0 0 1 6.94 5ZM5.34 8.5h3.2V21h-3.2Zm5.2 0h3.07v1.71h.04a3.36 3.36 0 0 1 3-1.66c3.22 0 3.81 2.12 3.81 4.87V21h-3.2v-5.55c0-1.32 0-3-1.85-3s-2.13 1.44-2.13 2.93V21h-3.2Z"/></svg>
+        </a>
+        <a href="#" aria-label="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.9c0-.74.5-.9.85-.9H17V3.05L14.2 3c-2.9 0-3.54 2.17-3.54 3.56V8.5H9v3h1.66V21H14v-9.5h2.5l.34-3Z"/></svg>
+        </a>
+      </div>
+
+      <div class="menu__lang">
+        <button class="menu__lang-btn is-active" data-lang="SQ">SQ</button>
+        <span class="menu__lang-sep"></span>
+        <button class="menu__lang-btn" data-lang="EN">EN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ STAGE (scrolling sections) ============ -->
+  <main class="stage">
+    <div class="stage__scroller" id="scroller">
+      <div class="stage__track" id="track">
+        <div class="stage__sticky" id="sticky">
+
+          <!-- PAGE 01 · KREU -->
+          <section class="slide slide--kreu" id="kreu" data-slide>
+            <video class="kreu-video" src="assets/media/background1.mp4"
+                   autoplay muted loop playsinline preload="auto"></video>
+            <div class="kreu-overlay"></div>
+            <div class="kreu-content">
+              <h1 class="kreu-heading">Mirë se vini <br> në <span class="kreu-brand"><span class="kreu-brand__f">F</span><span class="kreu-brand__1">1</span> TAXI</span></h1>
+              <p class="kreu-lead">F1  nuk është thjesht një shërbim taksie , është standardi i ri i udhëtimit.</p>
+              <p class="kreu-text">Nga zemra e Tiranës , në çdo destinacion në Shqipëri ku çdo udhëtim ofron rehati, siguri dhe profesionalizëm, për një eksperiencë që tejkalon pritshmëritë.</p>
+              <div class="kreu-social" aria-label="Social links">
+                <a href="#" aria-label="LinkedIn">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5A1.94 1.94 0 1 1 5 3.06 1.94 1.94 0 0 1 6.94 5ZM5.34 8.5h3.2V21h-3.2Zm5.2 0h3.07v1.71h.04a3.36 3.36 0 0 1 3-1.66c3.22 0 3.81 2.12 3.81 4.87V21h-3.2v-5.55c0-1.32 0-3-1.85-3s-2.13 1.44-2.13 2.93V21h-3.2Z"/></svg>
+                </a>
+                <a href="#" aria-label="Instagram">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+                </a>
+                <a href="#" aria-label="Facebook">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.9c0-.74.5-.9.85-.9H17V3.05L14.2 3c-2.9 0-3.54 2.17-3.54 3.56V8.5H9v3h1.66V21H14v-9.5h2.5l.34-3Z"/></svg>
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <!-- PAGE 02 · RRETH NESH -->
+          <section class="slide slide--rreth-nesh" id="rreth-nesh" data-slide>
+            <div class="slide__orb"></div>
+
+            <div class="about">
+
+              <!-- Header: big title + small intro -->
+              <header class="about__head">
+                <h2 class="about__title" data-sq="Rreth Nesh" data-en="Our Story, Vision, and Values">Rreth Nesh</h2>
+                <p class="about__intro" data-sq="Njihuni me përkushtimin tonë ndaj përsosmërisë, sigurisë dhe parimeve që udhëheqin çdo udhëtim tonin, çdo ditë." data-en="Learn about our commitment to excellence, safety, and the principles that guide every one of our rides, every day.">Njihuni me përkushtimin tonë ndaj përsosmërisë, sigurisë dhe parimeve që udhëheqin çdo udhëtim tonin, çdo ditë.</p>
+              </header>
+
+              <!-- Hero media panel with overlapping arrow button -->
+              <figure class="about__hero" data-reveal>
+                <img class="about__hero-img" src="assets/media/car-lined-up.png"
+                     alt="Makinat F1 Taxi" loading="lazy">
+                <a class="about__arrow" href="#sherbimet" aria-label="Shko te shërbimet">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16"/><path d="m5 13 7 7 7-7"/></svg>
+                </a>
+              </figure>
+
+              <!-- Quote + small media | accent card -->
+              <div class="about__cols">
+                <div class="about__quote">
+                  <span class="about__quotemark" aria-hidden="true">&ldquo;</span>
+                  <p class="about__quote-text" data-sq="Ekipi ynë punon pa u lodhur që çdo udhëtim të jetë i sigurt dhe i rehatshëm , jo thjesht një rrugë nga pika A në pikën B, por një eksperiencë që tejkalon pritshmëritë tuaja." data-en="Our team works tirelessly to make every ride safe and comfortable — not just a trip from A to B, but an experience that exceeds your expectations.">Ekipi ynë punon pa u lodhur që çdo udhëtim të jetë i sigurt dhe i rehatshëm , jo thjesht një rrugë nga pika A në pikën B, por një eksperiencë që tejkalon pritshmëritë tuaja.</p>
+                  <figure class="about__quote-media" data-reveal>
+                    <img src="assets/media/hands-ok.png" alt="" loading="lazy">
+                  </figure>
+                </div>
+
+                <aside class="about__card">
+                  <div class="about__card-tag">
+                    <span data-sq="RRETH NESH" data-en="ABOUT US">Historia, Vizioni dhe Vlerat Tona</span>
+                    <svg class="about__star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" aria-hidden="true"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1"/></svg>
+                  </div>
+                  <p data-sq="Ne besojmë në fuqinë e profesionalizmit dhe përkushtimit. Duke qëndruar pranë klientëve tanë, kuptojmë nevojat e tyre unike dhe ofrojmë zgjidhje transporti që bëjnë diferencën — me siguri, rehati dhe përpikëri në çdo udhëtim." data-en="We believe in the power of professionalism and dedication. By staying close to our clients, we understand their unique needs and deliver transport solutions that truly make a difference — with safety, comfort and punctuality on every ride.">Ne besojmë në fuqinë e profesionalizmit dhe përkushtimit. Duke qëndruar pranë klientëve tanë, kuptojmë nevojat e tyre unike dhe ofrojmë zgjidhje transporti që bëjnë diferencën — me siguri, rehati dhe përpikëri në çdo udhëtim.</p>
+                  <p data-sq="Duke përqafuar teknologjinë dhe standardet më të fundit, sigurohemi që shërbimi ynë t'u përgjigjet jo vetëm nevojave të sotme, por të parashikojë edhe ato të nesërmet. F1 Taxi ju çon drejt destinacionit — me stil." data-en="By embracing the latest technology and standards, we make sure our service not only meets today's needs but anticipates tomorrow's. F1 Taxi takes you to your destination — in style.">Duke përqafuar teknologjinë dhe standardet më të fundit, sigurohemi që shërbimi ynë t'u përgjigjet jo vetëm nevojave të sotme, por të parashikojë edhe ato të nesërmet.</p>
+                </aside>
+              </div>
+
+              <!-- Stats bar -->
+              <ul class="about__stats">
+                <li class="about__stat">
+                  <strong>10+</strong>
+                  <span data-sq="Vite Eksperiencë" data-en="Years of Experience">Vite Eksperiencë</span>
+                </li>
+                <li class="about__stat">
+                  <strong>50K+</strong>
+                  <span data-sq="Udhëtime të Kryera" data-en="Rides Completed">Udhëtime të Kryera</span>
+                </li>
+                <li class="about__stat">
+                  <strong>24/7</strong>
+                  <span data-sq="Shërbim pa Ndalesë" data-en="Non-stop Service">Shërbim pa Ndalesë</span>
+                </li>
+              </ul>
+
+              <!-- Vision / Mission notched cards + media -->
+              <div class="about__vm">
+                <article class="about__vm-card">
+                  <svg class="about__star about__vm-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" aria-hidden="true"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1"/></svg>
+                  <h3 data-sq="Vizioni" data-en="Vision">Vizioni</h3>
+                  <p data-sq="Të jemi standardi i transportit urban në Shqipëri — një emër që njihet kudo për besueshmëri, cilësi dhe stil." data-en="To be the standard of urban transport in Albania — a name known everywhere for reliability, quality and style.">Të jemi standardi i transportit urban në Shqipëri — një emër që njihet kudo për besueshmëri, cilësi dhe stil.</p>
+                </article>
+
+                <article class="about__vm-card">
+                  <svg class="about__star about__vm-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" aria-hidden="true"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1"/></svg>
+                  <h3 data-sq="Misioni" data-en="Mission">Misioni</h3>
+                  <p data-sq="T'ju ofrojmë çdo ditë udhëtime të sigurta e të rehatshme, me çmime transparente — 24 orë, 7 ditë në javë." data-en="To offer you safe and comfortable rides every day, with transparent pricing — 24 hours, 7 days a week.">T'ju ofrojmë çdo ditë udhëtime të sigurta e të rehatshme, me çmime transparente — 24 orë, 7 ditë në javë.</p>
+                </article>
+
+                <figure class="about__vm-media" data-reveal>
+                  <img src="assets/media/night.webp" alt="" loading="lazy">
+                </figure>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- PAGE 03 · SHËRBIMET -->
+          <section class="slide slide--sherbimet" id="sherbimet" data-slide>
+            <div class="services">
+
+              <!-- Header: title + intro -->
+              <header class="services__head">
+                <h2 class="services__title" data-sq="Shërbimet Tona" data-en="Our Services">Shërbimet Tona</h2>
+                <p class="services__intro" data-sq="Kudo që të jeni dhe kudo që doni të shkoni, shërbimet tona janë krijuar që çdo udhëtim të jetë i lehtë, i sigurt dhe i përballueshëm — nga klikimi i parë deri në destinacion." data-en="Wherever you are and wherever you're headed, our services are designed to make every ride easy, safe, and affordable — from the first click to your final stop.">Kudo që të jeni dhe kudo që doni të shkoni, shërbimet tona janë krijuar që çdo udhëtim të jetë i lehtë, i sigurt dhe i përballueshëm — nga klikimi i parë deri në destinacion.</p>
+              </header>
+
+              <!-- Si Funksionon: booking process in three phases -->
+              <div class="services__process">
+
+                <ol class="services__phases">
+                  <li class="services__phase" data-reveal>
+                    <div class="services__phase-circle">
+                      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11 6.3 7.2A1.8 1.8 0 0 1 8 6h8a1.8 1.8 0 0 1 1.7 1.2L19 11"/><rect x="3.5" y="11" width="17" height="6.5" rx="1.6"/><circle cx="7.3" cy="14.2" r="1.1" fill="currentColor" stroke="none"/><circle cx="16.7" cy="14.2" r="1.1" fill="currentColor" stroke="none"/><path d="M10 3.5h4"/></svg>
+                      <span class="services__phase-num">1.</span>
+                    </div>
+                    <h4 data-sq="Kërkimi i Taksisë" data-en="Find Your Taxi">Kërkimi i Taksisë</h4>
+                    <p data-sq="Klienti kërkon kompaninë e taksive më të përshtatshme për nevojat e tij." data-en="The client looks for the taxi company best suited to their needs.">Klienti kërkon kompaninë e taksive më të përshtatshme për nevojat e tij.</p>
+                  </li>
+
+                  <li class="services__phase" data-reveal>
+                    <div class="services__phase-circle">
+                      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2.5" width="11" height="19" rx="2.4"/><circle cx="12" cy="17.8" r="1" fill="currentColor" stroke="none"/></svg>
+                      <span class="services__phase-num">2.</span>
+                    </div>
+                    <h4 data-sq="Rezervimi i Taksisë" data-en="Book Your Taxi">Rezervimi i Taksisë</h4>
+                    <p data-sq="Klienti komunikon me kompaninë nëpërmjet telefonit ose faqes së internetit." data-en="The client contacts the company by phone or through the website.">Klienti komunikon me kompaninë nëpërmjet telefonit ose faqes së internetit.</p>
+                  </li>
+
+                  <li class="services__phase" data-reveal>
+                    <div class="services__phase-circle">
+                      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10.3" r="2.6"/></svg>
+                      <span class="services__phase-num">3.</span>
+                    </div>
+                    <h4 data-sq="Arritja në Destinacion" data-en="Reach Your Destination">Arritja në Destinacion</h4>
+                    <p data-sq="Taksia merr klientin dhe e çon në destinacionin e tij." data-en="The taxi picks the client up and takes them to their destination.">Taksia merr klientin dhe e çon në destinacionin e tij.</p>
+                  </li>
+                </ol>
+
+                <a class="services__book-btn" href="#rezervo" data-reveal data-sq="Rezervo Tani »" data-en="Book Now »">Rezervo Tani »</a>
+              </div>
+
+              <!-- Photo collage + CTA banner -->
+              <div class="services__bottom">
+                <div class="services__collage" data-reveal>
+                  <figure class="services__collage-big">
+                    <img src="assets/media/ngre-doren.webp" alt="Klient duke ngritur dorën për një F1 Taxi" loading="lazy">
+                  </figure>
+                  <figure class="services__collage-small">
+                    <video src="assets/media/enter-the-taxi.mp4"
+                           autoplay muted loop playsinline preload="metadata"
+                           aria-label="Klient duke hyrë në F1 Taxi"></video>
+                  </figure>
+                </div>
+
+                <div class="services__cta" data-reveal>
+                  <p class="services__cta-kicker" data-sq="Rezervo tani!" data-en="Book your ride now!">Rezervo tani!</p>
+                  <a class="services__cta-phone" href="tel:+355682550000">+355 68 255 0000</a>
+                  <p class="services__cta-note" data-sq="24/7 në shërbimin tuaj, kudo në Shqipëri." data-en="24/7 at your service, anywhere in Albania.">24/7 në shërbimin tuaj, kudo në Shqipëri.</p>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- PAGE 04 · ÇMIMET -->
+          <section class="slide slide--cmimet" id="cmimet" data-slide>
+            <div class="pricing">
+
+              <!-- Header -->
+              <header class="pricing__head">
+                <h2 class="pricing__title" data-sq="Çmimet" data-en="Pricing">Çmimet</h2>
+                <p class="pricing__intro" data-sq="Tarifat zyrtare të taksive në Tiranë përcaktohen nga bashkia dhe bazohen në distancën e udhëtimit dhe kohën në trafik. Llogaritni më poshtë një vlerësim për udhëtimin tuaj." data-en="Official taxi fares in Tirana are set by the municipality and based on trip distance and time in traffic. Use the calculator below to estimate your ride.">Tarifat zyrtare të taksive në Tiranë përcaktohen nga bashkia dhe bazohen në distancën e udhëtimit dhe kohën në trafik. Llogaritni më poshtë një vlerësim për udhëtimin tuaj.</p>
+              </header>
+
+              <div class="pricing__cols">
+
+                <!-- Official tariff list -->
+                <ul class="pricing__tariffs">
+                  <li class="pricing__tariff" data-reveal>
+                    <span data-sq="Tarifa fillestare (1.5 km të para)" data-en="Initial fare (first 1.5 km)">Tarifa fillestare (1.5 km të para)</span>
+                    <strong>300 ALL</strong>
+                  </li>
+                  <li class="pricing__tariff" data-reveal>
+                    <span data-sq="Çdo kilometër" data-en="Per kilometer">Çdo kilometër</span>
+                    <strong>95&#8211;120 ALL/km</strong>
+                  </li>
+                  <li class="pricing__tariff" data-reveal>
+                    <span data-sq="Koha në trafik" data-en="Time in traffic">Koha në trafik</span>
+                    <strong>~25 ALL/min</strong>
+                  </li>
+                  <li class="pricing__tariff" data-reveal>
+                    <span data-sq="Natën (22:00&#8211;07:00) &#8211; më pak trafik" data-en="Night (10 PM&#8211;7 AM) &#8211; less traffic">Natën (22:00&#8211;07:00) &#8211; më pak trafik</span>
+                    <strong data-sq="më lirë" data-en="cheaper">më lirë</strong>
+                  </li>
+                </ul>
+
+                <!-- Fare calculator card: location → destination → route → fare -->
+                <div class="fare-calc" data-reveal>
+                  <h3 data-sq="Llogaritësi i Tarifës" data-en="Fare Calculator">Llogaritësi i Tarifës</h3>
+
+                  <div class="fare-calc__toggle" role="group" aria-label="Tarifa">
+                    <button type="button" class="fare-calc__mode is-active" data-mode="day">
+                      <span data-sq="Ditën" data-en="Day">Ditën</span>
+                      <small>07:00&#8211;22:00</small>
+                    </button>
+                    <button type="button" class="fare-calc__mode" data-mode="night">
+                      <span data-sq="Natën" data-en="Night">Natën</span>
+                      <small>22:00&#8211;07:00</small>
+                    </button>
+                  </div>
+
+                  <!-- Origin -->
+                  <div class="fare-calc__field fare-calc__field--geo">
+                    <label class="fare-calc__label" for="fare-origin" data-sq="Nga (vendndodhja juaj)" data-en="From (your location)">Nga (vendndodhja juaj)</label>
+                    <div class="fare-calc__input-row">
+                      <input type="text" id="fare-origin" class="fare-calc__input" autocomplete="off"
+                             data-sq-placeholder="Kërko një vendndodhje…" data-en-placeholder="Search a location…"
+                             placeholder="Kërko një vendndodhje…">
+                      <button type="button" id="fare-geo" class="fare-calc__geo-btn" title="Përdor vendndodhjen time" aria-label="Përdor vendndodhjen time">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M22 12h-3M5 12H2"/></svg>
+                      </button>
+                    </div>
+                    <ul class="fare-calc__suggest" id="fare-origin-suggest" hidden></ul>
+                  </div>
+
+                  <!-- Destination -->
+                  <div class="fare-calc__field fare-calc__field--geo">
+                    <label class="fare-calc__label" for="fare-dest" data-sq="Ku doni të shkoni" data-en="Where to">Ku doni të shkoni</label>
+                    <div class="fare-calc__input-row">
+                      <input type="text" id="fare-dest" class="fare-calc__input" autocomplete="off"
+                             data-sq-placeholder="Kërko destinacionin…" data-en-placeholder="Search a destination…"
+                             placeholder="Kërko destinacionin…">
+                    </div>
+                    <ul class="fare-calc__suggest" id="fare-dest-suggest" hidden></ul>
+                  </div>
+
+                  <button type="button" id="fare-go" class="fare-calc__go"
+                          data-sq="Llogarit tarifën" data-en="Calculate fare">Llogarit tarifën</button>
+
+                  <!-- Live Google map (shown only when a Maps key is configured) -->
+                  <div class="fare-map" id="fare-map" hidden></div>
+
+                  <p class="fare-calc__status" id="fare-status" role="status" aria-live="polite"></p>
+
+                  <div class="fare-calc__result" id="fare-result" hidden>
+                    <div class="fare-calc__route">
+                      <span class="fare-calc__route-item"><strong id="fare-km">&#8211;</strong> km</span>
+                      <span class="fare-calc__route-sep">&#183;</span>
+                      <span class="fare-calc__route-item" id="fare-dur">&#8211;</span>
+                    </div>
+                    <span class="fare-calc__result-label" data-sq="Çmimi i përafërt" data-en="Estimated fare">Çmimi i përafërt</span>
+                    <strong id="fare-all" class="fare-calc__price">&#8230;</strong>
+                    <span id="fare-eur" class="fare-calc__eur"></span>
+                  </div>
+
+                  <p class="fare-calc__note" data-sq="Distanca dhe koha llogariten në rrugën më të shpejtë (OpenStreetMap). Ditën çmimi rritet nga trafiku; natën, me më pak trafik, udhëtimi është më i shpejtë dhe më i lirë." data-en="Distance and time are measured on the fastest route (OpenStreetMap). Daytime prices rise with traffic; at night, with less traffic, the ride is faster and cheaper.">Distanca dhe koha llogariten në rrugën më të shpejtë (OpenStreetMap). Ditën çmimi rritet nga trafiku; natën, me më pak trafik, udhëtimi është më i shpejtë dhe më i lirë.</p>
+                </div>
+
+              </div>
+
+              <!-- Company fixed prices from Tirana -->
+              <div class="pricing__fixed">
+                <h3 class="pricing__fixed-title" data-reveal data-sq="Çmimet tona fikse nga Tirana" data-en="Our fixed prices from Tirana">Çmimet tona fikse nga Tirana</h3>
+                <ul class="pricing__dests" data-reveal>
+                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span data-sq="Aeroport" data-en="Airport">Aeroport</span><strong>&#8364;14</strong></li>
+                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Durrës</span><strong>&#8364;25</strong></li>
+                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Krujë</span><strong>&#8364;31</strong></li>
+                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Elbasan</span><strong>&#8364;26</strong></li>
+                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Laç</span><strong>&#8364;42</strong></li>
+                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Gjiri i Lalëzit</span><strong>&#8364;32</strong></li>
+                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Golem</span><strong>&#8364;32</strong></li>
+                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Fier</span><strong>&#8364;65</strong></li>
+                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Berat</span><strong>&#8364;75</strong></li>
+                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Shkodër</span><strong>&#8364;75</strong></li>
+                  <li class="pricing__dest"><figure class="pricing__dest-img"><img src="assets/media/dest/vlore.jpg" alt="Vlorë" loading="lazy"></figure><span>Vlorë</span><strong>&#8364;85</strong></li>
+                  <li class="pricing__dest"><figure class="pricing__dest-img"><img src="assets/media/dest/gjirokaster.webp" alt="Gjirokastër" loading="lazy"></figure><span>Gjirokastër</span><strong>&#8364;115</strong></li>
+                  <li class="pricing__dest"><figure class="pricing__dest-img"><img src="assets/media/dest/korce.webp" alt="Korçë" loading="lazy"></figure><span>Korçë</span><strong>&#8364;115</strong></li>
+                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Green Coast</span><strong>&#8364;115</strong></li>
+                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Prizren</span><strong>&#8364;125</strong></li>
+                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Himarë</span><strong>&#8364;140</strong></li>
+                  <li class="pricing__dest"><figure class="pricing__dest-img"><img src="assets/media/dest/permet.jpeg" alt="Përmet" loading="lazy"></figure><span>Përmet</span><strong>&#8364;150</strong></li>
+                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Prishtinë</span><strong>&#8364;150</strong></li>
+                  <li class="pricing__dest"><figure class="pricing__dest-img"><img src="assets/media/dest/sarande.webp" alt="Sarandë" loading="lazy"></figure><span>Sarandë</span><strong>&#8364;160</strong></li>
+                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Ksamil</span><strong>&#8364;170</strong></li>
+                </ul>
+              </div>
+
+              <p class="pricing__source" data-reveal>
+                <span data-sq="Burimi: tarifat zyrtare të Bashkisë së Tiranës &#183;" data-en="Source: official Tirana municipality tariffs &#183;">Burimi: tarifat zyrtare të Bashkisë së Tiranës &#183;</span>
+                <a href="https://www.taxi-calculator.com/taxi-fare-tirana/758" target="_blank" rel="noopener" data-sq="Krahaso në Taxi-Calculator" data-en="Compare on Taxi-Calculator">Krahaso në Taxi-Calculator</a>
+              </p>
+
+            </div>
+          </section>
+
+          <!-- PAGE 05 · REZERVO TAXI -->
+          <section class="slide slide--rezervo" id="rezervo" data-slide>
+            <div class="slide__orb"></div>
+            <div class="slide__num slide__num--br">05</div>
+            <div class="slide__title" data-title>
+              <h1 data-sq="Rezervo Taxi" data-en="Book a Taxi">Rezervo Taxi</h1>
+            </div>
+          </section>
+
+          <!-- PAGE 06 · KONTAKT -->
+          <section class="slide slide--kontakt" id="kontakt" data-slide>
+            <div class="slide__num slide__num--tl">06</div>
+            <div class="slide__title slide__title--center" data-title>
+              <h1 data-sq="Kontakt" data-en="Contact">Kontakt</h1>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

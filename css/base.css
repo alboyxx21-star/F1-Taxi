@@ -1,0 +1,65 @@
+/* ============================================================
+   F1 TAXI — base.css
+   Design tokens, reset, global typography.
+   ============================================================ */
+
+:root {
+  /* Palette */
+  --c-accent:        #00FF39;              /* signature green            */
+  --c-red:           #ee1c25;              /* active-link red            */
+  --c-cornsilk:      #fefae0;              /* light text / menu overlay  */
+  --c-forest:        #283618;              /* dark green (menu text)     */
+  --c-olive-soft:    #3d4a26;              /* idle menu-link color       */
+  --c-ink:           #0b120c;              /* near-black on white slides */
+  --c-band:          #181f0d;              /* navbar band base           */
+  --c-band-glass:    rgba(24, 31, 13, .55);/* glass bars                 */
+  --c-band-border:   rgba(96, 108, 56, .28);
+
+  /* Layout */
+  --nav-height: 80px;
+
+  /* Motion */
+  --ease-out-expo:   cubic-bezier(.23, 1, .32, 1);
+  --ease-inout-hard: cubic-bezier(.76, 0, .24, 1);
+
+  /* Type */
+  --font-main: 'Space Grotesk', system-ui, sans-serif;
+}
+
+/* ---- Reset ---- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-height); /* anchor jumps clear the fixed navbar */
+}
+
+/* Lenis smooth-scroll (js/scroll.js) — takes over when active */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+body {
+  background: #e9ecef;
+  color: #fff;
+  font-family: var(--font-main);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; /* normal vertical scroll; no sideways drift */
+}
+
+a { color: var(--c-accent); text-decoration: none; }
+
+img, video { display: block; max-width: 100%; }
+
+button {
+  font-family: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+::selection { background: var(--c-accent); color: var(--c-forest); }

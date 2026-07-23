@@ -1,0 +1,341 @@
+/* ============================================================
+   F1 TAXI — services.css
+   "Shërbimet" section: three service pillars, How-It-Works
+   dark card + rain photo, and Book-Now CTA banner, on a
+   paper-cut green wave backdrop.
+   ============================================================ */
+
+.slide--sherbimet {
+  padding: clamp(90px, 14vh, 150px) 0 clamp(70px, 10vh, 120px);
+  font-family: Verdana, Geneva, sans-serif;
+  /* Paper-cut waves: light sage at the top sinking into deep forest */
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1600' preserveAspectRatio='xMidYMid slice'%3E%3Crect width='800' height='1600' fill='%23e9efdd'/%3E%3Cpath d='M0 205C130 165 260 245 400 205S670 165 800 205V1600H0Z' fill='%23cddcc0'/%3E%3Cpath d='M0 420C150 380 280 460 430 420S680 380 800 415V1600H0Z' fill='%23afc9a4'/%3E%3Cpath d='M0 635C120 590 270 675 420 635S690 590 800 630V1600H0Z' fill='%238fb287'/%3E%3Cpath d='M0 850C160 805 290 885 440 845S700 805 800 845V1600H0Z' fill='%236f9c6a'/%3E%3Cpath d='M0 1060C130 1020 270 1100 410 1060S680 1020 800 1055V1600H0Z' fill='%23558350'/%3E%3Cpath d='M0 1270C150 1230 280 1305 430 1268S690 1230 800 1265V1600H0Z' fill='%23406b41'/%3E%3Cpath d='M0 1455C130 1420 280 1490 420 1455S690 1420 800 1450V1600H0Z' fill='%232e5036'/%3E%3C/svg%3E") center / cover no-repeat,
+    linear-gradient(180deg, #e9efdd 0%, #8fb287 50%, #2e5036 100%);
+}
+
+.services {
+  position: relative;
+  z-index: 2;
+  width: min(1180px, 92vw);
+  margin: 0 auto;
+  color: var(--c-cornsilk);
+  display: grid;
+  gap: clamp(30px, 5vh, 56px);
+  /* Dark edge behind the light text so it reads bold on the waves */
+  text-shadow:
+    0 1px 2px rgba(11, 18, 12, .5),
+    0 2px 12px rgba(11, 18, 12, .3);
+}
+
+/* ---- Header ---- */
+.services__head {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  align-items: end;
+  gap: clamp(20px, 3vw, 48px);
+}
+
+.services__title {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(38px, 5.2vw, 70px);
+  line-height: 1.02;
+  letter-spacing: -.02em;
+  color: var(--c-cornsilk);
+  text-shadow:
+    0 1px 0 rgba(11, 18, 12, .55),
+    0 2px 4px rgba(11, 18, 12, .45),
+    0 6px 22px rgba(11, 18, 12, .3);
+}
+
+.services__intro {
+  margin: 0 0 .4em;
+  justify-self: end;
+  max-width: 40ch;
+  font-size: clamp(13.5px, 1.1vw, 15px);
+  line-height: 1.65;
+  color: color-mix(in srgb, var(--c-cornsilk) 82%, transparent);
+}
+
+/* ---- Si Funksionon: three-phase process strip ---- */
+.services__process {
+  --circle: clamp(120px, 13vw, 165px);
+  text-align: center;
+  display: grid;
+  justify-items: center;
+  gap: clamp(10px, 1.6vh, 16px);
+}
+
+.services__kicker {
+  margin: 0;
+  font-size: clamp(13px, 1.1vw, 16px);
+  font-weight: 700;
+  letter-spacing: .12em;
+  color: var(--c-accent);
+}
+
+.services__process-title {
+  margin: 0;
+  font-size: clamp(26px, 3.2vw, 44px);
+  font-weight: 700;
+  letter-spacing: -.015em;
+  line-height: 1.1;
+}
+
+.services__process-sub {
+  margin: 0;
+  max-width: 62ch;
+  font-size: clamp(13px, 1.05vw, 15px);
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--c-cornsilk) 82%, transparent);
+}
+
+.services__phases {
+  list-style: none;
+  margin: clamp(18px, 3vh, 34px) 0 0;
+  padding: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(18px, 2.4vw, 32px);
+  align-items: start;
+}
+
+.services__phase {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+
+/* Connector line between circle centers, drawn behind the circles */
+.services__phase + .services__phase::before {
+  content: '';
+  position: absolute;
+  top: calc(var(--circle) / 2 - 1px);
+  right: 50%;
+  width: 100%;
+  height: 2px;
+  background: rgba(254, 250, 224, .35);
+  z-index: 0;
+}
+
+.services__phase-circle {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: var(--circle);
+  height: var(--circle);
+  border-radius: 50%;
+  background:
+    radial-gradient(120% 120% at 30% 20%, rgba(254, 250, 224, .18) 0%, transparent 55%),
+    color-mix(in srgb, var(--c-accent) 55%, var(--c-forest));
+  color: var(--c-cornsilk);
+  box-shadow:
+    0 16px 40px -12px rgba(11, 18, 12, .45),
+    0 10px 34px -8px rgba(47, 140, 60, .45);
+}
+
+.services__phase-num {
+  position: absolute;
+  top: 4%;
+  right: 4%;
+  display: grid;
+  place-items: center;
+  width: clamp(38px, 3.6vw, 48px);
+  height: clamp(38px, 3.6vw, 48px);
+  border-radius: 50%;
+  background: #0b120c;
+  color: var(--c-cornsilk);
+  font-size: clamp(14px, 1.2vw, 17px);
+  font-weight: 700;
+  text-shadow: none;
+}
+
+.services__phase h4 {
+  margin: clamp(10px, 2vh, 18px) 0 0;
+  font-size: clamp(15px, 1.3vw, 18px);
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.services__phase p {
+  margin: 0;
+  max-width: 34ch;
+  font-size: clamp(13px, 1.05vw, 14.5px);
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--c-cornsilk) 84%, transparent);
+}
+
+.services__book-btn {
+  margin-top: clamp(16px, 2.6vh, 28px);
+  display: inline-block;
+  padding: 14px 30px;
+  border-radius: 12px;
+  background: var(--c-accent);
+  color: var(--c-forest);
+  font-size: clamp(14px, 1.2vw, 16px);
+  font-weight: 700;
+  text-decoration: none;
+  text-shadow: none;
+  box-shadow: 0 14px 30px -10px rgba(0, 255, 57, .55);
+  transition: transform .35s var(--ease-out-expo), box-shadow .35s ease;
+}
+
+.services__book-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 36px -10px rgba(0, 255, 57, .7);
+}
+
+/* ---- Bottom row: photo collage + CTA card ---- */
+.services__bottom {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(20px, 2.6vw, 32px);
+  align-items: stretch;
+}
+
+/* Capsule photo collage: big pill with a smaller pill overlapping it */
+.services__collage {
+  position: relative;
+  min-height: 460px;
+}
+
+.services__collage figure {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 999px;
+  border: 5px solid var(--c-cornsilk);
+  box-shadow:
+    0 14px 38px -10px rgba(47, 140, 60, .38),
+    0 18px 40px -18px rgba(11, 18, 12, .4);
+  transition: transform .6s var(--ease-out-expo), box-shadow .6s ease;
+  will-change: transform;
+}
+
+.services__collage img,
+.services__collage video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .8s var(--ease-out-expo);
+}
+
+/* Hovering the collage: the capsules drift apart with a gentle tilt */
+.services__collage:hover .services__collage-big {
+  transform: translate(-2.5%, -2%) rotate(-2deg);
+}
+
+.services__collage:hover .services__collage-small {
+  transform: translate(3%, 3.5%) rotate(2.5deg);
+}
+
+/* Hovering one capsule: it comes forward, glows, and its photo zooms */
+.services__collage figure:hover {
+  z-index: 3;
+  box-shadow:
+    0 20px 50px -10px rgba(47, 140, 60, .55),
+    0 24px 48px -18px rgba(11, 18, 12, .5);
+}
+
+.services__collage figure:hover img,
+.services__collage figure:hover video {
+  transform: scale(1.08);
+}
+
+.services__collage-big {
+  position: absolute;
+  left: 4%;
+  top: 0;
+  width: 58%;
+  height: 92%;
+}
+
+.services__collage-big img { object-position: 50% 55%; }
+
+.services__collage-small {
+  position: absolute;
+  right: 6%;
+  bottom: 0;
+  width: 44%;
+  height: 62%;
+  z-index: 2;
+}
+
+.services__collage-small img,
+.services__collage-small video { object-position: 50% 68%; }
+
+/* ---- CTA card: centered phone ---- */
+.services__cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  border-radius: 28px;
+  padding: clamp(28px, 4vw, 56px);
+  background:
+    radial-gradient(120% 160% at 15% 0%, rgba(0, 255, 57, .1) 0%, transparent 55%),
+    linear-gradient(120deg, #0b120c 0%, #16200f 100%);
+  box-shadow: 0 18px 48px -14px rgba(11, 18, 12, .55);
+  text-shadow: none;
+}
+
+.services__cta-kicker {
+  margin: 0;
+  font-size: clamp(13px, 1.2vw, 16px);
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+}
+
+.services__cta-phone {
+  font-size: clamp(28px, 3.6vw, 52px);
+  font-weight: 700;
+  letter-spacing: .01em;
+  color: var(--c-cornsilk);
+  text-decoration: none;
+  transition: color .3s ease;
+}
+
+.services__cta-phone:hover { color: var(--c-accent); }
+
+.services__cta-note {
+  margin: 0;
+  font-size: clamp(12.5px, 1vw, 14px);
+  color: color-mix(in oklch, var(--c-cornsilk), transparent 25%);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 940px) {
+  .services__head {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .services__intro { justify-self: start; }
+
+  .services__phases {
+    grid-template-columns: 1fr;
+    gap: 34px;
+    justify-items: center;
+  }
+
+  .services__phase + .services__phase::before { display: none; }
+
+  .services__bottom { grid-template-columns: 1fr; }
+
+  .services__collage { min-height: 420px; }
+}
+
+@media (max-width: 640px) {
+  .services__collage { min-height: 340px; }
+
+  .services__collage figure { border-width: 4px; }
+}
