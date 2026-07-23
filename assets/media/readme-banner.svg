@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360" fill="none" role="img" aria-label="F1 Taxi — Taksi 24/7 në Tiranë">
+  <defs>
+    <!-- Forest → olive base gradient (site tokens) -->
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#181f0d"/>
+      <stop offset="0.5" stop-color="#283618"/>
+      <stop offset="1" stop-color="#0b120c"/>
+    </linearGradient>
+    <!-- Green signature glow -->
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#00FF39" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#00FF39" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowRed" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ee1c25" stop-opacity="0.30"/>
+      <stop offset="1" stop-color="#ee1c25" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Racing checker tile -->
+    <pattern id="checker" width="46" height="46" patternUnits="userSpaceOnUse" patternTransform="rotate(-8)">
+      <rect width="46" height="46" fill="none"/>
+      <rect width="23" height="23" fill="#fefae0" fill-opacity="0.05"/>
+      <rect x="23" y="23" width="23" height="23" fill="#fefae0" fill-opacity="0.05"/>
+    </pattern>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0b120c" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Base -->
+  <rect width="1280" height="360" rx="20" fill="url(#bg)"/>
+  <rect width="1280" height="360" rx="20" fill="url(#checker)"/>
+  <ellipse cx="1050" cy="70" rx="520" ry="300" fill="url(#glow)"/>
+  <ellipse cx="180" cy="330" rx="420" ry="240" fill="url(#glowRed)"/>
+
+  <!-- Speed lines -->
+  <g stroke="#00FF39" stroke-opacity="0.5" stroke-width="3" stroke-linecap="round">
+    <line x1="72" y1="150" x2="150" y2="150"/>
+    <line x1="60" y1="180" x2="126" y2="180"/>
+    <line x1="80" y1="210" x2="140" y2="210"/>
+  </g>
+
+  <!-- F1 emblem: green-outlined F + red slanted 1 -->
+  <g filter="url(#soft)" transform="translate(190,96) skewX(-10)">
+    <!-- F outline -->
+    <path d="M0 0 H150 V34 H40 V70 H128 V104 H40 V168 H0 Z"
+          fill="none" stroke="#00FF39" stroke-width="12" stroke-linejoin="round"/>
+    <!-- red 1 -->
+    <path d="M112 44 L176 44 L176 168 L134 168 L134 82 L104 92 Z" fill="#ee1c25"/>
+    <path d="M104 168 H188" stroke="#ee1c25" stroke-width="0"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="430" y="176" font-family="Verdana, Geneva, sans-serif" font-size="104" font-weight="700"
+        fill="#fefae0" letter-spacing="2">F1 TAXI</text>
+  <text x="434" y="234" font-family="Verdana, Geneva, sans-serif" font-size="30" font-weight="400"
+        fill="#00FF39" letter-spacing="3">Udhëto me stil</text>
+
+  <!-- Divider -->
+  <rect x="434" y="258" width="520" height="2" fill="#fefae0" fill-opacity="0.18"/>
+
+  <!-- Tagline chips -->
+  <g font-family="Verdana, Geneva, sans-serif" font-size="24" font-weight="600" fill="#fefae0">
+    <g transform="translate(434,286)">
+      <rect x="0" y="0" width="150" height="42" rx="21" fill="#181f0d" fill-opacity="0.55" stroke="#fefae0" stroke-opacity="0.22"/>
+      <text x="26" y="28">Taksi 24/7</text>
+    </g>
+    <g transform="translate(600,286)">
+      <rect x="0" y="0" width="118" height="42" rx="21" fill="#181f0d" fill-opacity="0.55" stroke="#fefae0" stroke-opacity="0.22"/>
+      <text x="24" y="28">Tiranë</text>
+    </g>
+    <g transform="translate(734,286)">
+      <rect x="0" y="0" width="140" height="42" rx="21" fill="#181f0d" fill-opacity="0.55" stroke="#fefae0" stroke-opacity="0.22"/>
+      <text x="22" y="28">Shqipëri</text>
+    </g>
+  </g>
+</svg>

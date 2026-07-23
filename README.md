@@ -1,3 +1,13 @@
+<p align="center">
+  <img src="assets/media/readme-banner.svg" alt="F1 Taxi — Taksi 24/7 në Tiranë, Shqipëri" width="100%">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Taksi-24%2F7-00FF39?style=for-the-badge&labelColor=283618" alt="24/7">
+  <img src="https://img.shields.io/badge/Tiranë-Shqipëri-fefae0?style=for-the-badge&labelColor=181f0d" alt="Tiranë, Shqipëri">
+  <img src="https://img.shields.io/badge/Stack-HTML%20%C2%B7%20CSS%20%C2%B7%20JS-ee1c25?style=for-the-badge&labelColor=283618" alt="Stack">
+</p>
+
 # F1 Taxi — Site
 
 Single-page site for F1 Taxi: a fixed glassmorphic navbar with a fullscreen
