@@ -9,9 +9,9 @@
 (function () {
   'use strict';
 
-  var LEAD_SPEED = 24; // ms per character (lead line)
-  var TEXT_SPEED = 15; // ms per character (body line)
-  var START_DELAY = 950; // wait for the heading slide-in first
+  var LEAD_SPEED = 11; // ms per character (lead line)
+  var TEXT_SPEED = 6;  // ms per character (body line)
+  var START_DELAY = 600; // wait for the heading slide-in first
 
   function type(el, text, speed) {
     return new Promise(function (resolve) {
@@ -32,7 +32,40 @@
     });
   }
 
+  /* The hero video is muted+autoplay+playsinline, but browsers still
+     occasionally skip the autoplay (slow decode, tab restore, throttling).
+     Nudge it to play the moment we can, and retry on the events that fire as
+     it becomes ready or the user first interacts. */
+  function initVideo() {
+    var v = document.querySelector('.kreu-video');
+    if (!v) return;
+
+    var play = function () {
+      var p = v.play();
+      if (p && typeof p.catch === 'function') p.catch(function () {});
+    };
+
+    play();
+    ['loadeddata', 'canplay'].forEach(function (ev) {
+      v.addEventListener(ev, play, { once: true });
+    });
+    window.addEventListener('load', play, { once: true });
+
+    // A blocked autoplay unblocks on the first gesture — resume then.
+    var resume = function () { if (v.paused) play(); };
+    ['pointerdown', 'touchstart', 'keydown'].forEach(function (ev) {
+      document.addEventListener(ev, resume, { once: true, passive: true });
+    });
+
+    // Coming back to a backgrounded tab can leave it paused.
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden && v.paused) play();
+    });
+  }
+
   function initHero() {
+    initVideo();
+
     var lead = document.querySelector('.kreu-lead');
     var text = document.querySelector('.kreu-text');
     var social = document.querySelector('.kreu-social');

@@ -14,16 +14,21 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/navbar.css">
   <link rel="stylesheet" href="css/menu.css">
   <link rel="stylesheet" href="css/stage.css">
-  <link rel="stylesheet" href="css/about.css">
-  <link rel="stylesheet" href="css/services.css">
   <link rel="stylesheet" href="css/pricing.css">
+  <link rel="stylesheet" href="css/f1-taxi-pricing-redesign.css">
+  <link rel="stylesheet" href="css/faq.css">
+  <link rel="stylesheet" href="css/reviews.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@7/css/flag-icons.min.css">
+  <link rel="stylesheet" href="css/booking-modal.css">
 
   <!-- Libraries: GSAP + ScrollTrigger + Lenis smooth scroll (vendored locally) -->
   <script defer src="js/vendor/gsap.min.js"></script>
@@ -35,10 +40,10 @@
   <script defer src="js/main.js"></script>
   <script defer src="js/hero.js"></script>
   <script defer src="js/scroll.js"></script>
-  <script defer src="js/maps-config.js"></script>
-  <script defer src="js/al-places.js"></script>
-  <script defer src="js/fare.js"></script>
-  <script defer src="js/fare-map.js"></script>
+  <script defer src="js/faq.js"></script>
+  <script defer src="js/f1-taxi-pricing-motion.js"></script>
+  <script defer src="js/countries.js"></script>
+  <script defer src="js/booking-modal.js"></script>
 </head>
 <body>
 
@@ -75,23 +80,19 @@
           <span class="menu__dash"></span>
           <span class="menu__label" data-sq="Kreu" data-en="Home">Kreu</span>
         </a>
-        <a class="menu__link" href="#rreth-nesh" data-page="rreth-nesh">
-          <span class="menu__dash"></span>
-          <span class="menu__label" data-sq="Rreth Nesh" data-en="About Us">Rreth Nesh</span>
-        </a>
-        <a class="menu__link" href="#sherbimet" data-page="sherbimet">
+        <a class="menu__link" href="html/sherbimet.html#sherbimet" data-page="sherbimet">
           <span class="menu__dash"></span>
           <span class="menu__label" data-sq="Shërbimet" data-en="Services">Shërbimet</span>
         </a>
-        <a class="menu__link" href="#cmimet" data-page="cmimet">
+        <a class="menu__link" href="html/rreth-nesh.html#rreth-nesh" data-page="rreth-nesh">
           <span class="menu__dash"></span>
-          <span class="menu__label" data-sq="Çmimet" data-en="Pricing">Çmimet</span>
+          <span class="menu__label" data-sq="Rreth Nesh" data-en="About Us">Rreth Nesh</span>
         </a>
-        <a class="menu__link" href="#rezervo" data-page="rezervo">
+        <a class="menu__link" href="html/rezervo.html#rezervo" data-page="rezervo">
           <span class="menu__dash"></span>
           <span class="menu__label" data-sq="Rezervo Taxi" data-en="Book a Taxi">Rezervo Taxi</span>
         </a>
-        <a class="menu__link" href="#kontakt" data-page="kontakt">
+        <a class="menu__link" href="html/kontakt.html#kontakt" data-page="kontakt">
           <span class="menu__dash"></span>
           <span class="menu__label" data-sq="Kontakt" data-en="Contact">Kontakt</span>
         </a>
@@ -146,298 +147,369 @@
             </div>
           </section>
 
-          <!-- PAGE 02 · RRETH NESH -->
-          <section class="slide slide--rreth-nesh" id="rreth-nesh" data-slide>
-            <div class="slide__orb"></div>
-
-            <div class="about">
-
-              <!-- Header: big title + small intro -->
-              <header class="about__head">
-                <h2 class="about__title" data-sq="Rreth Nesh" data-en="Our Story, Vision, and Values">Rreth Nesh</h2>
-                <p class="about__intro" data-sq="Njihuni me përkushtimin tonë ndaj përsosmërisë, sigurisë dhe parimeve që udhëheqin çdo udhëtim tonin, çdo ditë." data-en="Learn about our commitment to excellence, safety, and the principles that guide every one of our rides, every day.">Njihuni me përkushtimin tonë ndaj përsosmërisë, sigurisë dhe parimeve që udhëheqin çdo udhëtim tonin, çdo ditë.</p>
-              </header>
-
-              <!-- Hero media panel with overlapping arrow button -->
-              <figure class="about__hero" data-reveal>
-                <img class="about__hero-img" src="assets/media/car-lined-up.png"
-                     alt="Makinat F1 Taxi" loading="lazy">
-                <a class="about__arrow" href="#sherbimet" aria-label="Shko te shërbimet">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16"/><path d="m5 13 7 7 7-7"/></svg>
-                </a>
-              </figure>
-
-              <!-- Quote + small media | accent card -->
-              <div class="about__cols">
-                <div class="about__quote">
-                  <span class="about__quotemark" aria-hidden="true">&ldquo;</span>
-                  <p class="about__quote-text" data-sq="Ekipi ynë punon pa u lodhur që çdo udhëtim të jetë i sigurt dhe i rehatshëm , jo thjesht një rrugë nga pika A në pikën B, por një eksperiencë që tejkalon pritshmëritë tuaja." data-en="Our team works tirelessly to make every ride safe and comfortable — not just a trip from A to B, but an experience that exceeds your expectations.">Ekipi ynë punon pa u lodhur që çdo udhëtim të jetë i sigurt dhe i rehatshëm , jo thjesht një rrugë nga pika A në pikën B, por një eksperiencë që tejkalon pritshmëritë tuaja.</p>
-                  <figure class="about__quote-media" data-reveal>
-                    <img src="assets/media/hands-ok.png" alt="" loading="lazy">
-                  </figure>
-                </div>
-
-                <aside class="about__card">
-                  <div class="about__card-tag">
-                    <span data-sq="RRETH NESH" data-en="ABOUT US">Historia, Vizioni dhe Vlerat Tona</span>
-                    <svg class="about__star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" aria-hidden="true"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1"/></svg>
-                  </div>
-                  <p data-sq="Ne besojmë në fuqinë e profesionalizmit dhe përkushtimit. Duke qëndruar pranë klientëve tanë, kuptojmë nevojat e tyre unike dhe ofrojmë zgjidhje transporti që bëjnë diferencën — me siguri, rehati dhe përpikëri në çdo udhëtim." data-en="We believe in the power of professionalism and dedication. By staying close to our clients, we understand their unique needs and deliver transport solutions that truly make a difference — with safety, comfort and punctuality on every ride.">Ne besojmë në fuqinë e profesionalizmit dhe përkushtimit. Duke qëndruar pranë klientëve tanë, kuptojmë nevojat e tyre unike dhe ofrojmë zgjidhje transporti që bëjnë diferencën — me siguri, rehati dhe përpikëri në çdo udhëtim.</p>
-                  <p data-sq="Duke përqafuar teknologjinë dhe standardet më të fundit, sigurohemi që shërbimi ynë t'u përgjigjet jo vetëm nevojave të sotme, por të parashikojë edhe ato të nesërmet. F1 Taxi ju çon drejt destinacionit — me stil." data-en="By embracing the latest technology and standards, we make sure our service not only meets today's needs but anticipates tomorrow's. F1 Taxi takes you to your destination — in style.">Duke përqafuar teknologjinë dhe standardet më të fundit, sigurohemi që shërbimi ynë t'u përgjigjet jo vetëm nevojave të sotme, por të parashikojë edhe ato të nesërmet.</p>
-                </aside>
-              </div>
-
-              <!-- Stats bar -->
-              <ul class="about__stats">
-                <li class="about__stat">
-                  <strong>10+</strong>
-                  <span data-sq="Vite Eksperiencë" data-en="Years of Experience">Vite Eksperiencë</span>
-                </li>
-                <li class="about__stat">
-                  <strong>50K+</strong>
-                  <span data-sq="Udhëtime të Kryera" data-en="Rides Completed">Udhëtime të Kryera</span>
-                </li>
-                <li class="about__stat">
-                  <strong>24/7</strong>
-                  <span data-sq="Shërbim pa Ndalesë" data-en="Non-stop Service">Shërbim pa Ndalesë</span>
-                </li>
-              </ul>
-
-              <!-- Vision / Mission notched cards + media -->
-              <div class="about__vm">
-                <article class="about__vm-card">
-                  <svg class="about__star about__vm-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" aria-hidden="true"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1"/></svg>
-                  <h3 data-sq="Vizioni" data-en="Vision">Vizioni</h3>
-                  <p data-sq="Të jemi standardi i transportit urban në Shqipëri — një emër që njihet kudo për besueshmëri, cilësi dhe stil." data-en="To be the standard of urban transport in Albania — a name known everywhere for reliability, quality and style.">Të jemi standardi i transportit urban në Shqipëri — një emër që njihet kudo për besueshmëri, cilësi dhe stil.</p>
-                </article>
-
-                <article class="about__vm-card">
-                  <svg class="about__star about__vm-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" aria-hidden="true"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1"/></svg>
-                  <h3 data-sq="Misioni" data-en="Mission">Misioni</h3>
-                  <p data-sq="T'ju ofrojmë çdo ditë udhëtime të sigurta e të rehatshme, me çmime transparente — 24 orë, 7 ditë në javë." data-en="To offer you safe and comfortable rides every day, with transparent pricing — 24 hours, 7 days a week.">T'ju ofrojmë çdo ditë udhëtime të sigurta e të rehatshme, me çmime transparente — 24 orë, 7 ditë në javë.</p>
-                </article>
-
-                <figure class="about__vm-media" data-reveal>
-                  <img src="assets/media/night.webp" alt="" loading="lazy">
-                </figure>
-              </div>
-
-            </div>
-          </section>
-
-          <!-- PAGE 03 · SHËRBIMET -->
-          <section class="slide slide--sherbimet" id="sherbimet" data-slide>
-            <div class="services">
-
-              <!-- Header: title + intro -->
-              <header class="services__head">
-                <h2 class="services__title" data-sq="Shërbimet Tona" data-en="Our Services">Shërbimet Tona</h2>
-                <p class="services__intro" data-sq="Kudo që të jeni dhe kudo që doni të shkoni, shërbimet tona janë krijuar që çdo udhëtim të jetë i lehtë, i sigurt dhe i përballueshëm — nga klikimi i parë deri në destinacion." data-en="Wherever you are and wherever you're headed, our services are designed to make every ride easy, safe, and affordable — from the first click to your final stop.">Kudo që të jeni dhe kudo që doni të shkoni, shërbimet tona janë krijuar që çdo udhëtim të jetë i lehtë, i sigurt dhe i përballueshëm — nga klikimi i parë deri në destinacion.</p>
-              </header>
-
-              <!-- Si Funksionon: booking process in three phases -->
-              <div class="services__process">
-
-                <ol class="services__phases">
-                  <li class="services__phase" data-reveal>
-                    <div class="services__phase-circle">
-                      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11 6.3 7.2A1.8 1.8 0 0 1 8 6h8a1.8 1.8 0 0 1 1.7 1.2L19 11"/><rect x="3.5" y="11" width="17" height="6.5" rx="1.6"/><circle cx="7.3" cy="14.2" r="1.1" fill="currentColor" stroke="none"/><circle cx="16.7" cy="14.2" r="1.1" fill="currentColor" stroke="none"/><path d="M10 3.5h4"/></svg>
-                      <span class="services__phase-num">1.</span>
-                    </div>
-                    <h4 data-sq="Kërkimi i Taksisë" data-en="Find Your Taxi">Kërkimi i Taksisë</h4>
-                    <p data-sq="Klienti kërkon kompaninë e taksive më të përshtatshme për nevojat e tij." data-en="The client looks for the taxi company best suited to their needs.">Klienti kërkon kompaninë e taksive më të përshtatshme për nevojat e tij.</p>
-                  </li>
-
-                  <li class="services__phase" data-reveal>
-                    <div class="services__phase-circle">
-                      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2.5" width="11" height="19" rx="2.4"/><circle cx="12" cy="17.8" r="1" fill="currentColor" stroke="none"/></svg>
-                      <span class="services__phase-num">2.</span>
-                    </div>
-                    <h4 data-sq="Rezervimi i Taksisë" data-en="Book Your Taxi">Rezervimi i Taksisë</h4>
-                    <p data-sq="Klienti komunikon me kompaninë nëpërmjet telefonit ose faqes së internetit." data-en="The client contacts the company by phone or through the website.">Klienti komunikon me kompaninë nëpërmjet telefonit ose faqes së internetit.</p>
-                  </li>
-
-                  <li class="services__phase" data-reveal>
-                    <div class="services__phase-circle">
-                      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10.3" r="2.6"/></svg>
-                      <span class="services__phase-num">3.</span>
-                    </div>
-                    <h4 data-sq="Arritja në Destinacion" data-en="Reach Your Destination">Arritja në Destinacion</h4>
-                    <p data-sq="Taksia merr klientin dhe e çon në destinacionin e tij." data-en="The taxi picks the client up and takes them to their destination.">Taksia merr klientin dhe e çon në destinacionin e tij.</p>
-                  </li>
-                </ol>
-
-                <a class="services__book-btn" href="#rezervo" data-reveal data-sq="Rezervo Tani »" data-en="Book Now »">Rezervo Tani »</a>
-              </div>
-
-              <!-- Photo collage + CTA banner -->
-              <div class="services__bottom">
-                <div class="services__collage" data-reveal>
-                  <figure class="services__collage-big">
-                    <img src="assets/media/ngre-doren.webp" alt="Klient duke ngritur dorën për një F1 Taxi" loading="lazy">
-                  </figure>
-                  <figure class="services__collage-small">
-                    <video src="assets/media/enter-the-taxi.mp4"
-                           autoplay muted loop playsinline preload="metadata"
-                           aria-label="Klient duke hyrë në F1 Taxi"></video>
-                  </figure>
-                </div>
-
-                <div class="services__cta" data-reveal>
-                  <p class="services__cta-kicker" data-sq="Rezervo tani!" data-en="Book your ride now!">Rezervo tani!</p>
-                  <a class="services__cta-phone" href="tel:+355682550000">+355 68 255 0000</a>
-                  <p class="services__cta-note" data-sq="24/7 në shërbimin tuaj, kudo në Shqipëri." data-en="24/7 at your service, anywhere in Albania.">24/7 në shërbimin tuaj, kudo në Shqipëri.</p>
-                </div>
-              </div>
-
-            </div>
-          </section>
-
-          <!-- PAGE 04 · ÇMIMET -->
+          <!-- ÇMIMET -->
           <section class="slide slide--cmimet" id="cmimet" data-slide>
             <div class="pricing">
+              <section class="f1-showcase" aria-label="F1 Taxi fixed-price trips">
+                    <div>
+                      <h1 class="f1-showcase__title">
+                        Your ride. <em>Fixed.</em> Ready when you are.
+                      </h1>
 
-              <!-- Header -->
-              <header class="pricing__head">
-                <h2 class="pricing__title" data-sq="Çmimet" data-en="Pricing">Çmimet</h2>
-                <p class="pricing__intro" data-sq="Tarifat zyrtare të taksive në Tiranë përcaktohen nga bashkia dhe bazohen në distancën e udhëtimit dhe kohën në trafik. Llogaritni më poshtë një vlerësim për udhëtimin tuaj." data-en="Official taxi fares in Tirana are set by the municipality and based on trip distance and time in traffic. Use the calculator below to estimate your ride.">Tarifat zyrtare të taksive në Tiranë përcaktohen nga bashkia dhe bazohen në distancën e udhëtimit dhe kohën në trafik. Llogaritni më poshtë një vlerësim për udhëtimin tuaj.</p>
-              </header>
-
-              <div class="pricing__cols">
-
-                <!-- Official tariff list -->
-                <ul class="pricing__tariffs">
-                  <li class="pricing__tariff" data-reveal>
-                    <span data-sq="Tarifa fillestare (1.5 km të para)" data-en="Initial fare (first 1.5 km)">Tarifa fillestare (1.5 km të para)</span>
-                    <strong>300 ALL</strong>
-                  </li>
-                  <li class="pricing__tariff" data-reveal>
-                    <span data-sq="Çdo kilometër" data-en="Per kilometer">Çdo kilometër</span>
-                    <strong>95&#8211;120 ALL/km</strong>
-                  </li>
-                  <li class="pricing__tariff" data-reveal>
-                    <span data-sq="Koha në trafik" data-en="Time in traffic">Koha në trafik</span>
-                    <strong>~25 ALL/min</strong>
-                  </li>
-                  <li class="pricing__tariff" data-reveal>
-                    <span data-sq="Natën (22:00&#8211;07:00) &#8211; më pak trafik" data-en="Night (10 PM&#8211;7 AM) &#8211; less traffic">Natën (22:00&#8211;07:00) &#8211; më pak trafik</span>
-                    <strong data-sq="më lirë" data-en="cheaper">më lirë</strong>
-                  </li>
-                </ul>
-
-                <!-- Fare calculator card: location → destination → route → fare -->
-                <div class="fare-calc" data-reveal>
-                  <h3 data-sq="Llogaritësi i Tarifës" data-en="Fare Calculator">Llogaritësi i Tarifës</h3>
-
-                  <div class="fare-calc__toggle" role="group" aria-label="Tarifa">
-                    <button type="button" class="fare-calc__mode is-active" data-mode="day">
-                      <span data-sq="Ditën" data-en="Day">Ditën</span>
-                      <small>07:00&#8211;22:00</small>
-                    </button>
-                    <button type="button" class="fare-calc__mode" data-mode="night">
-                      <span data-sq="Natën" data-en="Night">Natën</span>
-                      <small>22:00&#8211;07:00</small>
-                    </button>
-                  </div>
-
-                  <!-- Origin -->
-                  <div class="fare-calc__field fare-calc__field--geo">
-                    <label class="fare-calc__label" for="fare-origin" data-sq="Nga (vendndodhja juaj)" data-en="From (your location)">Nga (vendndodhja juaj)</label>
-                    <div class="fare-calc__input-row">
-                      <input type="text" id="fare-origin" class="fare-calc__input" autocomplete="off"
-                             data-sq-placeholder="Kërko një vendndodhje…" data-en-placeholder="Search a location…"
-                             placeholder="Kërko një vendndodhje…">
-                      <button type="button" id="fare-geo" class="fare-calc__geo-btn" title="Përdor vendndodhjen time" aria-label="Përdor vendndodhjen time">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M22 12h-3M5 12H2"/></svg>
-                      </button>
+                      <p class="f1-showcase__copy">
+                        Book a clear, fixed-price transfer from Tirana to Albania’s best
+                        destinations. No meter surprises, no back-and-forth.
+                      </p>
                     </div>
-                    <ul class="fare-calc__suggest" id="fare-origin-suggest" hidden></ul>
-                  </div>
 
-                  <!-- Destination -->
-                  <div class="fare-calc__field fare-calc__field--geo">
-                    <label class="fare-calc__label" for="fare-dest" data-sq="Ku doni të shkoni" data-en="Where to">Ku doni të shkoni</label>
-                    <div class="fare-calc__input-row">
-                      <input type="text" id="fare-dest" class="fare-calc__input" autocomplete="off"
-                             data-sq-placeholder="Kërko destinacionin…" data-en-placeholder="Search a destination…"
-                             placeholder="Kërko destinacionin…">
-                    </div>
-                    <ul class="fare-calc__suggest" id="fare-dest-suggest" hidden></ul>
-                  </div>
+                    <aside class="f1-showcase__route">
+                      <small>Popular route</small>
 
-                  <button type="button" id="fare-go" class="fare-calc__go"
-                          data-sq="Llogarit tarifën" data-en="Calculate fare">Llogarit tarifën</button>
+                      <div class="f1-route-line">
+                        <span>Tirana</span>
+                        <i></i>
+                        <span>Airport</span>
+                      </div>
 
-                  <!-- Live Google map (shown only when a Maps key is configured) -->
-                  <div class="fare-map" id="fare-map" hidden></div>
+                      <a class="f1-showcase__button" href="html/rezervo.html?dest=Aeroport&amp;price=14">
+                        Reserve airport transfer — €14
+                      </a>
+                    </aside>
+                  </section>
 
-                  <p class="fare-calc__status" id="fare-status" role="status" aria-live="polite"></p>
-
-                  <div class="fare-calc__result" id="fare-result" hidden>
-                    <div class="fare-calc__route">
-                      <span class="fare-calc__route-item"><strong id="fare-km">&#8211;</strong> km</span>
-                      <span class="fare-calc__route-sep">&#183;</span>
-                      <span class="fare-calc__route-item" id="fare-dur">&#8211;</span>
-                    </div>
-                    <span class="fare-calc__result-label" data-sq="Çmimi i përafërt" data-en="Estimated fare">Çmimi i përafërt</span>
-                    <strong id="fare-all" class="fare-calc__price">&#8230;</strong>
-                    <span id="fare-eur" class="fare-calc__eur"></span>
-                  </div>
-
-                  <p class="fare-calc__note" data-sq="Distanca dhe koha llogariten në rrugën më të shpejtë (OpenStreetMap). Ditën çmimi rritet nga trafiku; natën, me më pak trafik, udhëtimi është më i shpejtë dhe më i lirë." data-en="Distance and time are measured on the fastest route (OpenStreetMap). Daytime prices rise with traffic; at night, with less traffic, the ride is faster and cheaper.">Distanca dhe koha llogariten në rrugën më të shpejtë (OpenStreetMap). Ditën çmimi rritet nga trafiku; natën, me më pak trafik, udhëtimi është më i shpejtë dhe më i lirë.</p>
-                </div>
-
-              </div>
 
               <!-- Company fixed prices from Tirana -->
               <div class="pricing__fixed">
                 <h3 class="pricing__fixed-title" data-reveal data-sq="Çmimet tona fikse nga Tirana" data-en="Our fixed prices from Tirana">Çmimet tona fikse nga Tirana</h3>
+                <div class="f1-dest-toolbar">
+
+                  <div class="f1-dest-tools">
+                    <div class="f1-dest-search">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                      <input type="search" id="dest-search" class="f1-dest-search__input" autocomplete="off"
+                             data-sq-placeholder="Kërko destinacionin…" data-en-placeholder="Search a destination…"
+                             placeholder="Kërko destinacionin…" aria-label="Kërko destinacionin">
+                    </div>
+
+                    <div class="f1-dest-filters" role="group" aria-label="Filter destinations">
+                      <button class="f1-dest-filter is-active" type="button" data-filter="coast">
+                        Coast
+                      </button>
+
+                      <button class="f1-dest-filter" type="button" data-filter="city">
+                        Cities
+                      </button>
+
+                      <button class="f1-dest-filter" type="button" data-filter="airport">
+                        Airport
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <p class="f1-dest-empty" id="dest-empty" hidden
+                   data-sq="Asnjë destinacion nuk përputhet me kërkimin." data-en="No destination matches your search.">Asnjë destinacion nuk përputhet me kërkimin.</p>
+
                 <ul class="pricing__dests" data-reveal>
-                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span data-sq="Aeroport" data-en="Airport">Aeroport</span><strong>&#8364;14</strong></li>
-                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Durrës</span><strong>&#8364;25</strong></li>
-                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Krujë</span><strong>&#8364;31</strong></li>
-                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Elbasan</span><strong>&#8364;26</strong></li>
-                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Laç</span><strong>&#8364;42</strong></li>
-                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Gjiri i Lalëzit</span><strong>&#8364;32</strong></li>
-                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Golem</span><strong>&#8364;32</strong></li>
-                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Fier</span><strong>&#8364;65</strong></li>
-                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Berat</span><strong>&#8364;75</strong></li>
-                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Shkodër</span><strong>&#8364;75</strong></li>
-                  <li class="pricing__dest"><figure class="pricing__dest-img"><img src="assets/media/dest/vlore.jpg" alt="Vlorë" loading="lazy"></figure><span>Vlorë</span><strong>&#8364;85</strong></li>
-                  <li class="pricing__dest"><figure class="pricing__dest-img"><img src="assets/media/dest/gjirokaster.webp" alt="Gjirokastër" loading="lazy"></figure><span>Gjirokastër</span><strong>&#8364;115</strong></li>
-                  <li class="pricing__dest"><figure class="pricing__dest-img"><img src="assets/media/dest/korce.webp" alt="Korçë" loading="lazy"></figure><span>Korçë</span><strong>&#8364;115</strong></li>
-                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Green Coast</span><strong>&#8364;115</strong></li>
-                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Prizren</span><strong>&#8364;125</strong></li>
-                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Himarë</span><strong>&#8364;140</strong></li>
-                  <li class="pricing__dest"><figure class="pricing__dest-img"><img src="assets/media/dest/permet.jpeg" alt="Përmet" loading="lazy"></figure><span>Përmet</span><strong>&#8364;150</strong></li>
-                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Prishtinë</span><strong>&#8364;150</strong></li>
-                  <li class="pricing__dest"><figure class="pricing__dest-img"><img src="assets/media/dest/sarande.webp" alt="Sarandë" loading="lazy"></figure><span>Sarandë</span><strong>&#8364;160</strong></li>
-                  <li class="pricing__dest"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Ksamil</span><strong>&#8364;170</strong></li>
+                  <li class="pricing__dest" data-cat="airport"><figure class="pricing__dest-img"><img src="assets/media/dest/airport.jpg" alt="Aeroporti i Tiranës" loading="lazy"></figure><span data-sq="Aeroport" data-en="Airport">Aeroport</span><strong>&#8364;14</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Aeroport&amp;price=14" aria-label="Rezervo taxi për Aeroport — €14"></a></li>
+                  <li class="pricing__dest" data-cat="coast"><figure class="pricing__dest-img"><img src="assets/media/dest/durres.jpg" alt="Durrës" loading="lazy"></figure><span>Durrës</span><strong>&#8364;25</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Durr%C3%ABs&amp;price=25" aria-label="Rezervo taxi për Durrës — €25"></a></li>
+                  <li class="pricing__dest" data-cat="city"><figure class="pricing__dest-img"><img src="assets/media/dest/kruje.webp" alt="Krujë" loading="lazy"></figure><span>Krujë</span><strong>&#8364;31</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Kruj%C3%AB&amp;price=31" aria-label="Rezervo taxi për Krujë — €31"></a></li>
+                  <li class="pricing__dest" data-cat="city"><figure class="pricing__dest-img"><img src="assets/media/dest/elbasan.webp" alt="Elbasan" loading="lazy"></figure><span>Elbasan</span><strong>&#8364;26</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Elbasan&amp;price=26" aria-label="Rezervo taxi për Elbasan — €26"></a></li>
+                  <li class="pricing__dest" data-cat="city"><figure class="pricing__dest-img"><img src="assets/media/dest/lac.jpg" alt="Laç" loading="lazy"></figure><span>Laç</span><strong>&#8364;42</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=La%C3%A7&amp;price=42" aria-label="Rezervo taxi për Laç — €42"></a></li>
+                  <li class="pricing__dest" data-cat="coast"><figure class="pricing__dest-img"><img src="assets/media/dest/gjiri-i-lalezit.jpg" alt="Gjiri i Lalëzit" loading="lazy"></figure><span>Gjiri i Lalëzit</span><strong>&#8364;32</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Gjiri%20i%20Lal%C3%ABzit&amp;price=32" aria-label="Rezervo taxi për Gjiri i Lalëzit — €32"></a></li>
+                  <li class="pricing__dest" data-cat="coast"><figure class="pricing__dest-img"><img src="assets/media/dest/golem.webp" alt="Golem" loading="lazy"></figure><span>Golem</span><strong>&#8364;32</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Golem&amp;price=32" aria-label="Rezervo taxi për Golem — €32"></a></li>
+                  <li class="pricing__dest" data-cat="city"><figure class="pricing__dest-img"><img src="assets/media/dest/fier.jpg" alt="Fier" loading="lazy"></figure><span>Fier</span><strong>&#8364;65</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Fier&amp;price=65" aria-label="Rezervo taxi për Fier — €65"></a></li>
+                  <li class="pricing__dest" data-cat="city"><figure class="pricing__dest-img"><img src="assets/media/dest/berat.jpg" alt="Berat" loading="lazy"></figure><span>Berat</span><strong>&#8364;75</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Berat&amp;price=75" aria-label="Rezervo taxi për Berat — €75"></a></li>
+                  <li class="pricing__dest" data-cat="city"><figure class="pricing__dest-img"><img src="assets/media/dest/shkoder.webp" alt="Shkodër" loading="lazy"></figure><span>Shkodër</span><strong>&#8364;75</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Shkod%C3%ABr&amp;price=75" aria-label="Rezervo taxi për Shkodër — €75"></a></li>
+                  <li class="pricing__dest" data-cat="coast"><figure class="pricing__dest-img"><img src="assets/media/dest/vlora.webp" alt="Vlorë" loading="lazy"></figure><span>Vlorë</span><strong>&#8364;85</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Vlor%C3%AB&amp;price=85" aria-label="Rezervo taxi për Vlorë — €85"></a></li>
+                  <li class="pricing__dest" data-cat="city"><figure class="pricing__dest-img"><img src="assets/media/dest/gjirokaster.jpg" alt="Gjirokastër" loading="lazy"></figure><span>Gjirokastër</span><strong>&#8364;115</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Gjirokast%C3%ABr&amp;price=115" aria-label="Rezervo taxi për Gjirokastër — €115"></a></li>
+                  <li class="pricing__dest" data-cat="city"><figure class="pricing__dest-img"><img src="assets/media/dest/korce.jpg" alt="Korçë" loading="lazy"></figure><span>Korçë</span><strong>&#8364;115</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Kor%C3%A7%C3%AB&amp;price=115" aria-label="Rezervo taxi për Korçë — €115"></a></li>
+                  <li class="pricing__dest" data-cat="coast"><figure class="pricing__dest-img"><img src="assets/media/dest/green-coast.jpg" alt="Green Coast" loading="lazy"></figure><span>Green Coast</span><strong>&#8364;115</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Green%20Coast&amp;price=115" aria-label="Rezervo taxi për Green Coast — €115"></a></li>
+                  <li class="pricing__dest" data-cat="city"><figure class="pricing__dest-img"><img src="assets/media/dest/prizren.jpg" alt="Prizren" loading="lazy"></figure><span>Prizren</span><strong>&#8364;125</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Prizren&amp;price=125" aria-label="Rezervo taxi për Prizren — €125"></a></li>
+                  <li class="pricing__dest" data-cat="coast"><figure class="pricing__dest-img"><img src="assets/media/dest/himare.webp" alt="Himarë" loading="lazy"></figure><span>Himarë</span><strong>&#8364;140</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Himar%C3%AB&amp;price=140" aria-label="Rezervo taxi për Himarë — €140"></a></li>
+                  <li class="pricing__dest" data-cat="city"><figure class="pricing__dest-img"><img src="assets/media/dest/permet.webp" alt="Përmet" loading="lazy"></figure><span>Përmet</span><strong>&#8364;150</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=P%C3%ABrmet&amp;price=150" aria-label="Rezervo taxi për Përmet — €150"></a></li>
+                  <li class="pricing__dest" data-cat="city"><figure class="pricing__dest-img"><img src="assets/media/dest/prishtine.jpg" alt="Prishtinë" loading="lazy"></figure><span>Prishtinë</span><strong>&#8364;150</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Prishtin%C3%AB&amp;price=150" aria-label="Rezervo taxi për Prishtinë — €150"></a></li>
+                  <li class="pricing__dest" data-cat="coast"><figure class="pricing__dest-img"><img src="assets/media/dest/saranda.jpg" alt="Sarandë" loading="lazy"></figure><span>Sarandë</span><strong>&#8364;160</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Sarand%C3%AB&amp;price=160" aria-label="Rezervo taxi për Sarandë — €160"></a></li>
+                  <li class="pricing__dest" data-cat="coast"><figure class="pricing__dest-img"><img src="assets/media/dest/ksamil.webp" alt="Ksamil" loading="lazy"></figure><span>Ksamil</span><strong>&#8364;170</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Ksamil&amp;price=170" aria-label="Rezervo taxi për Ksamil — €170"></a></li>
+                  <li class="pricing__dest" data-cat="coast"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Pogradec</span><strong>&#8364;—</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Pogradec" aria-label="Rezervo taxi për Pogradec"></a></li>
+                  <li class="pricing__dest" data-cat="city"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Lezhë</span><strong>&#8364;—</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Lezh%C3%AB" aria-label="Rezervo taxi për Lezhë"></a></li>
+                  <li class="pricing__dest" data-cat="city"><figure class="pricing__dest-img"><img src="assets/media/dest/lushnje.jpeg" alt="Lushnjë" loading="lazy"></figure><span>Lushnjë</span><strong>&#8364;—</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Lushnj%C3%AB" aria-label="Rezervo taxi për Lushnjë"></a></li>
+                  <li class="pricing__dest" data-cat="city"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Kukës</span><strong>&#8364;—</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Kuk%C3%ABs" aria-label="Rezervo taxi për Kukës"></a></li>
+                  <li class="pricing__dest" data-cat="city"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Dibër</span><strong>&#8364;—</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Dib%C3%ABr" aria-label="Rezervo taxi për Dibër"></a></li>
+                  <li class="pricing__dest" data-cat="city"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Librazhd</span><strong>&#8364;—</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Librazhd" aria-label="Rezervo taxi për Librazhd"></a></li>
+                  <li class="pricing__dest" data-cat="city"><figure class="pricing__dest-img pricing__dest-img--soon"></figure><span>Tepelenë</span><strong>&#8364;—</strong><a class="pricing__dest-go" href="html/rezervo.html?dest=Tepelen%C3%AB" aria-label="Rezervo taxi për Tepelenë"></a></li>
                 </ul>
               </div>
 
-              <p class="pricing__source" data-reveal>
-                <span data-sq="Burimi: tarifat zyrtare të Bashkisë së Tiranës &#183;" data-en="Source: official Tirana municipality tariffs &#183;">Burimi: tarifat zyrtare të Bashkisë së Tiranës &#183;</span>
-                <a href="https://www.taxi-calculator.com/taxi-fare-tirana/758" target="_blank" rel="noopener" data-sq="Krahaso në Taxi-Calculator" data-en="Compare on Taxi-Calculator">Krahaso në Taxi-Calculator</a>
-              </p>
-
             </div>
           </section>
 
-          <!-- PAGE 05 · REZERVO TAXI -->
-          <section class="slide slide--rezervo" id="rezervo" data-slide>
-            <div class="slide__orb"></div>
-            <div class="slide__num slide__num--br">05</div>
-            <div class="slide__title" data-title>
-              <h1 data-sq="Rezervo Taxi" data-en="Book a Taxi">Rezervo Taxi</h1>
+          <!-- PAGE 03 · FAQ -->
+          <section class="slide slide--faq" id="faq" data-slide>
+            <div class="faq__bg" aria-hidden="true"></div>
+            <div class="faq__overlay" aria-hidden="true"></div>
+            <span class="faq__bloom" aria-hidden="true"></span>
+
+            <div class="faq">
+
+              <div class="faq__head">
+                <h2 class="faq__title" data-sq="FAQ" data-en="FAQ">FAQ</h2>
+                <p class="faq__intro" data-sq="Gjithçka që duhet të dini përpara se të udhëtoni me F1 Taxi — rezervimi, çmimet, transferet e aeroportit dhe udhëtimi i sigurt në të gjithë Shqipërinë, ditë e natë." data-en="Everything you need to know before you ride with F1 Taxi — booking, fares, airport transfers, and traveling safely across Albania, day or night.">Gjithçka që duhet të dini përpara se të udhëtoni me F1 Taxi — rezervimi, çmimet, transferet e aeroportit dhe udhëtimi i sigurt në të gjithë Shqipërinë, ditë e natë.</p>
+              </div>
+
+              <div class="faq__grid">
+
+                <div class="faq__left">
+                  <div class="faq__tabs" role="tablist" aria-label="Kategoritë e pyetjeve">
+                    <button type="button" class="faq__tab is-active" data-cat="general" role="tab" aria-selected="true" data-sq="Të Përgjithshme" data-en="General">Te Përgjithshme</button>
+                    <button type="button" class="faq__tab" data-cat="booking" role="tab" aria-selected="false" data-sq="Rezervimi &amp; Çmimet" data-en="Booking &amp; Fares"> Çmimet</button>
+                    <button type="button" class="faq__tab" data-cat="trips" role="tab" aria-selected="false" data-sq="Udhëtimet &amp; Transferet" data-en="Trips &amp; Transfers">Udhëtimet</button>
+                  </div>
+
+                  <aside class="faq__contact">
+                    <span class="faq__contact-glow" aria-hidden="true"></span>
+                    <h3 data-sq="Ende keni pyetje?" data-en="Still have questions?">Ende keni pyetje?</h3>
+                    <p data-sq="Nuk gjeni atë që kërkoni? Na telefononi në çdo kohë — ju përgjigjemi shpejt, 24 orë në ditë." data-en="Can't find what you're looking for? Call us anytime — we answer fast, 24 hours a day.">Nuk gjeni atë që kërkoni? Na telefononi në çdo kohë — ju përgjigjemi shpejt, 24 orë në ditë.</p>
+                    <a class="faq__contact-btn" href="html/kontakt.html#kontakt">
+                      <span data-sq="Na kontaktoni" data-en="Contact us">Na kontaktoni</span>
+                      <span class="faq__arrow" aria-hidden="true">&rarr;</span>
+                    </a>
+                  </aside>
+                </div>
+
+                <div class="faq__cards">
+
+                  <!-- Të Përgjithshme -->
+                  <div class="faq__group is-active" data-cat="general">
+                    <div class="faq__card is-open">
+                      <button type="button" class="faq__q-btn" aria-expanded="true">
+                        <span class="faq__q" data-sq="A punoni 24/7?" data-en="Do you operate 24/7?">A punoni 24/7?</span>
+                        <span class="faq__icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                      </button>
+                      <div class="faq__ans-wrap"><div class="faq__ans-inner">
+                        <p class="faq__ans" data-sq="Po — shërbimi ynë funksionon 24 orë në ditë, 7 ditë në javë. Në çdo orë, një makinë është gati t'ju marrë." data-en="Yes — our taxi service runs 24 hours a day, 7 days a week. Whatever the hour, a car is ready to pick you up.">Po — shërbimi ynë funksionon 24 orë në ditë, 7 ditë në javë. Në çdo orë, një makinë është gati t'ju marrë.</p>
+                      </div></div>
+                    </div>
+
+                    <div class="faq__card">
+                      <button type="button" class="faq__q-btn" aria-expanded="false">
+                        <span class="faq__q" data-sq="A janë shoferët tuaj të licencuar?" data-en="Are your drivers licensed?">A janë shoferët tuaj të licencuar?</span>
+                        <span class="faq__icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                      </button>
+                      <div class="faq__ans-wrap"><div class="faq__ans-inner">
+                        <p class="faq__ans" data-sq="Të gjithë shoferët tanë janë plotësisht të licencuar, me përvojë dhe të përkushtuar ndaj sigurisë e rehatisë suaj në çdo udhëtim." data-en="All of our drivers are fully licensed, experienced, and committed to your safety and comfort on every trip.">Të gjithë shoferët tanë janë plotësisht të licencuar, me përvojë dhe të përkushtuar ndaj sigurisë e rehatisë suaj në çdo udhëtim.</p>
+                      </div></div>
+                    </div>
+
+                    <div class="faq__card">
+                      <button type="button" class="faq__q-btn" aria-expanded="false">
+                        <span class="faq__q" data-sq="A mund të rezervoj një taksi paraprakisht?" data-en="Can I reserve a taxi in advance?">A mund të rezervoj një taksi paraprakisht?</span>
+                        <span class="faq__icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                      </button>
+                      <div class="faq__ans-wrap"><div class="faq__ans-inner">
+                        <p class="faq__ans" data-sq="Sigurisht. Mund ta planifikoni udhëtimin për çdo datë e orë në të ardhmen, dhe ne do t'ju presim kur të mberrini." data-en="Absolutely. You can schedule your ride for any future date and time, and we'll be waiting when you need us.">Sigurisht. Mund ta planifikoni udhëtimin për çdo datë dhe orë në të ardhmen, dhe ne do t'ju presim kur të mberrini.</p>
+                      </div></div>
+                    </div> 
+                  </div>
+
+                  <!-- Rezervimi & Çmimet -->
+                  <div class="faq__group" data-cat="booking">
+                    <div class="faq__card is-open">
+                      <button type="button" class="faq__q-btn" aria-expanded="true">
+                        <span class="faq__q" data-sq="Si llogariten çmimet?" data-en="How are fares calculated?">Si llogariten çmimet?</span>
+                        <span class="faq__icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                      </button>
+                      <div class="faq__ans-wrap"><div class="faq__ans-inner">
+                        <p class="faq__ans" data-sq="Çmimet bazohen në distancë dhe kohë. Ofrojmë gjithashtu çmime fikse për disa itinerare, që ta dini koston që në fillim." data-en="Fares are based on distance and time. Fixed prices are also available for selected routes, so you always know the cost up front.">Çmimet bazohen në distancë dhe kohë. Ofrojmë gjithashtu çmime fikse për disa itinerare, që ta dini koston që në fillim.</p>
+                      </div></div>
+                    </div>
+
+                    <div class="faq__card">
+                      <button type="button" class="faq__q-btn" aria-expanded="false">
+                        <span class="faq__q" data-sq="A mund të paguaj me kartë?" data-en="Can I pay by card?">A mund të paguaj me kartë?</span>
+                        <span class="faq__icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                      </button>
+                      <div class="faq__ans-wrap"><div class="faq__ans-inner">
+                        <p class="faq__ans" data-sq="Po — pranojmë para në dorë si dhe të gjitha kartat kryesore të debitit e kreditit për një udhëtim të shpejtë, pa para në dorë." data-en="Yes — we accept cash as well as all major debit and credit cards for a fast, cashless ride.">Po — pranojmë para në dorë si dhe të gjitha kartat kryesore të debitit e kreditit për një udhëtim të shpejtë, pa para në dorë.</p>
+                      </div></div>
+                    </div>
+
+                    <div class="faq__card">
+                      <button type="button" class="faq__q-btn" aria-expanded="false">
+                        <span class="faq__q" data-sq="A mund të rezervoj për disa pasagjerë?" data-en="Can I book for multiple passengers?">A mund të rezervoj për disa pasagjerë?</span>
+                        <span class="faq__icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                      </button>
+                      <div class="faq__ans-wrap"><div class="faq__ans-inner">
+                        <p class="faq__ans" data-sq="Sigurisht. Kemi automjete të përshtatshme për individë, familje dhe grupe më të mëdha që udhëtojnë bashkë." data-en="Of course. We have vehicles suitable for individuals, families, and larger groups traveling together.">Sigurisht. Kemi automjete të përshtatshme për individë, familje dhe grupe më të mëdha që udhëtojnë bashkë.</p>
+                      </div></div>
+                    </div>
+                  </div>
+
+                  <!-- Udhëtimet & Transferet -->
+                  <div class="faq__group" data-cat="trips">
+                    <div class="faq__card is-open">
+                      <button type="button" class="faq__q-btn" aria-expanded="true">
+                        <span class="faq__q" data-sq="A ofroni transfer nga/për aeroportin?" data-en="Do you provide airport transfers?">A ofroni transfer nga/për aeroportin?</span>
+                        <span class="faq__icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                      </button>
+                      <div class="faq__ans-wrap"><div class="faq__ans-inner">
+                        <p class="faq__ans" data-sq="Po, ofrojmë transfer të besueshëm nga dhe drejt Aeroportit Ndërkombëtar të Tiranës, sipas orarit të fluturimit tuaj." data-en="Yes, we offer reliable transfers to and from Tirana International Airport, timed around your flight.">Po, ofrojmë transfer të besueshëm nga dhe drejt Aeroportit Ndërkombëtar të Tiranës, sipas orarit të fluturimit tuaj.</p>
+                      </div></div>
+                    </div>
+
+                    <div class="faq__card">
+                      <button type="button" class="faq__q-btn" aria-expanded="false">
+                        <span class="faq__q" data-sq="A ofroni udhëtime të gjata?" data-en="Do you offer long-distance trips?">A ofroni udhëtime të gjata?</span>
+                        <span class="faq__icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                      </button>
+                      <div class="faq__ans-wrap"><div class="faq__ans-inner">
+                        <p class="faq__ans" data-sq="Ofrojmë transport në të gjithë Shqipërinë dhe drejt vendeve fqinje sipas kërkesës. Thjesht na tregoni destinacionin tuaj." data-en="We provide transportation throughout Albania and to neighboring countries on request. Just let us know your destination.">Ofrojmë transport në të gjithë Shqipërinë dhe drejt vendeve fqinje sipas kërkesës. Thjesht na tregoni destinacionin tuaj.</p>
+                      </div></div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
             </div>
           </section>
 
-          <!-- PAGE 06 · KONTAKT -->
-          <section class="slide slide--kontakt" id="kontakt" data-slide>
-            <div class="slide__num slide__num--tl">06</div>
-            <div class="slide__title slide__title--center" data-title>
-              <h1 data-sq="Kontakt" data-en="Contact">Kontakt</h1>
+          <!-- PAGE 04 · REVIEWS (scaffold — fill the cards with real testimonials) -->
+          <section class="slide slide--reviews" id="reviews" data-slide>
+            <div class="reviews">
+
+              <header class="reviews__head">
+                <h2 class="reviews__title" data-sq="Vlerësimet e Klientëve" data-en="Customer Reviews">Vlerësimet e Klientëve</h2>
+                <p class="reviews__intro" data-sq="Përvoja e udhëtarëve tanë flet më shumë se çdo fjalë — ja çfarë thonë ata për F1 Taxi." data-en="Our riders' experience speaks louder than words — here's what they say about F1 Taxi.">Përvoja e udhëtarëve tanë flet më shumë se çdo fjalë — ja çfarë thonë ata për F1 Taxi.</p>
+              </header>
+
+              <!--
+                REVIEWS CAROUSEL — the .reviews__track scrolls automatically (see reviews.css).
+                Cards are duplicated (aria-hidden) so the loop is seamless. To add a review,
+                copy one .reviews__card into BOTH the original set and the duplicate set.
+              -->
+              <div class="reviews__carousel" data-reveal>
+                <ul class="reviews__track">
+
+                  <li class="reviews__card">
+                    <div class="reviews__stars" aria-label="5 nga 5 yje">
+                      <span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span>
+                    </div>
+                    <p class="reviews__quote">We had a few trips with F1 Taxi and overall the service was excellent. Special shoutout to Joni who took really good care of us and accommodated however he could. He was super friendly, really knowledgable and gave some great recommendations. We will most definitely use F1 Taxi when we come back to Tirana!</p>
+                    <div class="reviews__author">
+                      <span class="reviews__avatar" aria-hidden="true">E</span>
+                      <span class="reviews__meta">
+                        <strong class="reviews__name">Emma R.</strong>
+                        <small class="reviews__label" data-sq="Vizitore" data-en="Visitor">Vizitore</small>
+                      </span>
+                    </div>
+                  </li>
+
+                  <li class="reviews__card">
+                    <div class="reviews__stars" aria-label="5 nga 5 yje">
+                      <span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span>
+                    </div>
+                    <p class="reviews__quote">The BEST!!! Fantastic service! Super new cars, very clean and comfortable. The drivers are polite, professional, and always respectful with customers. F1 Taxi is my first choice in Tirana for safety and comfort. Highly recommended!</p>
+                    <div class="reviews__author">
+                      <span class="reviews__avatar" aria-hidden="true">A</span>
+                      <span class="reviews__meta">
+                        <strong class="reviews__name">Andi K.</strong>
+                        <small class="reviews__label" data-sq="Tiranë" data-en="Tirana">Tiranë</small>
+                      </span>
+                    </div>
+                  </li>
+
+                  <li class="reviews__card">
+                    <div class="reviews__stars" aria-label="5 nga 5 yje">
+                      <span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span>
+                    </div>
+                    <p class="reviews__quote">Amazing service, fast replies and communication. The price is good, we've been travelling across Tirana all the way towards the airport. The vehicle is clean and comfortable.</p>
+                    <div class="reviews__author">
+                      <span class="reviews__avatar" aria-hidden="true">L</span>
+                      <span class="reviews__meta">
+                        <strong class="reviews__name">Laura B.</strong>
+                        <small class="reviews__label" data-sq="Aeroporti i Tiranës" data-en="Tirana Airport">Aeroporti i Tiranës</small>
+                      </span>
+                    </div>
+                  </li>
+
+                  <li class="reviews__card">
+                    <div class="reviews__stars" aria-label="5 nga 5 yje">
+                      <span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span>
+                    </div>
+                    <p class="reviews__quote">We had such a pleasant experience with our lovely driver Joni. He was so helpful, accommodating and gave us lots of recommendations for our stay in Tirana!</p>
+                    <div class="reviews__author">
+                      <span class="reviews__avatar" aria-hidden="true">S</span>
+                      <span class="reviews__meta">
+                        <strong class="reviews__name">Sophie T.</strong>
+                        <small class="reviews__label" data-sq="Vizitore" data-en="Visitor">Vizitore</small>
+                      </span>
+                    </div>
+                  </li>
+
+                  <li class="reviews__card">
+                    <div class="reviews__stars" aria-label="5 nga 5 yje">
+                      <span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span>
+                    </div>
+                    <p class="reviews__quote">Really impressed with F1 Taxi service. After booking they sent a tracking link so I could follow the taxi. The driver arrived on time, the car was clean, and the ride was smooth and comfortable. Professional and reliable service. I definitely will use them again.</p>
+                    <div class="reviews__author">
+                      <span class="reviews__avatar" aria-hidden="true">M</span>
+                      <span class="reviews__meta">
+                        <strong class="reviews__name">Marco D.</strong>
+                        <small class="reviews__label" data-sq="Aeroporti i Tiranës" data-en="Tirana Airport">Aeroporti i Tiranës</small>
+                      </span>
+                    </div>
+                  </li>
+
+                  <!-- Duplicate set (aria-hidden) for the seamless infinite loop -->
+                  <li class="reviews__card" aria-hidden="true">
+                    <div class="reviews__stars"><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span></div>
+                    <p class="reviews__quote">We had a few trips with F1 Taxi and overall the service was excellent. Special shoutout to Joni who took really good care of us and accommodated however he could. He was super friendly, really knowledgable and gave some great recommendations. We will most definitely use F1 Taxi when we come back to Tirana!</p>
+                    <div class="reviews__author">
+                      <span class="reviews__avatar" aria-hidden="true">E</span>
+                      <span class="reviews__meta"><strong class="reviews__name">Emma R.</strong><small class="reviews__label" data-sq="Vizitore" data-en="Visitor">Vizitore</small></span>
+                    </div>
+                  </li>
+
+                  <li class="reviews__card" aria-hidden="true">
+                    <div class="reviews__stars"><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span></div>
+                    <p class="reviews__quote">The BEST!!! Fantastic service! Super new cars, very clean and comfortable. The drivers are polite, professional, and always respectful with customers. F1 Taxi is my first choice in Tirana for safety and comfort. Highly recommended!</p>
+                    <div class="reviews__author">
+                      <span class="reviews__avatar" aria-hidden="true">A</span>
+                      <span class="reviews__meta"><strong class="reviews__name">Andi K.</strong><small class="reviews__label" data-sq="Tiranë" data-en="Tirana">Tiranë</small></span>
+                    </div>
+                  </li>
+
+                  <li class="reviews__card" aria-hidden="true">
+                    <div class="reviews__stars"><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span></div>
+                    <p class="reviews__quote">Amazing service, fast replies and communication. The price is good, we've been travelling across Tirana all the way towards the airport. The vehicle is clean and comfortable.</p>
+                    <div class="reviews__author">
+                      <span class="reviews__avatar" aria-hidden="true">L</span>
+                      <span class="reviews__meta"><strong class="reviews__name">Laura B.</strong><small class="reviews__label" data-sq="Aeroporti i Tiranës" data-en="Tirana Airport">Aeroporti i Tiranës</small></span>
+                    </div>
+                  </li>
+
+                  <li class="reviews__card" aria-hidden="true">
+                    <div class="reviews__stars"><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span></div>
+                    <p class="reviews__quote">We had such a pleasant experience with our lovely driver Joni. He was so helpful, accommodating and gave us lots of recommendations for our stay in Tirana!</p>
+                    <div class="reviews__author">
+                      <span class="reviews__avatar" aria-hidden="true">S</span>
+                      <span class="reviews__meta"><strong class="reviews__name">Sophie T.</strong><small class="reviews__label" data-sq="Vizitore" data-en="Visitor">Vizitore</small></span>
+                    </div>
+                  </li>
+
+                  <li class="reviews__card" aria-hidden="true">
+                    <div class="reviews__stars"><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span></div>
+                    <p class="reviews__quote">Really impressed with F1 Taxi service. After booking they sent a tracking link so I could follow the taxi. The driver arrived on time, the car was clean, and the ride was smooth and comfortable. Professional and reliable service. I definitely will use them again.</p>
+                    <div class="reviews__author">
+                      <span class="reviews__avatar" aria-hidden="true">M</span>
+                      <span class="reviews__meta"><strong class="reviews__name">Marco D.</strong><small class="reviews__label" data-sq="Aeroporti i Tiranës" data-en="Tirana Airport">Aeroporti i Tiranës</small></span>
+                    </div>
+                  </li>
+
+                </ul>
+              </div>
+
             </div>
           </section>
 
@@ -445,6 +517,209 @@
       </div>
     </div>
   </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer" id="footer">
+    <div class="footer__inner">
+
+      <div class="footer__brand">
+        <a class="footer__logo" href="#kreu" data-page="kreu" aria-label="F1 Taxi">
+          <img src="assets/media/logo.webp" alt="F1 Taxi">
+        </a>
+        <p class="footer__tagline" data-sq="Standardi i ri i udhëtimit në Tiranë dhe në gjithë Shqipërinë. 24/7 në shërbimin tuaj." data-en="The new standard of travel in Tirana and across Albania. 24/7 at your service.">Standardi i ri i udhëtimit në Tiranë dhe në gjithë Shqipërinë. 24/7 në shërbimin tuaj.</p>
+        <div class="footer__social" aria-label="Social links">
+          <a href="#" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5A1.94 1.94 0 1 1 5 3.06 1.94 1.94 0 0 1 6.94 5ZM5.34 8.5h3.2V21h-3.2Zm5.2 0h3.07v1.71h.04a3.36 3.36 0 0 1 3-1.66c3.22 0 3.81 2.12 3.81 4.87V21h-3.2v-5.55c0-1.32 0-3-1.85-3s-2.13 1.44-2.13 2.93V21h-3.2Z"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.9c0-.74.5-.9.85-.9H17V3.05L14.2 3c-2.9 0-3.54 2.17-3.54 3.56V8.5H9v3h1.66V21H14v-9.5h2.5l.34-3Z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <nav class="footer__col" aria-label="Navigim">
+        <h3 class="footer__col-title" data-sq="Navigim" data-en="Navigation">Navigim</h3>
+        <a href="#kreu" data-sq="Kreu" data-en="Home">Kreu</a>
+        <a href="#cmimet" data-sq="Çmimet" data-en="Pricing">Çmimet</a>
+        <a href="#faq" data-sq="Pyetjet e Shpeshta" data-en="FAQ">Pyetjet e Shpeshta</a>
+        <a href="#reviews" data-sq="Vlerësimet" data-en="Reviews">Vlerësimet</a>
+      </nav>
+
+      <nav class="footer__col" aria-label="Shërbimet">
+        <h3 class="footer__col-title" data-sq="Shërbimet" data-en="Services">Shërbimet</h3>
+        <a href="html/sherbimet.html#sherbimet" data-sq="Shërbimet" data-en="Services">Shërbimet</a>
+        <a href="html/rreth-nesh.html#rreth-nesh" data-sq="Rreth Nesh" data-en="About Us">Rreth Nesh</a>
+        <a href="html/rezervo.html#rezervo" data-sq="Rezervo Taxi" data-en="Book a Taxi">Rezervo Taxi</a>
+        <a href="html/kontakt.html#kontakt" data-sq="Kontakt" data-en="Contact">Kontakt</a>
+      </nav>
+
+      <div class="footer__col footer__contact">
+        <h3 class="footer__col-title" data-sq="Kontakt" data-en="Contact">Kontakt</h3>
+        <a class="footer__phone" href="tel:+355682550000">+355 68 255 0000</a>
+        <a href="mailto:info@f1taxi.al">info@f1taxi.al</a>
+        <p data-sq="Tiranë, Shqipëri" data-en="Tirana, Albania">Tiranë, Shqipëri</p>
+        <p data-sq="Hapur 24 orë / 7 ditë" data-en="Open 24 hours / 7 days">Hapur 24 orë / 7 ditë</p>
+      </div>
+
+    </div>
+
+    <div class="footer__bar">
+      <p class="footer__copy">&copy; 2026 F1 Taxi. <span data-sq="Të gjitha të drejtat e rezervuara." data-en="All rights reserved.">Të gjitha të drejtat e rezervuara.</span></p>
+      <a class="footer__top" href="#kreu" data-page="kreu" data-sq="Kthehu lart ↑" data-en="Back to top ↑">Kthehu lart ↑</a>
+    </div>
+  </footer>
+
+  <!-- ============ BOOKING MODAL (opened by the destination cards) ============ -->
+  <div class="bkm" id="bkm" hidden data-lenis-prevent>
+    <div class="bkm__backdrop" data-bkm-close></div>
+
+    <div class="bkm__card" role="dialog" aria-modal="true" aria-labelledby="bkm-title">
+
+      <header class="bkm__header">
+        <div class="bkm__brand">
+          <img class="bkm__logo" src="assets/media/logo.webp" alt="F1 Taxi" width="2044" height="569">
+          <p class="bkm__brand-sub">Airport transfers &middot; 24/7</p>
+        </div>
+
+        <button class="bkm__close" type="button" data-bkm-close aria-label="Mbyll">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 5l14 14M19 5 5 19"/></svg>
+        </button>
+      </header>
+
+      <div class="bkm__body">
+        <h2 class="bkm__title" id="bkm-title">Book your ride</h2>
+        <p class="bkm__subtitle">Instant confirmation. Fixed airport fares.</p>
+
+        <p class="bkm__fare" id="bkm-fare" hidden>
+          Fixed fare <strong id="bkm-fare-price"></strong>
+        </p>
+
+        <form class="bkm__form" id="bkm-form" novalidate>
+
+          <div class="bkm__pair">
+            <div class="bkm__field">
+              <label class="bkm__label" for="bkm-from">From</label>
+              <div class="bkm__input-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/></svg>
+                <input class="bkm__input" type="text" id="bkm-from" name="from" required
+                       placeholder="Pickup address or airport" autocomplete="off">
+              </div>
+            </div>
+
+            <button class="bkm__swap" type="button" id="bkm-swap" aria-label="Ndërro nisjen me destinacionin">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v16M7 4 4 7.4M7 4l3 3.4"/><path d="M17 20V4M17 20l3-3.4M17 20l-3-3.4"/></svg>
+            </button>
+
+            <div class="bkm__field">
+              <label class="bkm__label" for="bkm-to">To</label>
+              <div class="bkm__input-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+                <input class="bkm__input" type="text" id="bkm-to" name="to" required
+                       placeholder="Destination" autocomplete="off">
+              </div>
+            </div>
+          </div>
+
+          <div class="bkm__field">
+            <label class="bkm__label" for="bkm-name">Full name</label>
+            <div class="bkm__input-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <input class="bkm__input" type="text" id="bkm-name" name="name" required
+                     placeholder="Your full name" autocomplete="name">
+            </div>
+          </div>
+
+          <!-- Split date and time: one combined datetime-local field is too
+               narrow here, and its picker overflowed the card. -->
+          <div class="bkm__row">
+            <div class="bkm__field">
+              <label class="bkm__label" for="bkm-date">Date</label>
+              <div class="bkm__input-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+                <input class="bkm__input" type="date" id="bkm-date" name="date" required>
+              </div>
+            </div>
+
+            <div class="bkm__field">
+              <label class="bkm__label" for="bkm-time">Time</label>
+              <div class="bkm__input-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.2 2"/></svg>
+                <input class="bkm__input" type="time" id="bkm-time" name="time" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="bkm__row bkm__row--pax">
+            <div class="bkm__field">
+              <span class="bkm__label" id="bkm-pax-label">Persons</span>
+              <div class="bkm__stepper">
+                <button class="bkm__step" type="button" data-step="-1" aria-label="Një pasagjer më pak">&minus;</button>
+                <span class="bkm__pax" id="bkm-pax" role="status" aria-live="polite" aria-labelledby="bkm-pax-label">2</span>
+                <button class="bkm__step" type="button" data-step="1" aria-label="Një pasagjer më shumë">+</button>
+              </div>
+            </div>
+
+            <div class="bkm__field">
+              <label class="bkm__label" for="bkm-phone">Phone number</label>
+              <div class="bkm__input-wrap bkm__input-wrap--tel">
+                <div class="bkm__cc">
+                  <button class="bkm__cc-btn" type="button" id="bkm-cc-btn"
+                          aria-haspopup="listbox" aria-expanded="false" aria-label="Zgjidh shtetin">
+                    <span class="bkm__cc-flag fi fi-al" id="bkm-cc-flag"></span>
+                    <span class="bkm__cc-dial" id="bkm-cc-dial">+355</span>
+                    <svg class="bkm__cc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                  </button>
+
+                  <div class="bkm__cc-pop" id="bkm-cc-pop" hidden>
+                    <div class="bkm__cc-search-wrap">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                      <input class="bkm__cc-search" type="search" id="bkm-cc-search"
+                             placeholder="Search country" autocomplete="off" aria-label="Kërko shtetin">
+                    </div>
+                    <ul class="bkm__cc-list" id="bkm-cc-list" role="listbox" aria-label="Shtetet" data-lenis-prevent></ul>
+                    <p class="bkm__cc-none" id="bkm-cc-none" hidden>No match</p>
+                  </div>
+                </div>
+
+                <input class="bkm__input" type="tel" id="bkm-phone" name="phone" required
+                       placeholder="68 000 0000" autocomplete="tel">
+              </div>
+            </div>
+          </div>
+
+          <button class="bkm__submit" type="submit" id="bkm-submit">
+            <span class="bkm__state bkm__state--idle">
+              Reserve now
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+            </span>
+            <span class="bkm__state bkm__state--busy">
+              <span class="bkm__spinner" aria-hidden="true"></span>
+              Finding your driver&hellip;
+            </span>
+            <span class="bkm__state bkm__state--done">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
+              Ride confirmed
+            </span>
+          </button>
+
+          <p class="bkm__foot" id="bkm-foot">No card needed &middot; Pay the driver &middot; Free cancellation</p>
+        </form>
+
+        <div class="bkm__confirm" id="bkm-confirm" hidden>
+          <span class="bkm__confirm-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
+          </span>
+          <h3 class="bkm__confirm-title">Your information has been processed</h3>
+          <p class="bkm__confirm-text">We&rsquo;ll contact you shortly on <strong id="bkm-confirm-phone"></strong></p>
+          <button class="bkm__cancel" type="button" id="bkm-cancel">Cancel reservation</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
 </body>
 </html>

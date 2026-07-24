@@ -1,0 +1,710 @@
+/* ============================================================
+   F1 TAXI — booking modal
+   Popup reservation card opened by the destination cards.
+   Self-contained: owns its own palette, independent of the
+   green stage styling behind it.
+   ============================================================ */
+
+.bkm {
+  --bkm-lime: #b8f441;
+  --bkm-dark: #111418;
+  --bkm-gray: #6b7280;
+  --bkm-gray-soft: #9aa0a6;
+  --bkm-field: #f9fafb;
+  --bkm-border: #e5e7eb;
+  --bkm-ease: cubic-bezier(0.23, 1, 0.32, 1);
+
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  /* Bottom sheet: the card docks to the bottom edge, horizontally centred. */
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .4s ease, visibility .4s ease;
+}
+
+.bkm[hidden] { display: none; }
+.bkm.is-open { opacity: 1; visibility: visible; }
+
+/* ---- Glass backdrop ---- */
+
+.bkm__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .4);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+/* ---- Card ---- */
+
+.bkm__card {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  max-height: 90vh;
+  max-height: 90dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 22px 22px 0 0;
+  background: #fff;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, .2);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
+
+  /* Starts fully below the screen — 100% of its OWN height, not the viewport,
+     so the travel is the sheet's height however tall it happens to be. */
+  transform: translateY(100%);
+  /* Exit is quicker than entry; make this .95s to match if you'd rather the
+     close mirror the open exactly. */
+  transition: transform .45s cubic-bezier(.16, 1, .3, 1);
+}
+
+/* Slides up to sit flush on the bottom edge. The .95s is the one knob for
+   how slow the entrance feels (the reference used .6s). */
+.bkm.is-open .bkm__card {
+  transform: translateY(0);
+  transition: transform .95s cubic-bezier(.16, 1, .3, 1);
+}
+
+/* ---- Desktop: same slide-up, but it settles in the middle ---- */
+
+@media (min-width: 641px) {
+  .bkm { align-items: center; padding: 20px; }
+
+  .bkm__card {
+    max-height: calc(100dvh - 40px);
+    border-radius: 22px;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, .55), 0 4px 16px rgba(0, 0, 0, .3);
+    /* From centred, the card's top sits at (50vh - half its height), so
+       50vh + 50% is exactly the distance that parks it below the fold —
+       it still rises from off-screen, it just stops in the middle. */
+    transform: translateY(calc(50vh + 50%));
+  }
+
+  .bkm.is-open .bkm__card { transform: translateY(0); }
+}
+
+/* Promote only while it is actually moving — a permanent will-change would
+   pin the layer in memory for the whole session. */
+.bkm.is-animating .bkm__card { will-change: transform, opacity; }
+
+/* ---- Header ---- */
+
+.bkm__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  background: var(--bkm-dark);
+  border-radius: 22px 22px 0 0;
+  overflow: hidden;
+}
+
+/* faint diagonal racing stripes */
+.bkm__header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(115deg,
+    rgba(255, 255, 255, .045) 0 12px,
+    transparent 12px 30px);
+}
+
+/* The real wordmark — it is 2044x569, so height drives it and width follows. */
+.bkm__logo {
+  display: block;
+  width: auto;
+  height: 30px;
+}
+
+.bkm__brand { position: relative; flex: 1; min-width: 0; }
+
+.bkm__brand-sub {
+  margin: 6px 0 0;
+  color: var(--bkm-gray-soft);
+  font-size: .74rem;
+  font-weight: 500;
+}
+
+.bkm__close {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .1);
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s var(--bkm-ease), transform .2s var(--bkm-ease);
+}
+
+.bkm__close:hover { background: rgba(255, 255, 255, .2); }
+.bkm__close:active { transform: scale(.9); }
+.bkm__close svg { width: 15px; height: 15px; }
+
+/* ---- Body ---- */
+
+.bkm__body { padding: 24px 20px 20px; }
+
+.bkm__title {
+  margin: 0;
+  color: var(--bkm-dark);
+  font-family: Archivo, Inter, sans-serif;
+  font-size: 1.55rem;
+  font-weight: 800;
+  letter-spacing: -.03em;
+}
+
+.bkm__subtitle {
+  margin: 5px 0 0;
+  color: var(--bkm-gray);
+  font-size: .84rem;
+}
+
+/* Fixed fare carried in from the destination card. */
+.bkm__fare {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(184, 244, 65, .22);
+  color: #3f5e08;
+  font-size: .74rem;
+  font-weight: 600;
+}
+
+.bkm__fare strong {
+  font-family: Archivo, Inter, sans-serif;
+  font-size: .95rem;
+  font-weight: 800;
+  color: #2f4a05;
+}
+
+.bkm__fare[hidden] { display: none; }
+
+/* ---- Fields ---- */
+
+/* One grid gap governs the spacing of every block in the form, so adding a
+   field can never fall out of rhythm. */
+.bkm__form { margin-top: 18px; display: grid; gap: 14px; }
+
+/* min-width:0 lets a field shrink inside its grid track instead of forcing
+   the track wider than the card. */
+.bkm__field { display: block; min-width: 0; }
+
+.bkm__label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--bkm-gray-soft);
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.bkm__input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 50px;
+  padding: 0 14px;
+  border: 1px solid var(--bkm-border);
+  border-radius: 13px;
+  background: var(--bkm-field);
+  transition: border-color .2s var(--bkm-ease), box-shadow .2s var(--bkm-ease), background .2s var(--bkm-ease);
+}
+
+.bkm__input-wrap:focus-within {
+  border-color: var(--bkm-lime);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(184, 244, 65, .35);
+}
+
+.bkm__input-wrap svg { flex: none; width: 17px; height: 17px; color: var(--bkm-gray-soft); }
+.bkm__input-wrap:focus-within svg { color: #7ba81f; }
+
+.bkm__input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: none;
+  color: var(--bkm-dark);
+  font-family: Inter, system-ui, sans-serif;
+  font-size: .92rem;
+  font-weight: 500;
+}
+
+.bkm__input::placeholder { color: var(--bkm-gray-soft); font-weight: 400; }
+.bkm__input:focus { outline: none; }
+.bkm__input[type="datetime-local"] { font-size: .84rem; }
+
+/* Only flag bad values after a submit attempt. */
+.bkm__form.is-checked .bkm__input-wrap:has(.bkm__input:invalid) {
+  border-color: #f87171;
+  background: #fef2f2;
+}
+
+/* ---- Swap button floating between From / To ---- */
+
+/* From / To stack with the same 14px rhythm as every other row. The swap
+   button is absolutely positioned, so it takes no grid track. */
+.bkm__pair { position: relative; display: grid; gap: 14px; }
+
+.bkm__swap {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-top: -17px;
+  border: 1px solid var(--bkm-border);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--bkm-dark);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+  transition: transform .38s var(--bkm-ease), border-color .2s var(--bkm-ease);
+}
+
+.bkm__swap:hover { border-color: var(--bkm-lime); }
+.bkm__swap svg { width: 15px; height: 15px; }
+.bkm__swap.is-flipped { transform: rotate(180deg); }
+
+/* ---- Date + persons row ---- */
+
+/* minmax(0, 1fr) — a bare 1fr has an auto minimum, so a track refuses to
+   shrink below its content and the row overflows the card. That is what
+   pushed the phone field past the right edge. */
+.bkm__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.bkm__row--pax { grid-template-columns: 132px minmax(0, 1fr); }
+
+.bkm__stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  padding: 0 8px;
+  border: 1px solid var(--bkm-border);
+  border-radius: 13px;
+  background: var(--bkm-field);
+}
+
+.bkm__step {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 9px;
+  background: #fff;
+  color: var(--bkm-dark);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+  transition: transform .18s var(--bkm-ease), background .2s var(--bkm-ease);
+}
+
+.bkm__step:hover:not(:disabled) { background: var(--bkm-lime); }
+.bkm__step:active:not(:disabled) { transform: scale(.88); }
+.bkm__step:disabled { opacity: .35; cursor: not-allowed; box-shadow: none; }
+
+.bkm__pax {
+  min-width: 26px;
+  text-align: center;
+  font-family: Archivo, Inter, sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--bkm-dark);
+}
+
+/* ---- Country / dial-code picker ---- */
+
+.bkm__input-wrap--tel { padding-left: 6px; gap: 6px; }
+
+.bkm__cc { position: relative; flex: none; }
+
+.bkm__cc-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 38px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--bkm-dark);
+  font-family: Inter, system-ui, sans-serif;
+  font-size: .86rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s var(--bkm-ease);
+}
+
+.bkm__cc-btn:hover { background: rgba(0, 0, 0, .05); }
+.bkm__cc-btn:disabled { cursor: default; opacity: .55; }
+
+/* flag-icons paints a 4:3 SVG as the background; the ISO text inside is the
+   fallback and is hidden unless the stylesheet failed to load. */
+.bkm__cc-flag.fi {
+  flex: none;
+  width: 21px;
+  height: 15.75px;
+  border-radius: 3px;
+  line-height: 0;
+  font-size: 0;
+  color: transparent;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .12);
+  background-size: cover;
+  background-position: center;
+}
+
+/* CDN unreachable — show the ISO code as a chip instead of an empty box. */
+.bkm--no-flags .bkm__cc-flag.fi {
+  width: auto;
+  height: auto;
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: var(--bkm-dark);
+  color: var(--bkm-lime);
+  font-size: .62rem;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: .04em;
+  box-shadow: none;
+}
+
+.bkm__cc-dial { color: var(--bkm-gray); }
+.bkm__cc-caret { width: 12px; height: 12px; color: var(--bkm-gray-soft); transition: transform .25s var(--bkm-ease); }
+.bkm__cc-btn[aria-expanded="true"] .bkm__cc-caret { transform: rotate(180deg); }
+
+/* The card scrolls internally, so an absolutely-positioned panel would clip
+   against its edge. Fixed + centred escapes the card at every size. */
+.bkm__cc-pop {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 30;
+  width: min(300px, calc(100vw - 40px));
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--bkm-border);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, .28);
+  overflow: hidden;
+  animation: bkm-pop-in .22s var(--bkm-ease) both;
+}
+
+.bkm__cc-pop[hidden] { display: none; }
+
+@keyframes bkm-pop-in {
+  from { opacity: 0; transform: translate(-50%, -46%) scale(.97); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.bkm__cc-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--bkm-border);
+}
+
+.bkm__cc-search-wrap svg { flex: none; width: 15px; height: 15px; color: var(--bkm-gray-soft); }
+
+.bkm__cc-search {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: none;
+  color: var(--bkm-dark);
+  font-family: Inter, system-ui, sans-serif;
+  font-size: .86rem;
+}
+
+.bkm__cc-search:focus { outline: none; }
+
+.bkm__cc-list {
+  max-height: 232px;
+  margin: 0;
+  padding: 6px;
+  overflow-y: auto;
+  /* Momentum scrolling on iOS, and don't hand the scroll back to the page
+     when the list bottoms out. */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  list-style: none;
+}
+
+.bkm__cc-opt {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 8px 9px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--bkm-dark);
+  font-family: Inter, system-ui, sans-serif;
+  font-size: .84rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.bkm__cc-opt:hover, .bkm__cc-opt:focus-visible { background: #f3f4f6; outline: none; }
+.bkm__cc-opt[aria-selected="true"] { background: rgba(184, 244, 65, .3); font-weight: 600; }
+.bkm__cc-opt-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bkm__cc-opt-dial { flex: none; color: var(--bkm-gray-soft); font-size: .78rem; }
+
+.bkm__cc-none {
+  margin: 0;
+  padding: 16px 12px;
+  text-align: center;
+  color: var(--bkm-gray-soft);
+  font-size: .82rem;
+}
+
+.bkm__cc-none[hidden] { display: none; }
+
+/* ---- Submit ---- */
+
+.bkm__submit {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 56px;
+  margin-top: 4px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--bkm-lime);
+  color: var(--bkm-dark);
+  font-family: Archivo, Inter, sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform .2s var(--bkm-ease), box-shadow .2s var(--bkm-ease), background .25s var(--bkm-ease);
+}
+
+.bkm__submit:hover { box-shadow: 0 10px 24px rgba(184, 244, 65, .4); }
+.bkm__submit:active { transform: scale(.975); }
+.bkm__submit:disabled { cursor: default; }
+.bkm__submit:disabled:hover { box-shadow: none; }
+
+/* the three stacked states share one grid cell so the button never resizes */
+.bkm__state {
+  grid-area: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  transition: opacity .25s var(--bkm-ease), transform .3s var(--bkm-ease);
+}
+
+.bkm__state svg { width: 17px; height: 17px; }
+
+.bkm__state--busy,
+.bkm__state--done { opacity: 0; transform: translateY(7px); pointer-events: none; }
+
+.bkm__submit.is-busy .bkm__state--idle,
+.bkm__submit.is-done .bkm__state--idle { opacity: 0; transform: translateY(-7px); }
+
+.bkm__submit.is-busy .bkm__state--busy { opacity: 1; transform: none; }
+
+.bkm__submit.is-done { background: #22c55e; color: #fff; }
+.bkm__submit.is-done .bkm__state--done { opacity: 1; transform: none; }
+.bkm__submit.is-done .bkm__state--done svg { animation: bkm-pop .34s var(--bkm-ease) both; }
+
+@keyframes bkm-pop {
+  0%   { transform: scale(.2); opacity: 0; }
+  60%  { transform: scale(1.25); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.bkm__spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(17, 20, 24, .25);
+  border-top-color: var(--bkm-dark);
+  border-radius: 50%;
+  animation: bkm-spin .7s linear infinite;
+}
+
+@keyframes bkm-spin { to { transform: rotate(360deg); } }
+
+/* ---- Footer note ---- */
+
+.bkm__foot {
+  margin: 0;
+  text-align: center;
+  color: var(--bkm-gray-soft);
+  font-size: .72rem;
+}
+
+.bkm__foot[hidden] { display: none; }
+
+/* ---- Confirmation ---- */
+
+.bkm__confirm {
+  margin-top: 16px;
+  padding: 20px 18px;
+  border: 1px solid #bbf7d0;
+  border-radius: 16px;
+  background: #f0fdf4;
+  text-align: center;
+  animation: bkm-spring .42s var(--bkm-ease) both;
+}
+
+.bkm__confirm[hidden] { display: none; }
+
+@keyframes bkm-spring {
+  0%   { opacity: 0; transform: translateY(14px) scale(.94); }
+  100% { opacity: 1; transform: none; }
+}
+
+.bkm__confirm-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: #22c55e;
+  color: #fff;
+}
+
+.bkm__confirm-icon svg { width: 22px; height: 22px; }
+
+.bkm__confirm-title {
+  margin: 0;
+  color: #14532d;
+  font-family: Archivo, Inter, sans-serif;
+  font-size: 1.02rem;
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+
+.bkm__confirm-text {
+  margin: 6px 0 0;
+  color: #3f6b4f;
+  font-size: .84rem;
+  line-height: 1.5;
+}
+
+.bkm__confirm-text strong { color: #14532d; font-weight: 700; }
+
+.bkm__cancel {
+  width: 100%;
+  height: 44px;
+  margin-top: 16px;
+  border: 1.5px solid #fca5a5;
+  border-radius: 12px;
+  background: transparent;
+  color: #dc2626;
+  font-family: Archivo, Inter, sans-serif;
+  font-size: .86rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .2s var(--bkm-ease), transform .2s var(--bkm-ease), border-color .2s var(--bkm-ease);
+}
+
+.bkm__cancel:hover { background: #fef2f2; border-color: #dc2626; }
+.bkm__cancel:active { transform: scale(.97); }
+
+/* ---- Narrow screens ---- */
+
+/* ---- Small screens: tighten everything so the whole form fits ---- */
+
+@media (max-width: 640px) {
+  .bkm__header { padding: 12px 16px; }
+  .bkm__logo { height: 24px; }
+  .bkm__brand-sub { margin-top: 3px; font-size: .68rem; }
+  .bkm__close { width: 30px; height: 30px; }
+
+  .bkm__body { padding: 16px 16px 14px; }
+  .bkm__title { font-size: 1.28rem; }
+  .bkm__subtitle { margin-top: 3px; font-size: .78rem; }
+  .bkm__fare { margin-top: 8px; padding: 4px 10px; font-size: .7rem; }
+
+  .bkm__form { margin-top: 12px; gap: 10px; }
+  .bkm__pair { gap: 10px; }
+  .bkm__row { gap: 10px; }
+  .bkm__label { margin-bottom: 4px; font-size: .63rem; letter-spacing: .07em; }
+
+  /* 44px instead of 50px across six fields is where most of the saving is. */
+  .bkm__input-wrap { height: 44px; padding: 0 12px; border-radius: 11px; }
+  .bkm__stepper { height: 44px; border-radius: 11px; }
+  .bkm__step { width: 28px; height: 28px; }
+  .bkm__input { font-size: .88rem; }
+
+  .bkm__submit { height: 48px; margin-top: 2px; font-size: .94rem; }
+  .bkm__foot { font-size: .68rem; }
+
+  .bkm__cc-list { max-height: min(46vh, 300px); }
+}
+
+/* Persons + phone only stop sharing a row once the picker genuinely
+   cannot fit beside the stepper. */
+@media (max-width: 640px) {
+  .bkm__row--pax { grid-template-columns: 104px minmax(0, 1fr); }
+}
+
+@media (max-width: 379px) {
+  .bkm__row, .bkm__row--pax { grid-template-columns: minmax(0, 1fr); }
+  .bkm__stepper { max-width: 150px; }
+}
+
+
+
+/* ---- Reduced motion ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  .bkm__confirm,
+  .bkm__cc-pop,
+  .bkm__state--done svg { animation: none; }
+
+  /* No travel — the sheet just appears in place. */
+  .bkm__card,
+  .bkm.is-open .bkm__card { transform: none; transition: none; }
+
+  .bkm__close,
+  .bkm__swap,
+  .bkm__step,
+  .bkm__submit,
+  .bkm__state,
+  .bkm__cancel,
+  .bkm__cc-btn,
+  .bkm__cc-caret,
+  .bkm__input-wrap { transition: none; }
+
+  .bkm__submit:active,
+  .bkm__close:active,
+  .bkm__step:active:not(:disabled),
+  .bkm__cancel:active { transform: none; }
+
+  .bkm__spinner { animation-duration: 1.6s; }
+}

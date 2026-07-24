@@ -35,25 +35,19 @@
 
     this.toggleBtn.addEventListener('click', function () { self.toggle(); });
 
-    // Nav links: close with blink, then navigate
+    // Nav links: if the target section lives on THIS page, smooth-scroll to
+    // it (SPA-style); otherwise the href points to the other document, so let
+    // the browser navigate there normally.
     this.links.forEach(function (link) {
       link.addEventListener('click', function (e) {
-        e.preventDefault();
-        var page = link.getAttribute('data-page');
-        self.setActive(page);
-        self.close();
-        self.onNavigate(page);
+        self._activate(link.getAttribute('data-page'), e);
       });
     });
 
-    // Logo → first page
+    // Logo → home (Kreu). Same rule: scroll if here, navigate if not.
     if (this.logo) {
       this.logo.addEventListener('click', function (e) {
-        e.preventDefault();
-        var page = self.logo.getAttribute('data-page') || 'kreu';
-        self.setActive(page);
-        self.close();
-        self.onNavigate(page);
+        self._activate(self.logo.getAttribute('data-page') || 'kreu', e);
       });
     }
 
@@ -70,6 +64,19 @@
     });
   };
 
+  /** Route a nav/logo click. If the section exists in this document we handle
+      it in-page (smooth scroll); otherwise we fall through to the link's href
+      so the browser loads the other page. */
+  Navbar.prototype._activate = function (page, e) {
+    if (page && document.getElementById(page)) {
+      if (e) e.preventDefault();
+      this.setActive(page);
+      this.close();
+      this.onNavigate(page);
+    }
+    // else: cross-page link → do nothing, let the href navigate.
+  };
+
   /* ---- Open / close ---- */
 
   Navbar.prototype.toggle = function () {
@@ -84,6 +91,10 @@
     this.menu.setAttribute('aria-hidden', 'false');
     this.toggleBtn.setAttribute('aria-expanded', 'true');
     document.body.classList.add('menu-open');
+    // Freeze the page underneath so the overlay is static (no scroll bleed,
+    // no car drift). Lenis owns the scroll when active; body overflow covers
+    // the reduced-motion / no-Lenis case.
+    if (window.F1 && window.F1.lenis) window.F1.lenis.stop();
   };
 
   Navbar.prototype.close = function () {
@@ -95,6 +106,7 @@
     this.menu.setAttribute('aria-hidden', 'true');
     this.toggleBtn.setAttribute('aria-expanded', 'false');
     document.body.classList.remove('menu-open');
+    if (window.F1 && window.F1.lenis) window.F1.lenis.start();
     clearTimeout(this._blinkT);
     this._blinkT = setTimeout(function () {
       self.menu.classList.remove('is-closing');
@@ -121,6 +133,13 @@
       el.textContent = lang === 'EN'
         ? el.getAttribute('data-en')
         : el.getAttribute('data-sq');
+    });
+
+    // Inputs carry their copy in a placeholder rather than a text node.
+    document.querySelectorAll('[data-sq-placeholder][data-en-placeholder]').forEach(function (el) {
+      el.setAttribute('placeholder', lang === 'EN'
+        ? el.getAttribute('data-en-placeholder')
+        : el.getAttribute('data-sq-placeholder'));
     });
 
     this.langBtns.forEach(function (btn) {

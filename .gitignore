@@ -1,3 +1,25 @@
+# Dependencies
 node_modules/
+
+# OS / editor cruft
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# Stray binaries / downloads that ended up in the folder (not part of the site)
+*.exe
+*.winmd
+dl-*.jpg
+
+# ---- Design source material (kept locally, not part of the deployed site) ----
+# Working photos are staged here; the deploy copies live in assets/media/.
+/city pictures/
+/Taxi Booking Page Design/
+/Taxi F1 FAQ Design/
+
+# Loose design / palette reference images in the project root
+/operator.png
+/Rinas.jpg
+/tirana.jpg
+/*pallete*.jpg
+/*pallete*.png

@@ -9,7 +9,7 @@
   'use strict';
 
   /** Page order — must match the DOM order of [data-slide] sections. */
-  var PAGES = ['kreu', 'rreth-nesh', 'sherbimet', 'cmimet', 'rezervo', 'kontakt'];
+  var PAGES = ['kreu', 'cmimet', 'sherbimet', 'rreth-nesh', 'rezervo', 'kontakt'];
 
   function init() {
     var navbar = new window.F1.Navbar({
@@ -26,10 +26,12 @@
     });
 
     // Navbar is transparent over the hero video, green once scrolled down.
+    // Pages without a hero (e.g. sherbimet.html) keep the solid band always.
     var nav = document.getElementById('nav');
     if (nav) {
+      var hasHero = !!document.getElementById('kreu');
       var onScroll = function () {
-        nav.classList.toggle('is-scrolled', window.scrollY > 60);
+        nav.classList.toggle('is-scrolled', !hasHero || window.scrollY > 60);
       };
       onScroll(); // set correct state on load (e.g. refresh mid-page)
       window.addEventListener('scroll', onScroll, { passive: true });

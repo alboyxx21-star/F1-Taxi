@@ -1,0 +1,184 @@
+/* ============================================================
+   F1 TAXI — footer.css (Clean Mobile Stack Fix)
+   ============================================================ */
+
+.footer {
+  position: relative;
+  z-index: 1;
+  font-family: Verdana, Geneva, sans-serif;
+  color: var(--c-cornsilk);
+  background:
+    radial-gradient(120% 90% at 12% 0%, rgba(0, 255, 57, .10) 0%, transparent 55%),
+    linear-gradient(180deg, #1b2610 0%, #0d1408 100%);
+  border-top: 1px solid rgba(254, 250, 224, .14);
+}
+
+.footer__inner {
+  width: min(1180px, 92vw);
+  margin: 0 auto;
+  padding: clamp(48px, 8vh, 84px) 0 clamp(30px, 4vh, 48px);
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+  gap: clamp(28px, 4vw, 56px);
+}
+
+/* ---- Brand column ---- */
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer__logo {
+  display: inline-flex;
+  margin-bottom: 18px;
+}
+
+.footer__logo img {
+  height: 40px;
+  width: auto;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .4));
+}
+
+.footer__tagline {
+  margin: 0 0 22px;
+  max-width: 34ch;
+  font-size: 14px;
+  line-height: 1.7;
+  color: color-mix(in oklch, var(--c-cornsilk), transparent 22%);
+}
+
+.footer__social {
+  display: flex;
+  gap: 12px;
+}
+
+.footer__social a {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(254, 250, 224, .22);
+  color: var(--c-cornsilk);
+  transition: color .3s ease, border-color .3s ease, background .3s ease, transform .3s ease;
+}
+
+.footer__social a:hover {
+  color: var(--c-accent);
+  border-color: var(--c-accent);
+  background: rgba(0, 255, 57, .1);
+  transform: translateY(-2px);
+}
+
+/* ---- Link columns ---- */
+.footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer__col-title {
+  display: block;
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+}
+
+.footer__col a {
+  display: block;
+  color: color-mix(in oklch, var(--c-cornsilk), transparent 18%);
+  font-size: 14.5px;
+  width: fit-content;
+  transition: color .25s ease, transform .25s ease;
+}
+
+.footer__col a:hover {
+  color: var(--c-cornsilk);
+  transform: translateX(3px);
+}
+
+/* ---- Contact ---- */
+.footer__contact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer__contact p {
+  margin: 0;
+  font-size: 14px;
+  color: color-mix(in oklch, var(--c-cornsilk), transparent 22%);
+}
+
+.footer__phone {
+  font-size: 18px !important;
+  font-weight: 700;
+  color: var(--c-cornsilk) !important;
+}
+
+/* ---- Bottom bar ---- */
+.footer__bar {
+  width: min(1180px, 92vw);
+  margin: 0 auto;
+  padding: 20px 0 clamp(24px, 4vh, 40px);
+  border-top: 1px solid rgba(254, 250, 224, .12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.footer__copy {
+  margin: 0;
+  font-size: 13px;
+  color: color-mix(in oklch, var(--c-cornsilk), transparent 34%);
+}
+
+.footer__top {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--c-accent);
+  transition: opacity .25s ease;
+}
+
+.footer__top:hover { opacity: .75; }
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .footer__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .footer__brand { 
+    grid-column: 1 / -1; 
+  }
+}
+
+@media (max-width: 520px) {
+  .footer__inner { 
+    grid-template-columns: 1fr; 
+    gap: 36px; /* Generous gap between stacked grid sections to prevent overlapping */
+  }
+  
+  .footer__col {
+    gap: 10px;
+  }
+
+  /* Force clear spacing above titles when layout switches to a single mobile column */
+  .footer__col + .footer__col,
+  .footer__contact {
+    margin-top: 12px; 
+  }
+
+  .footer__bar { 
+    justify-content: center; 
+    text-align: center; 
+  }
+}

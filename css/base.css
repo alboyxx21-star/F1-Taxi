@@ -24,6 +24,20 @@
 
   /* Type */
   --font-main: 'Space Grotesk', system-ui, sans-serif;
+
+  /* Approved section backdrop — sage-and-cream wash + inline-SVG waves.
+     Mirrors the "Rreth Nesh" look in css/about.css so every new section
+     (FAQ, Reviews, …) shares one recipe. */
+  --sage-section:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 1200' preserveAspectRatio='xMidYMid slice'%3E%3Cpath d='M0 0h600v150c-110 62-230 8-330 66C170 274 80 236 0 296Z' fill='%236f9c6a' opacity='.22'/%3E%3Cpath d='M600 150c-110 62-230 8-330 66C170 274 80 236 0 296v250c130-64 240 6 350-58 100-58 180-24 250-86Z' fill='%23f4f3e5' opacity='.5'/%3E%3Cpath d='M0 546c130-64 240 6 350-58 100-58 180-24 250-86v260c-120 70-230 20-340 84-100 58-190 30-260 74Z' fill='%23a8c5a1' opacity='.3'/%3E%3Cpath d='M0 820c70-44 160-16 260-74 110-64 220-14 340-84v250c-120 66-240 16-350 78-95 54-180 30-250 66Z' fill='%23eeeadb' opacity='.45'/%3E%3Cpath d='M0 976c70-36 155-12 250-66 110-62 230-12 350-78v368H0Z' fill='%23659460' opacity='.24'/%3E%3C/svg%3E") center / cover no-repeat,
+    radial-gradient(90% 60% at 10% 6%, rgba(111, 156, 106, .40) 0%, transparent 62%),
+    radial-gradient(75% 55% at 90% 26%, rgba(244, 243, 229, .95) 0%, transparent 65%),
+    radial-gradient(85% 60% at 82% 96%, rgba(101, 148, 96, .38) 0%, transparent 60%),
+    radial-gradient(60% 45% at 26% 58%, rgba(170, 197, 161, .5) 0%, transparent 65%),
+    linear-gradient(135deg, #dce5cf 0%, #eeeee0 48%, #ccdabf 100%);
+
+  /* Cornsilk text with the dark "bold edge" used on the sage backdrops */
+  --sage-text-shadow: 0 1px 2px rgba(11, 18, 12, .5), 0 2px 12px rgba(11, 18, 12, .3);
 }
 
 /* ---- Reset ---- */

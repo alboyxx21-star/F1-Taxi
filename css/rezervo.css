@@ -1,0 +1,342 @@
+/* ============================================================
+   F1 TAXI — rezervo.css  (Book a Taxi)
+   Two-panel booking card: a location photo panel on the left that
+   swaps between City / Airport, and the form (or confirmation) on
+   the right. Light glass card floating over the stage backdrop.
+   ============================================================ */
+
+:root {
+  --rez-ink:    #0f3d2a;   /* dark green headings           */
+  --rez-body:   #12261d;   /* body text                     */
+  --rez-mute:   #5b7267;   /* muted labels / captions       */
+  --rez-green:  #12a150;   /* accent green                  */
+  --rez-green2: #0e7a3a;   /* deep accent                   */
+  --rez-line:   rgba(15, 61, 42, .16);
+  --rez-err:    #c0392b;
+}
+
+.slide--rezervo { padding-block: clamp(70px, 11vh, 120px); }
+
+/* Soften the stage art so the light card reads clearly on top of it. */
+.slide--rezervo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(1200px 900px at 62% 50%, rgba(10, 36, 25, .18), rgba(8, 28, 18, .55));
+}
+
+.rez {
+  position: relative;
+  z-index: 1;
+  width: min(880px, 92vw);
+  margin-inline: auto;
+}
+
+/* ---- Page heading (above the card) ---- */
+.rez__pagehead {
+  text-align: center;
+  color: #fff;
+  margin-bottom: clamp(18px, 3vh, 30px);
+}
+.rez__pagetitle {
+  margin: 0;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: clamp(30px, 5vw, 52px);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1;
+  text-shadow: 0 2px 4px rgba(5, 26, 17, .5), 0 6px 24px rgba(5, 26, 17, .4);
+}
+.rez__pagesub {
+  margin: 10px auto 0;
+  max-width: 46ch;
+  font-size: clamp(12.5px, 1.1vw, 15px);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, .82);
+  text-shadow: 0 1px 3px rgba(5, 26, 17, .55);
+}
+
+/* ---- The card ---- */
+.rez__card {
+  display: grid;
+  grid-template-columns: 0.86fr 1.14fr;
+  border-radius: 22px;
+  overflow: hidden;
+  background: rgba(244, 247, 240, .93);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, .55);
+  box-shadow: 0 32px 80px -34px rgba(4, 20, 12, .72);
+  color: var(--rez-body);
+  font-family: inherit;
+  animation: rez-pop .55s cubic-bezier(.34, 1.56, .64, 1) both;
+}
+
+@keyframes rez-pop {
+  0%   { transform: scale(.9) translateY(18px); opacity: 0; }
+  60%  { transform: scale(1.01) translateY(-3px); }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* ============================================================
+   LEFT · LOCATION PANEL
+   ============================================================ */
+.rez__aside {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  min-height: 240px;
+}
+
+.rez__photo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  transition: opacity .6s ease;
+}
+.rez__photo--city {
+  background-image: linear-gradient(to top, rgba(5, 26, 17, .94) 0%, rgba(5, 26, 17, .35) 48%, rgba(5, 26, 17, .2) 100%), url("../assets/media/rez-tirana.jpg");
+  background-position: 50% 32%;
+}
+.rez__photo--airport {
+  background-image: linear-gradient(to top, rgba(5, 26, 17, .94) 0%, rgba(5, 26, 17, .4) 48%, rgba(5, 26, 17, .25) 100%), url("../assets/media/rez-rinas.jpg");
+  background-position: 50% 55%;
+}
+.rez__card[data-mode="city"]    .rez__photo--airport,
+.rez__card[data-mode="airport"] .rez__photo--city { opacity: 0; }
+
+.rez__aside-inner {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* copy sits in the middle of the photo */
+  padding: clamp(26px, 3vw, 38px) clamp(22px, 2.6vw, 30px);
+}
+
+/* Location copy */
+.rez__eyebrow {
+  display: block;
+  font-size: 10px; font-weight: 700; letter-spacing: 2.2px;
+  color: #7fe3a6;
+  margin-bottom: 9px;
+}
+.rez__loc-title {
+  margin: 0;
+  font-size: clamp(20px, 2.2vw, 25px);
+  line-height: 1.22; font-weight: 700; letter-spacing: -.01em; color: #fff;
+}
+.rez__loc-sub {
+  margin: 10px 0 0;
+  max-width: 32ch;
+  font-size: 12px; line-height: 1.55; color: #c8ddce;
+}
+.rez__divider { height: 1px; background: rgba(255, 255, 255, .16); margin: 18px 0 15px; }
+
+.rez__perks { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.rez__perk { display: flex; align-items: baseline; gap: 10px; font-size: 12px; line-height: 1.45; color: #d7e7dc; }
+.rez__perk b { color: #fff; }
+.rez__perk-dot {
+  flex: none; width: 5px; height: 5px; border-radius: 50%;
+  background: #2fbf6a; transform: translateY(-1px);
+}
+
+/* Mode-dependent show/hide of the left-panel text */
+.rez__card[data-mode="city"]    .rez__air,
+.rez__card[data-mode="airport"] .rez__city { display: none; }
+/* title / sub hold two spans — keep them block so line-height is right */
+.rez__loc-title span, .rez__loc-sub span { display: block; }
+
+/* ============================================================
+   RIGHT · FORM PANEL
+   ============================================================ */
+.rez__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* form sits centered — no bottom gap */
+  padding: clamp(18px, 2.2vw, 24px) clamp(20px, 2.4vw, 28px);
+  background: rgba(255, 255, 255, .5);
+}
+.rez__form, .rez__confirm { width: 100%; }
+
+.rez__form-title { margin: 0; font-size: 19px; font-weight: 700; letter-spacing: -.01em; color: var(--rez-ink); }
+.rez__form-sub { margin: 4px 0 0; font-size: 11.5px; line-height: 1.45; color: var(--rez-mute); }
+
+/* Service toggle */
+.rez__modes {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+  margin: 13px 0 14px; padding: 4px;
+  background: rgba(15, 61, 42, .07); border-radius: 11px;
+}
+.rez__mode {
+  padding: 8px; border: 0; border-radius: 8px;
+  background: transparent; color: var(--rez-ink);
+  font-size: 12.5px; font-weight: 700; cursor: pointer;
+  transition: all .18s cubic-bezier(.23, 1, .32, 1);
+}
+.rez__mode.is-active {
+  background: linear-gradient(145deg, #0f3d2a, #0a2c1e); color: #fff;
+  box-shadow: 0 8px 20px -10px rgba(15, 61, 42, .9);
+}
+
+/* Grid of fields */
+.rez__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 11px 14px; }
+.rez__field { display: flex; flex-direction: column; gap: 4px; }
+.rez__field--wide { grid-column: 1 / -1; }
+
+.rez__label {
+  font-size: 9.5px; font-weight: 700; letter-spacing: .6px;
+  text-transform: uppercase; color: var(--rez-ink);
+}
+.rez__label small { color: #8aa397; font-weight: 400; letter-spacing: .2px; text-transform: none; }
+
+.rez__input {
+  width: 100%; padding: 9px 11px;
+  border: 1px solid var(--rez-line); border-radius: 9px;
+  background: rgba(255, 255, 255, .85);
+  font-size: 12.5px; color: var(--rez-body); outline: none;
+  transition: border-color .16s ease, box-shadow .16s ease, background .16s ease;
+}
+.rez__input::placeholder { color: #8aa397; }
+.rez__input:focus {
+  border-color: var(--rez-green);
+  box-shadow: 0 0 0 3px rgba(18, 161, 80, .15);
+  background: #fff;
+}
+.rez__textarea { resize: none; min-height: 40px; line-height: 1.45; }
+.rez__input[type="date"], .rez__input[type="time"] { color-scheme: light; }
+.rez__input[type="date"]::-webkit-calendar-picker-indicator,
+.rez__input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(28%) sepia(24%) saturate(1200%) hue-rotate(96deg);
+  cursor: pointer; opacity: .7;
+}
+
+/* Pin markers on pickup / drop-off */
+.rez__pin { position: relative; display: block; }
+.rez__pin .rez__input--pin { padding-left: 30px; }
+.rez__pin::before {
+  content: ""; position: absolute; left: 12px; top: 50%; z-index: 1;
+  width: 7px; height: 7px;
+}
+.rez__pin--from::before {
+  transform: translateY(-50%);
+  border-radius: 50%; background: var(--rez-green);
+  box-shadow: 0 0 0 3px rgba(18, 161, 80, .18);
+}
+.rez__pin--to::before {
+  transform: translateY(-50%) rotate(45deg);
+  background: var(--rez-ink);
+}
+
+/* Only flag bad values after a submit attempt */
+.rez__form.is-validated .rez__input:invalid { border-color: #e08; border-color: var(--rez-err); }
+
+/* Passenger stepper */
+.rez__stepper {
+  display: flex; align-items: center; gap: 10px; width: fit-content;
+  padding: 3px 7px; border: 1px solid var(--rez-line); border-radius: 9px;
+  background: rgba(255, 255, 255, .85);
+}
+.rez__step {
+  width: 28px; height: 28px; border: 0; border-radius: 7px;
+  display: grid; place-items: center;
+  background: rgba(15, 61, 42, .08); color: var(--rez-ink);
+  font-size: 17px; font-weight: 700; cursor: pointer;
+  transition: background .15s ease, transform .1s ease;
+}
+.rez__step:hover { background: rgba(15, 61, 42, .16); }
+.rez__step:active { transform: scale(.94); }
+.rez__step--plus { background: var(--rez-green); color: #fff; }
+.rez__step--plus:hover { background: var(--rez-green2); }
+.rez__pax-val { min-width: 22px; text-align: center; font-size: 14px; font-weight: 700; color: var(--rez-ink); }
+
+.rez__error { margin: 10px 0 0; font-size: 11px; color: var(--rez-err); }
+
+.rez__submit {
+  margin-top: 15px; width: 100%; padding: 12px; border: 0; border-radius: 11px;
+  background: linear-gradient(145deg, #16a34a, #0e7a3a);
+  color: #fff; font-size: 13.5px; font-weight: 700; letter-spacing: .4px; cursor: pointer;
+  box-shadow: 0 12px 26px -10px rgba(16, 163, 74, .8);
+  transition: transform .16s cubic-bezier(.23, 1, .32, 1), box-shadow .16s ease;
+}
+.rez__submit:hover { box-shadow: 0 16px 32px -10px rgba(16, 163, 74, .95); }
+.rez__submit:active { transform: scale(.985); }
+.rez__note { margin: 8px 0 0; text-align: center; font-size: 10px; color: #7a9186; }
+
+/* ============================================================
+   CONFIRMATION STATE
+   ============================================================ */
+.rez__confirm {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; gap: 0;
+}
+.rez__confirm[hidden] { display: none; }   /* the attribute must win over display:flex */
+.rez__check {
+  width: 76px; height: 76px; border-radius: 50%; display: grid; place-items: center;
+  background: radial-gradient(circle at 50% 40%, #2fbf6a, #0e7a3a);
+  box-shadow: 0 16px 36px -12px rgba(16, 163, 74, .9);
+  animation: rez-pop .5s cubic-bezier(.23, 1, .32, 1) both;
+}
+.rez__check path { stroke-dasharray: 30; stroke-dashoffset: 30; animation: rez-draw .4s .3s ease-out forwards; }
+@keyframes rez-draw { to { stroke-dashoffset: 0; } }
+@keyframes rez-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+.rez__confirm-title { margin: 16px 0 0; font-size: 21px; font-weight: 700; color: var(--rez-ink); animation: rez-rise .5s .15s both; }
+.rez__confirm-sub { margin: 7px 0 0; max-width: 340px; font-size: 12.5px; line-height: 1.5; color: var(--rez-mute); animation: rez-rise .5s .22s both; }
+.rez__confirm-sub b { color: var(--rez-ink); }
+
+.rez__receipt {
+  margin-top: 18px; width: 100%; max-width: 360px;
+  border: 1px solid rgba(15, 61, 42, .12); border-radius: 12px; overflow: hidden;
+  background: rgba(255, 255, 255, .6);
+  text-align: left; animation: rez-rise .5s .3s both;
+}
+.rez__receipt-body { margin: 0; padding: 2px 16px; }
+.rez__receipt-row { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; border-bottom: 1px solid rgba(15, 61, 42, .08); }
+.rez__receipt-row:last-child { border-bottom: 0; }
+.rez__receipt-row dt { margin: 0; font-size: 11.5px; color: #7a9186; }
+.rez__receipt-row dd { margin: 0; font-size: 12.5px; font-weight: 700; color: var(--rez-body); text-align: right; }
+
+.rez__confirm-actions { display: flex; gap: 10px; margin-top: 18px; animation: rez-rise .5s .38s both; }
+.rez__again {
+  padding: 11px 18px; border-radius: 10px; border: 1px solid rgba(15, 61, 42, .2);
+  background: rgba(255, 255, 255, .8); color: var(--rez-ink);
+  font-size: 13px; font-weight: 700; cursor: pointer;
+}
+.rez__again:hover { background: #fff; }
+.rez__again:active { transform: scale(.97); }
+.rez__callbtn {
+  padding: 11px 18px; border-radius: 10px; display: flex; align-items: center;
+  background: linear-gradient(145deg, #16a34a, #0e7a3a); color: #fff;
+  font-size: 13px; font-weight: 700;
+  box-shadow: 0 10px 22px -10px rgba(16, 163, 74, .8);
+}
+.rez__callbtn:active { transform: scale(.97); }
+
+/* State switch */
+.rez__card.is-confirmed .rez__form { display: none; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 820px) {
+  .rez__card { grid-template-columns: 1fr; min-height: 0; }
+  .rez__aside { min-height: 300px; }
+  .rez__loc-sub { max-width: none; }
+}
+
+@media (max-width: 460px) {
+  .rez__grid { grid-template-columns: 1fr; }
+  .rez__confirm-actions { flex-direction: column; width: 100%; max-width: 380px; }
+  .rez__callbtn { justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rez__card, .rez__check, .rez__confirm-title, .rez__confirm-sub,
+  .rez__receipt, .rez__confirm-actions { animation: none; }
+  .rez__check path { stroke-dashoffset: 0; animation: none; }
+  .rez__submit, .rez__step, .rez__mode, .rez__photo { transition: none; }
+}

@@ -78,12 +78,15 @@
 
 .kreu-heading {
   margin: 0 0 clamp(14px, 2.4vh, 26px);
+  font-family: Verdana, Geneva, Tahoma, sans-serif; /* one font across the whole heading */
   font-weight: 700;
-  line-height: .95;
-  letter-spacing: -.02em;
+  line-height: 1;
+  letter-spacing: -.03em;
   text-transform: uppercase;
-  font-size: clamp(40px, 6.4vw, 92px);
-  white-space: nowrap; /* only the <br> breaks: "WELCOME" / "TO F1 TAXI" */
+  /* Verdana is wider than the old face — scale so the longest line
+     ("MIRË SE VINI") fits the content box at every width. */
+  font-size: clamp(27px, 7vw, 84px);
+  white-space: nowrap; /* only the <br> breaks the two lines */
 }
 
 /* Brand mark: Verdana, green "F", red "1", green "TAXI" */
@@ -181,7 +184,7 @@
   /* Soft green-and-cream flowing palette (real artwork) */
   background: #3f5b34 url("../assets/media/rezervo-bg.jpg") center / cover no-repeat;
 }
-.slide--kontakt    { background: #dee2e6; justify-content: center; }
+.slide--kontakt    { background: #163a25 url("../assets/media/kontakt-bg.jpg") center / cover no-repeat; justify-content: center; }
 
 /* ---- Drifting glow orbs ---- */
 .slide__orb {

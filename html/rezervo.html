@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="F1 Taxi — rezervo taksinë tënde 24/7 në Tiranë dhe në gjithë Shqipërinë. I shpejtë, i sigurt, profesional.">
+  <title>F1 Taxi — Rezervo Taxi</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="../assets/media/favicon.ico">
+  <link rel="icon" type="image/png" sizes="256x256" href="../assets/media/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/media/apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/navbar.css">
+  <link rel="stylesheet" href="../css/menu.css">
+  <link rel="stylesheet" href="../css/stage.css">
+  <link rel="stylesheet" href="../css/footer.css">
+  <link rel="stylesheet" href="../css/rezervo.css">
+
+  <!-- Libraries: GSAP + ScrollTrigger + Lenis smooth scroll (vendored locally) -->
+  <script defer src="../js/vendor/gsap.min.js"></script>
+  <script defer src="../js/vendor/ScrollTrigger.min.js"></script>
+  <script defer src="../js/vendor/lenis.min.js"></script>
+
+  <!-- Scripts (defer: run after parse, in order) -->
+  <script defer src="../js/navbar.js"></script>
+  <script defer src="../js/main.js"></script>
+  <script defer src="../js/hero.js"></script>
+  <script defer src="../js/scroll.js"></script>
+  <script defer src="../js/rezervo.js"></script>
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="nav is-scrolled" id="nav">
+    <a class="nav__logo" href="../index.html#kreu" data-page="kreu" aria-label="F1 Taxi">
+      <img src="../assets/media/logo.webp" alt="F1 Taxi">
+    </a>
+    <button class="nav__toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ============ FULLSCREEN MENU OVERLAY ============ -->
+  <div class="menu" id="menu" aria-hidden="true">
+
+    <div class="menu__panel">
+      <div class="menu__grid"></div>
+      <div class="menu__accent"></div>
+      <div class="menu__car-wrap">
+        <div class="menu__car">
+          <img class="menu__car-img menu__car-img--open" src="../assets/media/car-open.png" alt="">
+          <img class="menu__car-img menu__car-img--close" src="../assets/media/car-lights.png" alt="">
+          <span class="menu__glow"></span>
+          <span class="menu__headlight menu__headlight--l"></span>
+          <span class="menu__headlight menu__headlight--r"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu__content">
+      <nav class="menu__links" aria-label="Navigimi kryesor">
+        <a class="menu__link" href="../index.html#kreu" data-page="kreu">
+          <span class="menu__dash"></span>
+          <span class="menu__label" data-sq="Kreu" data-en="Home">Kreu</span>
+        </a>
+        <a class="menu__link" href="sherbimet.html#sherbimet" data-page="sherbimet">
+          <span class="menu__dash"></span>
+          <span class="menu__label" data-sq="Shërbimet" data-en="Services">Shërbimet</span>
+        </a>
+        <a class="menu__link" href="rreth-nesh.html#rreth-nesh" data-page="rreth-nesh">
+          <span class="menu__dash"></span>
+          <span class="menu__label" data-sq="Rreth Nesh" data-en="About Us">Rreth Nesh</span>
+        </a>
+        <a class="menu__link" href="rezervo.html#rezervo" data-page="rezervo">
+          <span class="menu__dash"></span>
+          <span class="menu__label" data-sq="Rezervo Taxi" data-en="Book a Taxi">Rezervo Taxi</span>
+        </a>
+        <a class="menu__link" href="kontakt.html#kontakt" data-page="kontakt">
+          <span class="menu__dash"></span>
+          <span class="menu__label" data-sq="Kontakt" data-en="Contact">Kontakt</span>
+        </a>
+      </nav>
+
+      <div class="menu__social">
+        <a href="#" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5A1.94 1.94 0 1 1 5 3.06 1.94 1.94 0 0 1 6.94 5ZM5.34 8.5h3.2V21h-3.2Zm5.2 0h3.07v1.71h.04a3.36 3.36 0 0 1 3-1.66c3.22 0 3.81 2.12 3.81 4.87V21h-3.2v-5.55c0-1.32 0-3-1.85-3s-2.13 1.44-2.13 2.93V21h-3.2Z"/></svg>
+        </a>
+        <a href="#" aria-label="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.9c0-.74.5-.9.85-.9H17V3.05L14.2 3c-2.9 0-3.54 2.17-3.54 3.56V8.5H9v3h1.66V21H14v-9.5h2.5l.34-3Z"/></svg>
+        </a>
+      </div>
+
+      <div class="menu__lang">
+        <button class="menu__lang-btn is-active" data-lang="SQ">SQ</button>
+        <span class="menu__lang-sep"></span>
+        <button class="menu__lang-btn" data-lang="EN">EN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ STAGE ============ -->
+  <main class="stage">
+    <div class="stage__scroller" id="scroller">
+      <div class="stage__track" id="track">
+        <div class="stage__sticky" id="sticky">
+
+          <!-- REZERVO TAXI -->
+          <section class="slide slide--rezervo" id="rezervo" data-slide>
+            <div class="slide__orb"></div>
+
+            <div class="rez">
+              <header class="rez__pagehead">
+                <h1 class="rez__pagetitle" data-sq="Rezervo Taxi" data-en="Book a Taxi">Rezervo Taxi</h1>
+                <p class="rez__pagesub" data-sq="Plotëso të dhënat — të konfirmojmë udhëtimin brenda minutash." data-en="Fill in your details — we'll confirm your ride within minutes.">Plotëso të dhënat — të konfirmojmë udhëtimin brenda minutash.</p>
+              </header>
+
+              <div class="rez__card" id="rez-card" data-mode="city">
+
+                <!-- ============ LEFT · LOCATION PANEL ============ -->
+                <aside class="rez__aside">
+                  <div class="rez__photo rez__photo--city" aria-hidden="true"></div>
+                  <div class="rez__photo rez__photo--airport" aria-hidden="true"></div>
+
+                  <div class="rez__aside-inner">
+                    <div class="rez__aside-copy">
+                      <span class="rez__eyebrow rez__city" data-sq="TIRANË · UDHËTIME NË QYTET" data-en="TIRANA · CITY RIDES">TIRANË · UDHËTIME NË QYTET</span>
+                      <span class="rez__eyebrow rez__air" data-sq="RINAS · AEROPORTI TIA" data-en="RINAS · TIA AIRPORT">RINAS · AEROPORTI TIA</span>
+
+                      <h2 class="rez__loc-title">
+                        <span class="rez__city" data-sq="Kudo në Tiranë, sipas orarit tënd." data-en="Anywhere in Tirana, on your schedule.">Kudo në Tiranë, sipas orarit tënd.</span>
+                        <span class="rez__air" data-sq="Transfere aeroporti, ditë e natë." data-en="Airport transfers, day flights and red-eyes.">Transfere aeroporti, ditë e natë.</span>
+                      </h2>
+
+                      <p class="rez__loc-sub">
+                        <span class="rez__city" data-sq="Derë më derë në të gjithë qytetin — Blloku, pazari, unaza. Makinë e pastër dhe shofer që i njeh rrugët." data-en="Door to door across the city — Blloku, the bazaar, the ring road. A clean car and a driver who knows the shortcuts.">Derë më derë në të gjithë qytetin — Blloku, pazari, unaza. Makinë e pastër dhe shofer që i njeh rrugët.</span>
+                        <span class="rez__air" data-sq="Të presim në ardhje me emrin tënd në tabelë, ndjekim fluturimin për vonesa dhe të çojmë në qytet me çmim fiks." data-en="We meet you at arrivals with your name on a sign, watch your flight for delays, and get you to town for a fixed fare.">Të presim në ardhje me emrin tënd në tabelë, ndjekim fluturimin për vonesa dhe të çojmë në qytet me çmim fiks.</span>
+                      </p>
+
+                      <div class="rez__divider" aria-hidden="true"></div>
+
+                      <ul class="rez__perks rez__city">
+                        <li class="rez__perk"><span class="rez__perk-dot" aria-hidden="true"></span><span><b data-sq="Çmime fikse" data-en="Fixed fares">Çmime fikse</b> — <span data-sq="të rëna dakord para nisjes" data-en="agreed before you ride">të rëna dakord para nisjes</span></span></li>
+                        <li class="rez__perk"><span class="rez__perk-dot" aria-hidden="true"></span><span><b data-sq="Shoferë të licencuar" data-en="Licensed drivers">Shoferë të licencuar</b> — <span data-sq="të verifikuar dhe të siguruar" data-en="vetted and insured">të verifikuar dhe të siguruar</span></span></li>
+                        <li class="rez__perk"><span class="rez__perk-dot" aria-hidden="true"></span><span><b data-sq="Në dispozicion 24/7" data-en="On call 24/7">Në dispozicion 24/7</b> — <span data-sq="ditë, natë, festa" data-en="day, night, holidays">ditë, natë, festa</span></span></li>
+                      </ul>
+
+                      <ul class="rez__perks rez__air">
+                        <li class="rez__perk"><span class="rez__perk-dot" aria-hidden="true"></span><span><b data-sq="Pritje me tabelë" data-en="Meet &amp; greet">Pritje me tabelë</b> — <span data-sq="emri yt te ardhjet" data-en="name sign at arrivals">emri yt te ardhjet</span></span></li>
+                        <li class="rez__perk"><span class="rez__perk-dot" aria-hidden="true"></span><span><b data-sq="Ndjekje fluturimi" data-en="Flight tracking">Ndjekje fluturimi</b> — <span data-sq="presim nëse vonohesh" data-en="we wait if you’re late">presim nëse vonohesh</span></span></li>
+                        <li class="rez__perk"><span class="rez__perk-dot" aria-hidden="true"></span><span><b data-sq="Çmim fiks aeroporti" data-en="Fixed airport fare">Çmim fiks aeroporti</b> — <span data-sq="pa surpriza taksimetri" data-en="no meter surprises">pa surpriza taksimetri</span></span></li>
+                      </ul>
+                    </div>
+                  </div>
+                </aside>
+
+                <!-- ============ RIGHT · FORM / CONFIRMATION ============ -->
+                <div class="rez__panel">
+
+                  <!-- FORM STATE -->
+                  <form class="rez__form" id="rez-form" novalidate>
+                    <h2 class="rez__form-title" data-sq="Rezervo Taxi" data-en="Book a Taxi">Rezervo Taxi</h2>
+                    <p class="rez__form-sub" data-sq="Na thuaj ku dhe kur. Konfirmohet brenda minutash — paguan shoferin." data-en="Tell us where and when. Confirmed in minutes — pay the driver.">Na thuaj ku dhe kur. Konfirmohet brenda minutash — paguan shoferin.</p>
+
+                    <!-- Service toggle -->
+                    <div class="rez__modes" role="group" aria-label="Lloji i shërbimit">
+                      <button type="button" class="rez__mode is-active" id="rez-mode-city" data-mode="city" aria-pressed="true" data-sq="Udhëtim në qytet" data-en="City ride">Udhëtim në qytet</button>
+                      <button type="button" class="rez__mode" id="rez-mode-airport" data-mode="airport" aria-pressed="false" data-sq="Transfer aeroporti" data-en="Airport transfer">Transfer aeroporti</button>
+                    </div>
+
+                    <div class="rez__grid">
+                      <div class="rez__field">
+                        <label class="rez__label" for="rez-name" data-sq="Emri i plotë" data-en="Full name">Emri i plotë</label>
+                        <input class="rez__input" type="text" id="rez-name" name="name" required autocomplete="name"
+                               data-sq-placeholder="Ana Marku" data-en-placeholder="Ana Marku" placeholder="Ana Marku">
+                      </div>
+
+                      <div class="rez__field">
+                        <label class="rez__label" for="rez-phone" data-sq="Telefoni" data-en="Phone number">Telefoni</label>
+                        <input class="rez__input" type="tel" id="rez-phone" name="phone" required autocomplete="tel"
+                               placeholder="+355 6X XXX XXXX">
+                      </div>
+
+                      <div class="rez__field rez__field--wide">
+                        <label class="rez__label" for="rez-from" data-sq="Vendi i marrjes" data-en="Pickup location">Vendi i marrjes</label>
+                        <span class="rez__pin rez__pin--from">
+                          <input class="rez__input rez__input--pin" type="text" id="rez-from" name="from" value="Tiranë" required
+                                 data-sq-placeholder="Adresë, hotel ose pikë referimi" data-en-placeholder="Address, hotel or landmark"
+                                 placeholder="Adresë, hotel ose pikë referimi">
+                        </span>
+                      </div>
+
+                      <div class="rez__field rez__field--wide">
+                        <label class="rez__label" for="rez-to" data-sq="Destinacioni" data-en="Drop-off location">Destinacioni</label>
+                        <span class="rez__pin rez__pin--to">
+                          <input class="rez__input rez__input--pin" type="text" id="rez-to" name="to" required
+                                 data-sq-placeholder="Ku doni të shkoni?" data-en-placeholder="Where are you heading?"
+                                 placeholder="Ku doni të shkoni?">
+                        </span>
+                      </div>
+
+                      <div class="rez__field">
+                        <label class="rez__label" for="rez-date" data-sq="Data" data-en="Date">Data</label>
+                        <input class="rez__input" type="date" id="rez-date" name="date" required>
+                      </div>
+
+                      <div class="rez__field">
+                        <label class="rez__label" for="rez-time" data-sq="Ora" data-en="Time">Ora</label>
+                        <input class="rez__input" type="time" id="rez-time" name="time" required>
+                      </div>
+
+                      <div class="rez__field rez__field--wide">
+                        <label class="rez__label" data-sq="Pasagjerë" data-en="Passengers">Pasagjerë</label>
+                        <div class="rez__stepper">
+                          <button type="button" class="rez__step" id="rez-pax-dec" aria-label="−">−</button>
+                          <span class="rez__pax-val" id="rez-pax-val" aria-live="polite">2</span>
+                          <button type="button" class="rez__step rez__step--plus" id="rez-pax-inc" aria-label="+">+</button>
+                        </div>
+                        <input type="hidden" name="pax" id="rez-pax" value="2">
+                      </div>
+
+                      <div class="rez__field rez__field--wide">
+                        <label class="rez__label" for="rez-note">
+                          <span data-sq="Shënime" data-en="Notes">Shënime</span>
+                          <small data-sq="· opsionale (numri i fluturimit, bagazh…)" data-en="· optional (flight number, luggage…)">· opsionale (numri i fluturimit, bagazh…)</small>
+                        </label>
+                        <textarea class="rez__input rez__textarea" id="rez-note" name="note" rows="2"
+                                  data-sq-placeholder="Numri i fluturimit, karrige fëmije, bagazh shtesë…" data-en-placeholder="Flight number, child seat, extra luggage…"
+                                  placeholder="Numri i fluturimit, karrige fëmije, bagazh shtesë…"></textarea>
+                      </div>
+                    </div>
+
+                    <p class="rez__error" id="rez-error" role="alert" hidden></p>
+
+                    <button class="rez__submit" type="submit" data-sq="Konfirmo rezervimin" data-en="Confirm booking">Konfirmo rezervimin</button>
+                    <p class="rez__note" data-sq="Pa pagesë tani · Paguan shoferin · Anulim falas" data-en="No payment now · Pay the driver · Free cancellation">Pa pagesë tani · Paguan shoferin · Anulim falas</p>
+                  </form>
+
+                  <!-- CONFIRMATION STATE -->
+                  <div class="rez__confirm" id="rez-confirm" hidden>
+                    <div class="rez__check" aria-hidden="true">
+                      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                    </div>
+                    <h2 class="rez__confirm-title" id="rez-confirm-title"></h2>
+                    <p class="rez__confirm-sub" id="rez-confirm-sub"></p>
+
+                    <div class="rez__receipt">
+                      <dl class="rez__receipt-body" id="rez-summary"></dl>
+                    </div>
+
+                    <div class="rez__confirm-actions">
+                      <button type="button" class="rez__again" id="rez-again" data-sq="Rezervo një udhëtim tjetër" data-en="Book another ride">Rezervo një udhëtim tjetër</button>
+                      <a class="rez__callbtn" href="tel:+355682550000" data-sq="Na merr në telefon" data-en="Call us">Na merr në telefon</a>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer" id="footer">
+    <div class="footer__inner">
+
+      <div class="footer__brand">
+        <a class="footer__logo" href="../index.html#kreu" data-page="kreu" aria-label="F1 Taxi">
+          <img src="../assets/media/logo.webp" alt="F1 Taxi">
+        </a>
+        <p class="footer__tagline" data-sq="Standardi i ri i udhëtimit në Tiranë dhe në gjithë Shqipërinë. 24/7 në shërbimin tuaj." data-en="The new standard of travel in Tirana and across Albania. 24/7 at your service.">Standardi i ri i udhëtimit në Tiranë dhe në gjithë Shqipërinë. 24/7 në shërbimin tuaj.</p>
+        <div class="footer__social" aria-label="Social links">
+          <a href="#" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5A1.94 1.94 0 1 1 5 3.06 1.94 1.94 0 0 1 6.94 5ZM5.34 8.5h3.2V21h-3.2Zm5.2 0h3.07v1.71h.04a3.36 3.36 0 0 1 3-1.66c3.22 0 3.81 2.12 3.81 4.87V21h-3.2v-5.55c0-1.32 0-3-1.85-3s-2.13 1.44-2.13 2.93V21h-3.2Z"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.9c0-.74.5-.9.85-.9H17V3.05L14.2 3c-2.9 0-3.54 2.17-3.54 3.56V8.5H9v3h1.66V21H14v-9.5h2.5l.34-3Z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <nav class="footer__col" aria-label="Navigim">
+        <h3 class="footer__col-title" data-sq="Navigim" data-en="Navigation">Navigim</h3>
+        <a href="../index.html#kreu" data-sq="Kreu" data-en="Home">Kreu</a>
+        <a href="../index.html#faq" data-sq="Pyetjet e Shpeshta" data-en="FAQ">Pyetjet e Shpeshta</a>
+        <a href="../index.html#reviews" data-sq="Vlerësimet" data-en="Reviews">Vlerësimet</a>
+      </nav>
+
+      <nav class="footer__col" aria-label="Shërbimet">
+        <h3 class="footer__col-title" data-sq="Shërbimet" data-en="Services">Shërbimet</h3>
+        <a href="sherbimet.html#sherbimet" data-sq="Shërbimet" data-en="Services">Shërbimet</a>
+        <a href="rreth-nesh.html#rreth-nesh" data-sq="Rreth Nesh" data-en="About Us">Rreth Nesh</a>
+        <a href="rezervo.html#rezervo" data-sq="Rezervo Taxi" data-en="Book a Taxi">Rezervo Taxi</a>
+        <a href="kontakt.html#kontakt" data-sq="Kontakt" data-en="Contact">Kontakt</a>
+      </nav>
+
+      <div class="footer__col footer__contact">
+        <h3 class="footer__col-title" data-sq="Kontakt" data-en="Contact">Kontakt</h3>
+        <a class="footer__phone" href="tel:+355682550000">+355 68 255 0000</a>
+        <a href="mailto:info@f1taxi.al">info@f1taxi.al</a>
+        <p data-sq="Tiranë, Shqipëri" data-en="Tirana, Albania">Tiranë, Shqipëri</p>
+        <p data-sq="Hapur 24 orë / 7 ditë" data-en="Open 24 hours / 7 days">Hapur 24 orë / 7 ditë</p>
+      </div>
+
+    </div>
+
+    <div class="footer__bar">
+      <p class="footer__copy">&copy; 2026 F1 Taxi. <span data-sq="Të gjitha të drejtat e rezervuara." data-en="All rights reserved.">Të gjitha të drejtat e rezervuara.</span></p>
+      <a class="footer__top" href="#rezervo" data-sq="Kthehu lart ↑" data-en="Back to top ↑">Kthehu lart ↑</a>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -36,6 +36,10 @@
   clip-path: circle(150% at calc(100% - 46px) 40px);
 }
 
+/* Lock the page while the overlay is open — it's a static screen, not a
+   scrollable one (backs up js/navbar.js stopping Lenis). */
+body.menu-open { overflow: hidden; }
+
 /* ============ RIGHT PANEL (green gradient + car) ============ */
 
 .menu__panel {
@@ -316,7 +320,15 @@
   .menu__grid,
   .menu__accent { display: none; }
 
-  .menu__car { width: min(88%, 420px); }
+  /* On mobile the car sits still (only fades in) — no drive-in slide, so the
+     open menu reads as one static screen. */
+  .menu__car,
+  .menu.is-open .menu__car,
+  .menu.is-closing .menu__car {
+    width: min(88%, 420px);
+    transform: translate(-50%, -50%);
+    transition: opacity .5s ease;
+  }
 
   .menu__content {
     justify-content: flex-start;
