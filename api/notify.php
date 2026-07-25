@@ -67,26 +67,27 @@ function smtp_send(array $config, string $subject, string $body, ?string $to = n
 }
 
 function send_email(array $config, string $subject, string $body, ?string $to = null, bool $html = false): void {
-  $from = $config['mail_from'] ?? 'booking@f1taxi.al';
-  $rcpt = ($to !== null && $to !== '') ? $to : ($config['mail_to'] ?? $from);
-  $encSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
-  $headers  = 'From: F1 Taxi <' . $from . ">\r\n";
-  $headers .= 'Reply-To: ' . $from . "\r\n";
-  $headers .= "MIME-Version: 1.0\r\n";
-  $headers .= 'Content-Type: ' . ($html ? 'text/html' : 'text/plain') . "; charset=UTF-8\r\n";
   try {
-    // PHP mail() uses the server's local MTA (Postfix on Plesk) — reliable for
-    // both local (booking@f1taxi.al) and external (subscriber) delivery, and it
-    // doesn't hinge on SMTP auth to localhost. The -f sets the envelope sender.
-    $ok = @mail($rcpt, $encSubject, $body, $headers, '-f' . $from);
-    if (!$ok) {
-      error_log('[F1] mail() failed for ' . $rcpt . ' — falling back to SMTP');
-      if (!smtp_send($config, $subject, $body, $to, $html)) {
-        error_log('[F1] SMTP fallback also failed for ' . $rcpt);
+    // Primary: talk to the local mail server over SMTP. PHP mail() is DISABLED
+    // on this host (disable_functions), so it's only a guarded fallback.
+    if (smtp_send($config, $subject, $body, $to, $html)) return;
+
+    if (function_exists('mail')) {
+      $from = $config['mail_from'] ?? 'booking@f1taxi.al';
+      $rcpt = ($to !== null && $to !== '') ? $to : ($config['mail_to'] ?? $from);
+      $encSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+      $headers  = 'From: F1 Taxi <' . $from . ">\r\n";
+      $headers .= 'Reply-To: ' . $from . "\r\n";
+      $headers .= "MIME-Version: 1.0\r\n";
+      $headers .= 'Content-Type: ' . ($html ? 'text/html' : 'text/plain') . "; charset=UTF-8\r\n";
+      if (!@mail($rcpt, $encSubject, $body, $headers, '-f' . $from)) {
+        error_log('[F1] SMTP failed and mail() fallback failed for ' . $rcpt);
       }
+    } else {
+      error_log('[F1] SMTP failed and mail() is disabled — email not sent (to=' . ($to ?: 'business') . ')');
     }
   } catch (Throwable $e) {
-    error_log('[F1] send_email exception for ' . $rcpt . ': ' . $e->getMessage());
+    error_log('[F1] send_email exception: ' . $e->getMessage());
   }
 }
 
