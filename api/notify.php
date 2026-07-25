@@ -67,16 +67,27 @@ function smtp_send(array $config, string $subject, string $body, ?string $to = n
 }
 
 function send_email(array $config, string $subject, string $body, ?string $to = null, bool $html = false): void {
+  $from = $config['mail_from'] ?? 'booking@f1taxi.al';
+  $rcpt = ($to !== null && $to !== '') ? $to : ($config['mail_to'] ?? $from);
+  $encSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+  $headers  = 'From: F1 Taxi <' . $from . ">\r\n";
+  $headers .= 'Reply-To: ' . $from . "\r\n";
+  $headers .= "MIME-Version: 1.0\r\n";
+  $headers .= 'Content-Type: ' . ($html ? 'text/html' : 'text/plain') . "; charset=UTF-8\r\n";
   try {
-    if (!smtp_send($config, $subject, $body, $to, $html)) {
-      // Fallback to the local mailer if SMTP is unavailable.
-      $from = $config['mail_from'] ?? 'booking@f1taxi.al';
-      $rcpt = ($to !== null && $to !== '') ? $to : ($config['mail_to'] ?? $from);
-      $headers  = 'From: F1 Taxi <' . $from . ">\r\n";
-      $headers .= 'MIME-Version: 1.0' . "\r\n" . 'Content-Type: ' . ($html ? 'text/html' : 'text/plain') . "; charset=UTF-8\r\n";
-      @mail($rcpt, $subject, $body, $headers);
+    // PHP mail() uses the server's local MTA (Postfix on Plesk) — reliable for
+    // both local (booking@f1taxi.al) and external (subscriber) delivery, and it
+    // doesn't hinge on SMTP auth to localhost. The -f sets the envelope sender.
+    $ok = @mail($rcpt, $encSubject, $body, $headers, '-f' . $from);
+    if (!$ok) {
+      error_log('[F1] mail() failed for ' . $rcpt . ' — falling back to SMTP');
+      if (!smtp_send($config, $subject, $body, $to, $html)) {
+        error_log('[F1] SMTP fallback also failed for ' . $rcpt);
+      }
     }
-  } catch (Throwable $e) { /* swallow */ }
+  } catch (Throwable $e) {
+    error_log('[F1] send_email exception for ' . $rcpt . ': ' . $e->getMessage());
+  }
 }
 
 function send_whatsapp(array $config, string $text): void {
@@ -98,9 +109,18 @@ function send_whatsapp(array $config, string $text): void {
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_TIMEOUT        => 15,
     ]);
-    curl_exec($ch);
+    $resp = curl_exec($ch);
+    $code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $cerr = curl_error($ch);
     curl_close($ch);
-  } catch (Throwable $e) { /* swallow */ }
+    // Log the Meta response on failure so the real reason (expired token,
+    // 24-hour window, wrong phone id…) shows up in the server error log.
+    if ($code < 200 || $code >= 300) {
+      error_log('[F1] WhatsApp failed: HTTP ' . $code . ' resp=' . substr((string) $resp, 0, 600) . ($cerr ? ' curl=' . $cerr : ''));
+    }
+  } catch (Throwable $e) {
+    error_log('[F1] WhatsApp exception: ' . $e->getMessage());
+  }
 }
 
 function notify_all(array $config, string $subject, string $text): void {
