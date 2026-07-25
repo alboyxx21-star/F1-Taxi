@@ -141,6 +141,22 @@
 .kontakt__submit:active { transform: translateY(1px); }
 .kontakt__note { grid-column: 1 / -1; margin: 0; text-align: center; font-size: 11px; color: var(--k-mute); }
 
+/* ---- Thank-you state (shown after submit) ---- */
+.kontakt__done {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; gap: 12px; min-height: 300px; padding: 30px;
+  animation: kontakt-done-in .5s ease both;
+}
+.kontakt__done-badge {
+  width: 62px; height: 62px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--k-green); color: #fff; font-size: 30px; font-weight: 700;
+  box-shadow: 0 10px 24px rgba(18, 161, 80, .3);
+}
+.kontakt__done-title { margin: 6px 0 0; font-size: 22px; color: var(--k-ink); }
+.kontakt__done-text  { margin: 0; max-width: 340px; font-size: 14px; line-height: 1.55; color: var(--k-body); }
+@keyframes kontakt-done-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
 /* ---- Responsive ---- */
 @media (max-width: 820px) {
   .kontakt__grid { grid-template-columns: 1fr; }

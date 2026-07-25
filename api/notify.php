@@ -4,14 +4,14 @@
 
 /* Minimal SMTP client (no external library). Works with SSL (465) or
    STARTTLS (587). Returns true on a best-effort send. */
-function smtp_send(array $config, string $subject, string $body): bool {
+function smtp_send(array $config, string $subject, string $body, ?string $to = null, bool $html = false): bool {
   $host   = $config['smtp_host']   ?? '';
   $port   = (int)($config['smtp_port'] ?? 465);
   $secure = $config['smtp_secure'] ?? 'ssl';
   $user   = $config['smtp_user']   ?? '';
   $pass   = $config['smtp_pass']   ?? '';
   $from   = $config['mail_from']   ?? $user;
-  $to     = $config['mail_to']     ?? $user;
+  $to     = ($to !== null && $to !== '') ? $to : ($config['mail_to'] ?? $user);
   if ($host === '' || $user === '' || $pass === '') return false;
 
   // Don't verify the peer certificate — lets us talk to the local mail
@@ -55,7 +55,7 @@ function smtp_send(array $config, string $subject, string $body): bool {
     $headers .= 'To: <' . $to . ">\r\n";
     $headers .= 'Subject: =?UTF-8?B?' . base64_encode($subject) . "?=\r\n";
     $headers .= "MIME-Version: 1.0\r\n";
-    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+    $headers .= 'Content-Type: ' . ($html ? 'text/html' : 'text/plain') . "; charset=UTF-8\r\n";
     fputs($fp, $headers . "\r\n" . $body . "\r\n.\r\n");
     $read();
     $cmd('QUIT');
@@ -66,14 +66,15 @@ function smtp_send(array $config, string $subject, string $body): bool {
   return $ok;
 }
 
-function send_email(array $config, string $subject, string $body): void {
+function send_email(array $config, string $subject, string $body, ?string $to = null, bool $html = false): void {
   try {
-    if (!smtp_send($config, $subject, $body)) {
+    if (!smtp_send($config, $subject, $body, $to, $html)) {
       // Fallback to the local mailer if SMTP is unavailable.
       $from = $config['mail_from'] ?? 'booking@f1taxi.al';
+      $rcpt = ($to !== null && $to !== '') ? $to : ($config['mail_to'] ?? $from);
       $headers  = 'From: F1 Taxi <' . $from . ">\r\n";
-      $headers .= "MIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\n";
-      @mail($config['mail_to'] ?? $from, $subject, $body, $headers);
+      $headers .= 'MIME-Version: 1.0' . "\r\n" . 'Content-Type: ' . ($html ? 'text/html' : 'text/plain') . "; charset=UTF-8\r\n";
+      @mail($rcpt, $subject, $body, $headers);
     }
   } catch (Throwable $e) { /* swallow */ }
 }

@@ -9,8 +9,6 @@
 (function () {
   'use strict';
 
-  var WHATSAPP = '355682550000';
-
   function isEN() { return document.documentElement.getAttribute('lang') === 'en'; }
 
   function init() {
@@ -44,16 +42,8 @@
         typeLabel = typeSel.selectedOptions[0].textContent.trim();
       }
 
-      var lines = [
-        'Raport Problemi — F1 Taxi',
-        'Emri: ' + data.get('name'),
-        'Email: ' + data.get('email')
-      ];
-      if ((data.get('booking') || '').trim()) lines.push('ID: ' + data.get('booking'));
-      if (typeLabel) lines.push('Lloji: ' + typeLabel);
-      lines.push('Përshkrimi: ' + data.get('message'));
-
-      // Save to the backend (best-effort, with anti-bot fields)
+      // Send to the backend — the SERVER emails the report straight to our
+      // team (the customer's WhatsApp is never opened).
       if (window.f1ApiPost) {
         var payload = {
           name: data.get('name'), email: data.get('email'),
@@ -64,10 +54,10 @@
         window.f1ApiPost('/report.php', payload);
       }
 
-      window.open(
-        'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(lines.join('\n')),
-        '_blank', 'noopener'
-      );
+      // Swap the form for a thank-you message.
+      var done = document.getElementById('kontakt-done');
+      form.hidden = true;
+      if (done) done.hidden = false;
     });
   }
 
