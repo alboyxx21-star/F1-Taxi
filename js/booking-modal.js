@@ -81,6 +81,26 @@
     var countries = window.F1_COUNTRIES || [];
     var current = null;
 
+    /* ---- Keep the bottom sheet above the mobile keyboard ----
+       A position:fixed overlay doesn't shrink when the keyboard opens, so the
+       card (docked to the bottom) ends up hidden behind it. We use the
+       visualViewport API to clamp the overlay to the actually-visible area. */
+    var vv = window.visualViewport;
+    function fitViewport() {
+      if (!vv || root.hidden) return;
+      var kbOpen = (window.innerHeight - vv.height) > 120;
+      root.classList.toggle('bkm--kb', kbOpen);
+      root.style.height = kbOpen ? vv.height + 'px' : '';
+      root.style.top = kbOpen ? vv.offsetTop + 'px' : '';
+    }
+    function bindViewport() { if (vv) { vv.addEventListener('resize', fitViewport); vv.addEventListener('scroll', fitViewport); } }
+    function unbindViewport() {
+      if (vv) { vv.removeEventListener('resize', fitViewport); vv.removeEventListener('scroll', fitViewport); }
+      root.classList.remove('bkm--kb');
+      root.style.height = '';
+      root.style.top = '';
+    }
+
     // The CDN stylesheet may still be in flight when deferred scripts run, so
     // re-check on load before falling back to ISO-code chips.
     function checkFlags() {
@@ -345,15 +365,21 @@
 
       document.body.style.overflow = 'hidden';
       if (window.F1 && window.F1.lenis) window.F1.lenis.stop();
+      bindViewport();
 
       // Destination is already known — the pickup address is what's missing.
-      (dest ? fromEl : toEl).focus();
+      // On phones, don't auto-focus (it yanks the keyboard up over the sheet);
+      // let the user tap a field when ready.
+      if (!window.matchMedia('(max-width: 767px)').matches) {
+        (dest ? fromEl : toEl).focus();
+      }
     }
 
     function finishClose() {
       root.hidden = true;
       root.classList.remove('is-animating');
       document.body.style.overflow = '';
+      unbindViewport();
       if (window.F1 && window.F1.lenis) window.F1.lenis.start();
       if (lastFocus && lastFocus.focus) lastFocus.focus();
     }

@@ -6,31 +6,40 @@
    once with no typing.
    ============================================================ */
 
+/* ------------------------------------------------------------------
+   Lazy background video. The <video> ships with data-src + a poster
+   image and preload="none", so mobile just shows the lightweight
+   poster (no multi-MB download). On larger screens — and only when the
+   user isn't on Data Saver — we load and play the real video.
+   ------------------------------------------------------------------ */
+(function () {
+  'use strict';
+  function loadBgVideos() {
+    var vids = document.querySelectorAll('video[data-src]');
+    if (!vids.length) return;
+    // Poster shows instantly (fast LCP); the small video then loads and plays
+    // on every device. Only Data Saver keeps the poster to spare data.
+    var conn = navigator.connection || {};
+    if (conn.saveData) return;
+    vids.forEach(function (v) {
+      if (v.src) return;
+      v.src = v.getAttribute('data-src');
+      v.load();
+      var p = v.play(); if (p && p.catch) p.catch(function () {});
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadBgVideos);
+  } else {
+    loadBgVideos();
+  }
+})();
+
 (function () {
   'use strict';
 
-  var LEAD_SPEED = 11; // ms per character (lead line)
-  var TEXT_SPEED = 6;  // ms per character (body line)
-  var START_DELAY = 600; // wait for the heading slide-in first
-
-  function type(el, text, speed) {
-    return new Promise(function (resolve) {
-      el.textContent = '';
-      el.style.opacity = '1';
-      el.classList.add('is-typing');
-      var i = 0;
-      (function step() {
-        el.textContent = text.slice(0, i);
-        if (i < text.length) {
-          i++;
-          setTimeout(step, speed);
-        } else {
-          el.classList.remove('is-typing');
-          resolve();
-        }
-      })();
-    });
-  }
+  var START_DELAY = 550; // wait for the heading slide-in first
+  var STAGGER = 170;     // gap between each line's fade/slide-in
 
   /* The hero video is muted+autoplay+playsinline, but browsers still
      occasionally skip the autoplay (slow decode, tab restore, throttling).
@@ -66,29 +75,30 @@
   function initHero() {
     initVideo();
 
-    var lead = document.querySelector('.kreu-lead');
-    var text = document.querySelector('.kreu-text');
+    var items = [
+      document.querySelector('.kreu-lead'),
+      document.querySelector('.kreu-text'),
+      document.querySelector('.kreu-cta')
+    ].filter(Boolean);
     var social = document.querySelector('.kreu-social');
-    if (!lead || !text) return;
-
-    var leadStr = lead.textContent.trim();
-    var textStr = text.textContent.trim();
+    if (!items.length) return;
 
     var reduce = window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (reduce) {
-      lead.style.opacity = '1';
-      text.style.opacity = '1';
+      items.forEach(function (el) { el.classList.add('is-in'); });
       if (social) social.classList.add('is-visible');
       return;
     }
 
+    // Staggered fade + slide-up (replaces the old typewriter effect).
+    items.forEach(function (el, i) {
+      setTimeout(function () { el.classList.add('is-in'); }, START_DELAY + i * STAGGER);
+    });
     setTimeout(function () {
-      type(lead, leadStr, LEAD_SPEED)
-        .then(function () { return type(text, textStr, TEXT_SPEED); })
-        .then(function () { if (social) social.classList.add('is-visible'); });
-    }, START_DELAY);
+      if (social) social.classList.add('is-visible');
+    }, START_DELAY + items.length * STAGGER + 80);
   }
 
   if (document.readyState === 'loading') {

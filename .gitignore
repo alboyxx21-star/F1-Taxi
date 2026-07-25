@@ -10,21 +10,12 @@ desktop.ini
 *.exe
 *.winmd
 dl-*.jpg
+/ffmpeg/
 
 # ---- Design source material (kept locally, not part of the deployed site) ----
-# Working photos are staged here; the deploy copies live in assets/media/.
-/city pictures/
-/Taxi Booking Page Design/
-/Taxi F1 FAQ Design/
-/F1 Taxi footer design/
-
-# Loose design / palette reference images in the project root
-/operator.png
-/Rinas.jpg
-/tirana.jpg
-/f1 taxi footer.png
-/*pallete*.jpg
-/*pallete*.png
+# All working photos, palette refs and design prototypes live here; the deploy
+# copies used by the site live in assets/media/.
+/_design-source/
 
 # Deployment bundle (upload to hosting, don't commit)
 *.zip

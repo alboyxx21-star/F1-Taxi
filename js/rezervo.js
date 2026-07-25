@@ -12,7 +12,6 @@
 (function () {
   'use strict';
 
-  var WHATSAPP = '355682550000';   // same number as the footer / tel: links
   var MAX_DEST = 60;               // query values are untrusted; keep them short
 
   function isEN() { return document.documentElement.getAttribute('lang') === 'en'; }
@@ -190,25 +189,9 @@
         window.f1ApiPost('/booking.php', payload);
       }
 
-      // Hand the booking to WhatsApp
-      var lines = [
-        'Rezervim F1 Taxi',
-        (isAirport ? 'Transfer aeroporti' : 'Udhëtim në qytet'),
-        'Nga: ' + data.get('from'),
-        'Për: ' + data.get('to'),
-        'Data: ' + data.get('date') + ' ' + data.get('time'),
-        'Pasagjerë: ' + data.get('pax'),
-        'Emri: ' + data.get('name'),
-        'Telefoni: ' + data.get('phone')
-      ];
-      if (price) lines.push('Çmimi fiks: €' + price);
-      if ((data.get('note') || '').trim()) lines.push('Shënime: ' + data.get('note'));
-
-      window.open(
-        'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(lines.join('\n')),
-        '_blank', 'noopener'
-      );
-
+      // The booking was sent to the API above. The SERVER notifies us
+      // (WhatsApp + email to booking@f1taxi.al) — the customer's own WhatsApp
+      // is never opened. They just see the confirmation screen.
       showConfirmation(data, isAirport);
     });
   }

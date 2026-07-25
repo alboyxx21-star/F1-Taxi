@@ -28,3 +28,35 @@
 <IfModule mod_autoindex.c>
   Options -Indexes
 </IfModule>
+
+# ============================================================
+# Browser caching (PageSpeed: "serve static assets with an efficient
+# cache policy"). Media/fonts get a long cache; CSS/JS a shorter one
+# since their filenames aren't versioned. HTML is never long-cached so
+# content updates always show.
+# ============================================================
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg          "access plus 1 year"
+  ExpiresByType image/png           "access plus 1 year"
+  ExpiresByType image/webp          "access plus 1 year"
+  ExpiresByType image/avif          "access plus 1 year"
+  ExpiresByType image/svg+xml       "access plus 1 year"
+  ExpiresByType image/x-icon        "access plus 1 year"
+  ExpiresByType video/mp4           "access plus 1 year"
+  ExpiresByType font/woff2          "access plus 1 year"
+  ExpiresByType text/css            "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+  ExpiresByType text/html           "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Long, immutable cache for fingerprint-stable media & fonts.
+  <FilesMatch "\.(jpg|jpeg|png|webp|avif|svg|ico|mp4|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # Shorter cache for CSS/JS (filenames aren't versioned yet).
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+</IfModule>

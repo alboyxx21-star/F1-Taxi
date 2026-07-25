@@ -126,24 +126,49 @@
   animation-delay: .15s;
 }
 
-/* The two paragraphs are typed in by js/hero.js — hidden until then. */
+/* The paragraphs + CTA fade and slide up (js/hero.js adds .is-in), staggered. */
 .kreu-lead,
-.kreu-text { opacity: 0; }
-
-/* Blinking caret on whichever line is currently being typed */
-.kreu-lead.is-typing::after,
-.kreu-text.is-typing::after {
-  content: '';
-  display: inline-block;
-  width: .07em;
-  height: 1.05em;
-  margin-left: .06em;
-  vertical-align: -.14em;
-  background: var(--c-accent);
-  animation: kreuCaret .8s steps(1) infinite;
+.kreu-text,
+.kreu-cta {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .7s var(--ease-out-expo), transform .7s var(--ease-out-expo);
+}
+.kreu-lead.is-in,
+.kreu-text.is-in,
+.kreu-cta.is-in {
+  opacity: 1;
+  transform: none;
 }
 
-@keyframes kreuCaret { 50% { opacity: 0; } }
+/* Book Now — direct WhatsApp CTA */
+.kreu-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: fit-content;
+  margin-top: clamp(20px, 3vh, 32px);
+  padding: 14px 34px;
+  border-radius: 999px;
+  background: var(--c-forest);
+  color: var(--c-cornsilk);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 700;
+  font-size: clamp(14px, 1.4vw, 16px);
+  letter-spacing: .2px;
+  text-decoration: none;
+  text-shadow: none;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .3);
+  transition: opacity .7s var(--ease-out-expo), transform .7s var(--ease-out-expo),
+              background .25s ease, box-shadow .25s ease;
+}
+.kreu-cta.is-in:hover {
+  background: #34492a;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, .38);
+}
+.kreu-cta.is-in:active { transform: translateY(0); }
 
 /* Social icons — revealed after the text finishes typing */
 .kreu-social {
@@ -251,7 +276,8 @@
   .slide__orb { animation: none; }
   .kreu-heading { animation: none; }
   .kreu-lead,
-  .kreu-text { opacity: 1; }
+  .kreu-text,
+  .kreu-cta { opacity: 1; transform: none; }
   .kreu-social { opacity: 1; transform: none; transition: none; }
   html { scroll-behavior: auto; }
 }

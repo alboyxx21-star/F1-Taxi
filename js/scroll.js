@@ -38,6 +38,20 @@
 
     window.F1 = window.F1 || {};
     window.F1.lenis = lenis;
+
+    // Mobile keyboard fix: while a text field is focused, hand scrolling back
+    // to the browser so it can scroll the field above the on-screen keyboard.
+    // Lenis's transform-based scroll otherwise blocks that and the layout
+    // "jumps"/clips (e.g. the booking form's lower fields + textarea).
+    var isField = function (el) {
+      return el && el.matches && el.matches('input:not([type=button]):not([type=submit]), textarea, select, [contenteditable]');
+    };
+    document.addEventListener('focusin', function (e) {
+      if (isField(e.target)) lenis.stop();
+    });
+    document.addEventListener('focusout', function (e) {
+      if (isField(e.target)) lenis.start();
+    });
   }
 
   /* ---- Scroll-linked cinematics ---- */
@@ -268,14 +282,14 @@
   /** Wrap every word in an overflow-hidden mask span for the rise effect. */
   function splitWords(el) {
     var text = el.textContent.replace(/\s+/g, ' ').trim();
-    el.setAttribute('aria-label', text); // spans below are aria-hidden
 
     var frag = document.createDocumentFragment();
     text.split(' ').forEach(function (word, i) {
       if (i) frag.appendChild(document.createTextNode(' '));
+      // The word text stays readable to assistive tech (no aria-label on the
+      // parent, which is prohibited on <p>/<span>); the mask is decorative.
       var mask = document.createElement('span');
       mask.className = 'aw-mask';
-      mask.setAttribute('aria-hidden', 'true');
       var inner = document.createElement('span');
       inner.className = 'aw';
       inner.textContent = word;
