@@ -168,6 +168,8 @@ fill in your values, import `api/schema.sql`, and serve the folder from a PHP ho
       limiting on all endpoints, and a brute-force lockout on the admin login
 - [x] **Legal** — Privacy Policy + Cookie Policy pages (Albanian law)
 - [x] **Reviews** carousel, **FAQ**, redesigned dark footer, fixed-price brochure with photos
+- [x] **SEO essentials** — unique titles/descriptions, `robots.txt` + `sitemap.xml`, canonical URLs,
+      Open Graph + Twitter cards on every page, `TaxiService`/`LocalBusiness` JSON-LD, one H1 per page
 
 ## Status — still to do 🚧
 
@@ -178,8 +180,10 @@ fill in your values, import `api/schema.sql`, and serve the folder from a PHP ho
 - [ ] **Rotate the secrets** that were used during setup, as a hygiene step before launch.
 - [ ] **Google Maps key.** Calculator runs on the free OpenStreetMap fallback; the optional Google
       Maps upgrade is on hold until the Google Cloud keys are set up.
-- [ ] **SEO / share tags.** Basic `<meta description>` + favicons are done; still want Open Graph /
-      Twitter cards for link previews.
+- [ ] **SEO polish (nice-to-have).** Clean URLs (`/rezervo` instead of `/html/rezervo.html`),
+      `<html lang>` switching with the EN/SQ toggle, `width`/`height` on images (CLS), a dedicated
+      1200×630 share image, and a custom 404 page. After go-live, submit the sitemap in Google
+      Search Console.
 - [ ] **Accessibility + cross-browser pass** — keyboard nav, reduced-motion, older browsers.
 
 ## Notes

@@ -11,6 +11,56 @@
   <meta name="description" content="F1 Taxi — shërbim taksi 24/7 në Tiranë, Shqipëri. Rezervo online, çmime të qarta dhe udhëtim i shpejtë e i sigurt.">
   <title>F1 Taxi — Taksi 24/7 në Tiranë</title>
 
+  <!-- Canonical + social sharing (Open Graph / Twitter) -->
+  <link rel="canonical" href="https://f1taxi.al/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="F1 Taxi">
+  <meta property="og:locale" content="sq_AL">
+  <meta property="og:title" content="F1 Taxi — Taksi 24/7 në Tiranë">
+  <meta property="og:description" content="Shërbim taksi 24/7 në Tiranë, Shqipëri. Rezervo online, çmime të qarta dhe udhëtim i shpejtë e i sigurt.">
+  <meta property="og:url" content="https://f1taxi.al/">
+  <meta property="og:image" content="https://f1taxi.al/assets/media/car-lined-up.png">
+  <meta property="og:image:width" content="1264">
+  <meta property="og:image:height" content="848">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="F1 Taxi — Taksi 24/7 në Tiranë">
+  <meta name="twitter:description" content="Shërbim taksi 24/7 në Tiranë, Shqipëri. Rezervo online, çmime të qarta.">
+  <meta name="twitter:image" content="https://f1taxi.al/assets/media/car-lined-up.png">
+
+  <!-- Structured data: local taxi business (for Google rich results / local SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TaxiService",
+    "name": "F1 Taxi",
+    "description": "Shërbim taksi 24/7 në Tiranë, Shqipëri.",
+    "url": "https://f1taxi.al/",
+    "image": "https://f1taxi.al/assets/media/car-lined-up.png",
+    "telephone": "+355682550000",
+    "priceRange": "€€",
+    "areaServed": { "@type": "Country", "name": "Albania" },
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "F1 Taxi",
+      "telephone": "+355682550000",
+      "url": "https://f1taxi.al/",
+      "image": "https://f1taxi.al/assets/media/car-lined-up.png",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Rruga Tom Plezha",
+        "addressLocality": "Tiranë",
+        "addressCountry": "AL"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+        "opens": "00:00",
+        "closes": "23:59"
+      }
+    }
+  }
+  </script>
+
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="assets/media/favicon.ico">
   <link rel="icon" type="image/png" sizes="256x256" href="assets/media/favicon.png">
@@ -162,7 +212,7 @@
             <div class="pricing">
               <section class="f1-showcase" aria-label="F1 Taxi fixed-price trips">
                     <div>
-                      <h1 class="f1-showcase__title" data-sq="Udhëtimi yt. Me çmim fiks. Gati kur je ti." data-en="Your ride. Fixed. Ready when you are.">Udhëtimi yt. Me çmim fiks. Gati kur je ti.</h1>
+                      <h2 class="f1-showcase__title" data-sq="Udhëtimi yt. Me çmim fiks. Gati kur je ti." data-en="Your ride. Fixed. Ready when you are.">Udhëtimi yt. Me çmim fiks. Gati kur je ti.</h2>
 
                       <p class="f1-showcase__copy" data-sq="Rezervo një transfer me çmim fiks e të qartë nga Tirana drejt destinacioneve më të bukura të Shqipërisë. Pa surpriza taksimetri, pa pazare." data-en="Book a clear, fixed-price transfer from Tirana to Albania’s best destinations. No meter surprises, no back-and-forth.">Rezervo një transfer me çmim fiks e të qartë nga Tirana drejt destinacioneve më të bukura të Shqipërisë. Pa surpriza taksimetri, pa pazare.</p>
                     </div>
@@ -656,7 +706,7 @@
     </div>
 
     <div class="footer__hero" aria-hidden="true">
-      <h2 class="footer__watermark">F1 TAXI</h2>
+      <div class="footer__watermark" aria-hidden="true">F1 TAXI</div>
       <img class="footer__car" src="assets/media/footer-car.png" alt="">
     </div>
   </footer>
