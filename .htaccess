@@ -1,0 +1,30 @@
+# ============================================================
+# F1 TAXI — site-wide security headers
+# These complement the Content-Security-Policy <meta> tag in each
+# page (the CSP is in the HTML so it applies even when Plesk's nginx
+# serves the static file directly and skips Apache/.htaccess).
+#
+# Everything is wrapped in <IfModule> so a host without mod_headers
+# simply ignores it — this file can never take the site down.
+# If the server already has a root .htaccess (e.g. an HTTPS redirect),
+# merge these lines into it rather than overwriting.
+# ============================================================
+
+<IfModule mod_headers.c>
+  # Clickjacking: don't allow the site to be embedded in a frame elsewhere.
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # Stop browsers from MIME-sniffing a response into a different type.
+  Header always set X-Content-Type-Options "nosniff"
+
+  # Only send the origin (not the full path) as the referrer cross-site.
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Deny powerful browser features the site doesn't use.
+  Header always set Permissions-Policy "geolocation=(self), camera=(), microphone=(), payment=()"
+</IfModule>
+
+# Don't list directory contents if there's no index file.
+<IfModule mod_autoindex.c>
+  Options -Indexes
+</IfModule>

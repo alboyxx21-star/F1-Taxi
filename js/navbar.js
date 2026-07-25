@@ -7,6 +7,34 @@
      window.F1.Navbar
    ============================================================ */
 
+/* ------------------------------------------------------------------
+   Self-XSS warning. You can't stop a developer from using their own
+   console — but you CAN warn ordinary users so nobody gets tricked
+   into pasting malicious code ("paste this to unlock / hack / win a
+   free ride"). That scam is the real console threat to real people.
+   Purely a warning; the actual security lives on the server (the API
+   validates + rate-limits every request regardless of the browser).
+   ------------------------------------------------------------------ */
+(function () {
+  'use strict';
+  if (window.__f1_cw) return;            // once per page
+  window.__f1_cw = true;
+  try {
+    var big = 'color:#ee1c25;font-size:42px;font-weight:800;text-shadow:1px 1px 0 #000;';
+    var txt = 'color:#111;font-size:15px;line-height:1.5;';
+    console.log('%cNdal! / Stop!', big);
+    console.log(
+      '%cKy konsol është për zhvilluesit. Nëse dikush të kërkoi të ngjisësh (paste) diçka këtu ' +
+      'për të "zhbllokuar", "hakuar" ose për një udhëtim falas — është MASHTRIM dhe u jep atyre ' +
+      'akses te llogaria jote. Mos ngjit asgjë këtu.\n\n' +
+      'This console is for developers. If someone told you to paste something here to "unlock", ' +
+      '"hack", or get a free ride — it is a SCAM that gives them access to your account. ' +
+      'Do not paste anything here.',
+      txt
+    );
+  } catch (e) { /* no console — ignore */ }
+})();
+
 (function () {
   'use strict';
 

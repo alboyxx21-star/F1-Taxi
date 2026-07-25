@@ -3,6 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Content-Security-Policy: only our own scripts run. Blocks injected
+       <script> (XSS) from executing. All JS is local, so script-src is 'self'. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://cdn.jsdelivr.net; frame-src https://www.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+
   <meta name="description" content="Rreth F1 Taxi — historia, vizioni dhe vlerat tona. Mbi 10 vite eksperiencë dhe 50 mijë udhëtime të kryera në Tiranë e në të gjithë Shqipërinë.">
   <title>F1 Taxi — Rreth Nesh</title>
     
