@@ -97,10 +97,6 @@ taxi f1/
 └── assets/media/         logo, favicons, destination photos, car images, backgrounds
 ```
 
-There's also a separate **`map-app/`** folder — a small Node backend for doing Google Maps search
-safely (two-key setup so the private key never reaches the browser). Not wired into the site; parked
-until the Google Cloud keys are sorted.
-
 ## Security
 
 The guiding principle: **the server is the only real boundary.** Anything in the browser can be
@@ -180,8 +176,8 @@ fill in your values, import `api/schema.sql`, and serve the folder from a PHP ho
 - [ ] **SSL + mail once DNS moves.** Enable Let's Encrypt for `f1taxi.al` / `www`, and confirm
       `booking@f1taxi.al` sends/receives (WhatsApp Cloud API also has a 24-hour messaging window to mind).
 - [ ] **Rotate the secrets** that were used during setup, as a hygiene step before launch.
-- [ ] **Google Maps key.** Calculator runs on the free OpenStreetMap fallback; `map-app/` is parked
-      until the Google Cloud keys are set up.
+- [ ] **Google Maps key.** Calculator runs on the free OpenStreetMap fallback; the optional Google
+      Maps upgrade is on hold until the Google Cloud keys are set up.
 - [ ] **SEO / share tags.** Basic `<meta description>` + favicons are done; still want Open Graph /
       Twitter cards for link previews.
 - [ ] **Accessibility + cross-browser pass** — keyboard nav, reduced-motion, older browsers.
