@@ -101,6 +101,46 @@ There's also a separate **`map-app/`** folder — a small Node backend for doing
 safely (two-key setup so the private key never reaches the browser). Not wired into the site; parked
 until the Google Cloud keys are sorted.
 
+## Security
+
+The guiding principle: **the server is the only real boundary.** Anything in the browser can be
+inspected, bypassed, or replayed with `curl`, so every request is validated and throttled server-side
+regardless of what the client does. On top of that:
+
+**Secrets**
+- All secrets (DB, mailbox, admin, WhatsApp token) live in `api/config.local.php`, which is
+  **git-ignored** and never committed — only a placeholder `config.local.example.php` is in the repo.
+- `api/.htaccess` blocks direct web access to `config.local.php` and `.sql` files (returns 403).
+
+**Backend (`api/`)**
+- **SQL injection** — every query uses PDO **prepared statements** (`EMULATE_PREPARES = false`).
+- **Honeypot + time-trap** — each form has a hidden `hp_url` field and sends `elapsed_ms`; bot
+  submissions (field filled, or posted in < 1.2s) get a silent fake success and are dropped.
+- **Rate limiting** — per-IP sliding window on every public endpoint (booking 6/5 min, report
+  5/5 min, newsletter 5/10 min → HTTP 429). File-based, fails *open* so a disk issue never blocks
+  real customers.
+- **Admin brute-force lockout** — 5 failed logins from an IP → 15-minute lockout; session id is
+  rotated on success (`hash_equals` for the credential check).
+- **CORS** limited to `https://f1taxi.al` / `https://www.f1taxi.al`; generic error messages (no
+  stack traces or DB details leaked).
+
+**Frontend**
+- **Content-Security-Policy** (`<meta>` on every page) with **`script-src 'self'`** — all JS is local
+  and there are no inline scripts, so injected/XSS scripts can't execute. Only the fonts, jsDelivr
+  flag icons, and the Google Maps iframe the site uses are allow-listed. In the HTML so it applies
+  even when nginx serves static files and skips `.htaccess`.
+- **Security headers** (root `.htaccess`, `IfModule`-guarded so it can't 500): `X-Frame-Options`
+  (clickjacking), `X-Content-Type-Options: nosniff`, `Referrer-Policy`, `Permissions-Policy`,
+  and `-Indexes`.
+- **Self-XSS console warning** — every page prints a bilingual "don't paste code here" notice to
+  deter the social-engineering scam that targets non-technical users.
+
+**Not handled in-app**
+- **Volumetric DDoS** can only be absorbed at the network edge — put the domain behind **Cloudflare**
+  for that. The app-level rate limits above stop application/spam floods, not raw packet floods.
+- The secrets used during setup were shared in plaintext, so **rotate** them (DB / mailbox / admin
+  passwords, WhatsApp token) before launch.
+
 ## Conventions
 
 - **CSS** uses BEM-ish names (`block__element--modifier`), state classes are `is-*`, and all tokens
