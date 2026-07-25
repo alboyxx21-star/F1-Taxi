@@ -53,12 +53,16 @@
       if (typeLabel) lines.push('Lloji: ' + typeLabel);
       lines.push('Përshkrimi: ' + data.get('message'));
 
-      // Save to the backend (best-effort)
-      if (window.f1ApiPost) window.f1ApiPost('/report.php', {
-        name: data.get('name'), email: data.get('email'),
-        booking_id: data.get('booking') || '',
-        issue_type: typeLabel, message: data.get('message')
-      });
+      // Save to the backend (best-effort, with anti-bot fields)
+      if (window.f1ApiPost) {
+        var payload = {
+          name: data.get('name'), email: data.get('email'),
+          booking_id: data.get('booking') || '',
+          issue_type: typeLabel, message: data.get('message')
+        };
+        if (window.f1FormGuard) { var g = window.f1FormGuard(form); payload.hp_url = g.hp_url; payload.elapsed_ms = g.elapsed_ms; }
+        window.f1ApiPost('/report.php', payload);
+      }
 
       window.open(
         'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(lines.join('\n')),

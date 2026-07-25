@@ -6,6 +6,7 @@
    ============================================================ */
 
 session_start();
+require __DIR__ . '/../lib.php';
 $config = require __DIR__ . '/../config.php';
 
 function e($s) { return htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8'); }
@@ -18,17 +19,26 @@ if (isset($_GET['logout'])) {
   exit;
 }
 
-/* ---- Login ---- */
+/* ---- Login (brute-force throttled: 5 tries, then a 15-min lockout) ---- */
 $error = '';
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['user'])) {
-  $u = (string) ($_POST['user'] ?? '');
-  $p = (string) ($_POST['pass'] ?? '');
-  if (hash_equals((string) $config['admin_user'], $u) && hash_equals((string) $config['admin_pass'], $p)) {
-    $_SESSION['f1_admin'] = true;
-    header('Location: index.php');
-    exit;
+  if (login_locked()) {
+    $error = 'Shumë përpjekje. Provoni sërish pas 15 minutash.';
+  } else {
+    $u = (string) ($_POST['user'] ?? '');
+    $p = (string) ($_POST['pass'] ?? '');
+    $okUser = hash_equals((string) $config['admin_user'], $u);
+    $okPass = hash_equals((string) $config['admin_pass'], $p);
+    if ($okUser && $okPass) {
+      login_reset();
+      session_regenerate_id(true);      // fresh session id on privilege change
+      $_SESSION['f1_admin'] = true;
+      header('Location: index.php');
+      exit;
+    }
+    login_fail();
+    $error = 'Kredencialet janë të pasakta.';
   }
-  $error = 'Kredencialet janë të pasakta.';
 }
 
 $authed = !empty($_SESSION['f1_admin']);

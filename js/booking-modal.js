@@ -260,11 +260,11 @@
         return;
       }
 
-      // Save to the backend (best-effort)
+      // Save to the backend (best-effort, with anti-bot fields)
       if (window.f1ApiPost) {
         var nameEl = document.getElementById('bkm-name');
         var toName = (toEl.value || '');
-        window.f1ApiPost('/booking.php', {
+        var payload = {
           source: 'modal',
           service: /aeroport|airport/i.test(toName) ? 'airport' : 'city',
           name: nameEl ? nameEl.value : '',
@@ -273,7 +273,9 @@
           date: dateEl.value, time: timeEl.value,
           passengers: pax,
           price: fareEl.hidden ? '' : (farePrice.textContent || '').replace(/[^0-9]/g, '')
-        });
+        };
+        if (window.f1FormGuard) { var g = window.f1FormGuard(form); payload.hp_url = g.hp_url; payload.elapsed_ms = g.elapsed_ms; }
+        window.f1ApiPost('/booking.php', payload);
       }
 
       submitEl.classList.add('is-busy');

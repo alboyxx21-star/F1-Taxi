@@ -3,6 +3,17 @@
    Design tokens, reset, global typography.
    ============================================================ */
 
+/* Honeypot: a decoy field kept off-screen. Real people never see or
+   fill it; bots fill every field, which flags them on the server.
+   Not display:none (some bots skip hidden fields) — moved off-canvas. */
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+  width: 1px; height: 1px;
+  opacity: 0; pointer-events: none;
+}
+
 :root {
   /* Palette */
   --c-accent:        #00FF39;              /* signature green            */

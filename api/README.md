@@ -44,6 +44,26 @@ All POST endpoints accept JSON and return `{ "ok": true, ... }`.
   **approved message template**. Also, temporary tokens expire — use a
   **permanent** System-User token for production.
 
+## Abuse protection
+Built into `lib.php` and applied to every public endpoint — no setup needed.
+Counters are tiny JSON files in the system temp dir (`sys_get_temp_dir()`), so
+nothing extra is provisioned. All checks **fail open**: if the temp dir can't be
+written, protection quietly no-ops rather than blocking real customers.
+
+- **Honeypot** — each form has a hidden `hp_url` field. Real users never see it;
+  bots fill every field. Any submission with `hp_url` set gets a *fake* success
+  so the bot can't tell it was filtered.
+- **Time-trap** — the frontend sends `elapsed_ms` (time on page before submit).
+  Anything under 1.2s is treated as a bot (same silent fake-success).
+- **Rate limiting** (per IP, sliding window): booking 6 / 5 min, report 5 / 5 min,
+  newsletter 5 / 10 min. Over the limit → HTTP 429 + `Retry-After`.
+- **Admin brute-force throttle** — 5 failed logins from an IP → 15-minute lockout.
+  A successful login clears the counter and rotates the session id.
+- **Real (volumetric) DDoS** can only be absorbed at the network edge, not in PHP.
+  Put the site behind **Cloudflare** (free tier: proxy the domain, enable
+  "Under Attack" mode when needed) for that — the app-level limits above only
+  stop application/spam floods.
+
 ## Security notes
 - `config.local.php` holds all secrets and is git-ignored + blocked by
   `.htaccess`. Never put real secrets in `config.local.example.php`.

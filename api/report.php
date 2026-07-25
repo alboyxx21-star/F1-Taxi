@@ -8,6 +8,10 @@ require __DIR__ . '/notify.php';
 
 $in = read_json();
 
+// Abuse protection: silent bot filter, then per-IP rate limit.
+honeypot_ok($in);
+enforce_rate_limit('report', 5, 300);    // max 5 reports / 5 min / IP
+
 $name    = field($in, 'name', 120);
 $email   = field($in, 'email', 150);
 $booking = field($in, 'booking_id', 60);

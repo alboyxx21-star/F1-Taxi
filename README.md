@@ -128,6 +128,8 @@ fill in your values, import `api/schema.sql`, and serve the folder from a PHP ho
 - [x] **Contact** — "report a problem" form + Google Maps embed, submits to the backend
 - [x] **Newsletter** sign-up band, stored in the database
 - [x] **Backend** — PHP/MySQL, email + WhatsApp notifications, admin dashboard
+- [x] **Abuse protection** — honeypot + time-trap on the forms, per-IP rate
+      limiting on all endpoints, and a brute-force lockout on the admin login
 - [x] **Legal** — Privacy Policy + Cookie Policy pages (Albanian law)
 - [x] **Reviews** carousel, **FAQ**, redesigned dark footer, fixed-price brochure with photos
 

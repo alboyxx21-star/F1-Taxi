@@ -26,8 +26,12 @@
         return;
       }
 
-      // Save the subscriber to the backend (best-effort)
-      if (window.f1ApiPost) window.f1ApiPost('/newsletter.php', { email: email.value.trim() });
+      // Save the subscriber to the backend (best-effort, with anti-bot fields)
+      if (window.f1ApiPost) {
+        var payload = { email: email.value.trim() };
+        if (window.f1FormGuard) { var g = window.f1FormGuard(form); payload.hp_url = g.hp_url; payload.elapsed_ms = g.elapsed_ms; }
+        window.f1ApiPost('/newsletter.php', payload);
+      }
 
       form.hidden = true;
       done.hidden = false;

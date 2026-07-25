@@ -6,6 +6,11 @@ $config = require __DIR__ . '/config.php';
 require __DIR__ . '/db.php';
 
 $in = read_json();
+
+// Abuse protection: silent bot filter, then per-IP rate limit.
+honeypot_ok($in);
+enforce_rate_limit('newsletter', 5, 600);   // max 5 signups / 10 min / IP
+
 $email = field($in, 'email', 150);
 
 if (!valid_email($email)) {
