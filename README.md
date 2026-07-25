@@ -11,10 +11,11 @@
 
 # F1 Taxi
 
-This is the website I'm building for **F1 Taxi**, a taxi service in **Tirana, Albania**. It started
-as a single scrolling page and has grown into a small **multi-page site with a real backend** —
-customers can book a ride, report a problem, or subscribe to updates, and those submissions land in
-a database and ping me by email and WhatsApp.
+This is the website for **F1 Taxi**, a taxi service in **Tirana, Albania** — **live at
+[f1taxi.al](https://f1taxi.al)** over HTTPS. It started as a single scrolling page and grew into a
+small **multi-page site with a real backend**: customers can book a ride, report a problem, or
+subscribe to updates, and every submission is stored in a database and **sent to us automatically by
+the server** (email + WhatsApp) — the customer never has to open their own WhatsApp.
 
 The frontend is plain **HTML, CSS and vanilla JavaScript** — no React, no build step. The only
 "libraries" are GSAP, ScrollTrigger and Lenis, vendored locally under `js/vendor/` instead of a CDN.
@@ -27,17 +28,18 @@ menu that swaps every piece of text.
 
 The home page (`index.html`) is the scrolling one — Kreu (hero), Rreth Nesh (about), FAQ, customer
 reviews carousel, a newsletter sign-up band, and the footer. Everything else is its own page under
-`html/`, all sharing one auto-routing navbar and the redesigned footer:
+`html/`, all sharing one auto-routing navbar and the redesigned footer. The pages are served at
+**clean URLs** (`/rezervo`, not `/html/rezervo.html`) via `.htaccess` rewrites:
 
-| Page                    | What it is                                                        |
-|-------------------------|-------------------------------------------------------------------|
-| `index.html`            | Home — hero, about, FAQ, reviews, newsletter, footer              |
-| `html/sherbimet.html`   | Shërbimet — services (cards + features)                           |
-| `html/rezervo.html`     | Rezervo — booking (City ride / Airport transfer, live fare)       |
-| `html/kontakt.html`     | Kontakt — "report a problem" form + Google Maps embed             |
-| `html/rreth-nesh.html`  | Rreth Nesh — standalone about page                                |
-| `html/privatesia.html`  | Privacy Policy (Albanian law)                                     |
-| `html/cookies.html`     | Cookie Policy (Albanian law)                                      |
+| URL           | File                    | What it is                                            |
+|---------------|-------------------------|-------------------------------------------------------|
+| `/`           | `index.html`            | Home — hero, about, FAQ, reviews, newsletter, footer  |
+| `/sherbimet`  | `html/sherbimet.html`   | Shërbimet — services (cards + features)               |
+| `/rezervo`    | `html/rezervo.html`     | Rezervo — booking (City ride / Airport transfer)      |
+| `/kontakt`    | `html/kontakt.html`     | Kontakt — "report a problem" form + Google Maps embed |
+| `/rreth-nesh` | `html/rreth-nesh.html`  | Rreth Nesh — standalone about page                    |
+| `/privatesia` | `html/privatesia.html`  | Privacy Policy (Albanian law)                         |
+| `/cookies`    | `html/cookies.html`     | Cookie Policy (Albanian law)                          |
 
 The **fixed prices brochure** (Çmimet tona fikse nga Tirana) with per-destination photos lives on the
 booking flow, and the **live fare calculator** estimates fares from Tirana's municipal taxi tariffs.
@@ -57,18 +59,20 @@ two modes and degrades gracefully:
 
 ## The backend (`api/`)
 
-Plain PHP talking to MySQL over PDO. Three public endpoints, all fire-and-forget from the frontend
-(the site also keeps its WhatsApp hand-off, so forms work even if the API is down):
+Plain PHP talking to MySQL over PDO. Every form POSTs here and the **server** handles the notifying —
+the customer's own WhatsApp is never opened:
 
-| Endpoint              | Does                                                              |
-|-----------------------|------------------------------------------------------------------|
-| `api/booking.php`     | Stores a booking, then emails + WhatsApps me an alert            |
-| `api/report.php`      | Stores a "report a problem" submission from the contact page     |
-| `api/newsletter.php`  | Stores a newsletter e-mail (deduplicated)                        |
-| `api/admin/`          | Password-protected dashboard to read bookings / reports / subs   |
+| Endpoint              | Does                                                                      |
+|-----------------------|---------------------------------------------------------------------------|
+| `api/booking.php`     | Stores a booking, then emails + WhatsApps the business an alert           |
+| `api/report.php`      | Stores a contact "report a problem" and emails it to the team             |
+| `api/newsletter.php`  | Stores a subscriber, sends them a branded **welcome email**, pings the biz |
+| `api/admin/`          | Password-protected dashboard to read bookings / reports / subscribers     |
 
 - **Notifications** — `api/notify.php` sends email through the hosting's SMTP (with a `mail()`
-  fallback) and, optionally, a WhatsApp message via the **WhatsApp Cloud API**.
+  fallback) and, optionally, a WhatsApp message via the **WhatsApp Cloud API**. `send_email()` takes
+  an optional recipient + HTML flag, so business alerts go out as plain text while a new subscriber
+  gets an HTML welcome layout.
 - **Secrets** — every secret (DB, mailbox, admin, WhatsApp token) lives in `api/config.local.php`,
   which is **git-ignored and never committed**. `api/config.local.example.php` is the placeholder
   template. `api/schema.sql` creates the tables; `api/.htaccess` blocks direct access to config/SQL.
@@ -84,8 +88,8 @@ taxi f1/
 ├── js/
 │   ├── navbar.js         Menu open/close, active link, SQ/EN toggle (saved to localStorage)
 │   ├── main.js           Bootstrap — smooth scrolling + active-link tracking
-│   ├── hero.js           Kreu typewriter intro
-│   ├── scroll.js         GSAP ScrollTrigger cinematics (+ optional Lenis)
+│   ├── hero.js           Kreu reveal (staggered fade/slide) + lazy background video
+│   ├── scroll.js         GSAP ScrollTrigger cinematics (+ Lenis, paused on input focus)
 │   ├── fare.js           Free fare estimator (OSRM + Tirana tariffs)
 │   ├── fare-map.js       Optional Google Maps version
 │   ├── rezervo.js        Booking page logic → POSTs to api/booking.php
@@ -137,6 +141,20 @@ regardless of what the client does. On top of that:
 - The secrets used during setup were shared in plaintext, so **rotate** them (DB / mailbox / admin
   passwords, WhatsApp token) before launch.
 
+## Performance
+
+Tuned against Google PageSpeed (mobile):
+
+- **Video** — the hero background was 1080p/9.4MB; re-encoded to 720p (**~0.9MB**) with `ffmpeg`, plus
+  a poster image and `preload="none"`. `hero.js` shows the poster instantly (fast LCP) and lazy-loads
+  the video; Data Saver keeps just the poster.
+- **Layout shift (CLS)** — explicit `width`/`height` on every `<img>` (extracted with `ffprobe`) so
+  the browser reserves space and nothing jumps.
+- **Caching** — `.htaccess` sets long cache lifetimes for media/fonts (1 year, immutable) and CSS/JS
+  (7 days); HTML is never long-cached so updates show immediately.
+- **Result** — SEO / Best-Practices **100**, Accessibility **~100**; the remaining mobile-perf lever
+  is converting the destination photos to WebP.
+
 ## Conventions
 
 - **CSS** uses BEM-ish names (`block__element--modifier`), state classes are `is-*`, and all tokens
@@ -159,32 +177,34 @@ fill in your values, import `api/schema.sql`, and serve the folder from a PHP ho
 
 ## Status — done ✅
 
-- [x] **Multi-page site**, fully **bilingual** (SQ/EN toggle on every text)
-- [x] **Booking** (Rezervo) — city / airport, live fare, submits to the backend + WhatsApp
-- [x] **Contact** — "report a problem" form + Google Maps embed, submits to the backend
-- [x] **Newsletter** sign-up band, stored in the database
-- [x] **Backend** — PHP/MySQL, email + WhatsApp notifications, admin dashboard
-- [x] **Abuse protection** — honeypot + time-trap on the forms, per-IP rate
-      limiting on all endpoints, and a brute-force lockout on the admin login
+- [x] **Live** at `f1taxi.al` — domain on the hosting nameservers, **Let's Encrypt HTTPS** for the
+      domain, `www` and `webmail`.
+- [x] **Multi-page site** at **clean URLs** (`/rezervo`, `/kontakt`, …), fully **bilingual** (SQ/EN)
+- [x] **Booking** (Rezervo) — city / airport, fixed-price brochure; server-side notify on confirm
+- [x] **Contact** — "report a problem" form; server emails the team, thank-you state on submit
+- [x] **Newsletter** — subscribers stored + a branded **HTML welcome email** sent automatically
+- [x] **Backend** — PHP/MySQL, server-side email + WhatsApp notifications, admin dashboard
+- [x] **Abuse protection** — honeypot + time-trap, per-IP rate limiting, admin brute-force lockout
+- [x] **Security** — CSP + security headers, self-XSS console warning, secrets in git-ignored config
 - [x] **Legal** — Privacy Policy + Cookie Policy pages (Albanian law)
-- [x] **Reviews** carousel, **FAQ**, redesigned dark footer, fixed-price brochure with photos
-- [x] **SEO essentials** — unique titles/descriptions, `robots.txt` + `sitemap.xml`, canonical URLs,
-      Open Graph + Twitter cards on every page, `TaxiService`/`LocalBusiness` JSON-LD, one H1 per page
+- [x] **Reviews** carousel, **FAQ**, redesigned dark footer
+- [x] **SEO** — titles/descriptions, `robots.txt` + `sitemap.xml`, canonicals, Open Graph + Twitter,
+      `TaxiService`/`LocalBusiness` JSON-LD, one H1 per page, keyword-rich image alt
+- [x] **Performance** — compressed hero video + poster, image dimensions (CLS), browser caching
+- [x] **Mobile fixes** — booking sheet stays above the on-screen keyboard; Lenis pauses on input focus
 
 ## Status — still to do 🚧
 
-- [ ] **Go live.** Site is built and tested on the hosting IP, but the domain's DNS still points to
-      the old host — nameservers need to move to the hosting provider so `f1taxi.al` serves this site.
-- [ ] **SSL + mail once DNS moves.** Enable Let's Encrypt for `f1taxi.al` / `www`, and confirm
-      `booking@f1taxi.al` sends/receives (WhatsApp Cloud API also has a 24-hour messaging window to mind).
-- [ ] **Rotate the secrets** that were used during setup, as a hygiene step before launch.
-- [ ] **Google Maps key.** Calculator runs on the free OpenStreetMap fallback; the optional Google
-      Maps upgrade is on hold until the Google Cloud keys are set up.
-- [ ] **SEO polish (nice-to-have).** Clean URLs (`/rezervo` instead of `/html/rezervo.html`),
-      `<html lang>` switching with the EN/SQ toggle, `width`/`height` on images (CLS), a dedicated
-      1200×630 share image, and a custom 404 page. After go-live, submit the sitemap in Google
-      Search Console.
-- [ ] **Accessibility + cross-browser pass** — keyboard nav, reduced-motion, older browsers.
+- [ ] **Rotate the secrets** used during setup (DB / mailbox / admin passwords, WhatsApp token).
+- [ ] **WhatsApp template** — the Cloud API only sends free-form to a number that messaged the business
+      in the last 24h; email always works, so add an approved template for reliable WhatsApp alerts.
+- [ ] **Google Business Profile** + submit the sitemap in **Google Search Console** (biggest local-SEO
+      wins now that the site is live).
+- [ ] **Convert destination photos to WebP** — the last chunk of mobile page weight.
+- [ ] **Google Maps key.** The fare calculator runs on the free OpenStreetMap fallback; the optional
+      Google Maps upgrade is on hold until the Google Cloud keys are set up.
+- [ ] **Nice-to-have** — a dedicated 1200×630 share image, a custom 404 page, and optionally Cloudflare
+      in front for edge caching + DDoS protection.
 
 ## Notes
 
