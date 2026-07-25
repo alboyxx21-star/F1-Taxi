@@ -10,6 +10,20 @@
 # merge these lines into it rather than overwriting.
 # ============================================================
 
+# ============================================================
+# Clean URLs:  /rezervo  ->  html/rezervo.html  (and the other pages)
+# ============================================================
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # 301 the old /html/<page>.html paths to the clean URL (SEO-friendly).
+  RewriteCond %{THE_REQUEST} \s/+html/([a-z0-9-]+)\.html[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L]
+
+  # Serve the clean URL from the html/ folder (internal, no redirect).
+  RewriteRule ^(rezervo|sherbimet|rreth-nesh|kontakt|privatesia|cookies)/?$ html/$1.html [L]
+</IfModule>
+
 <IfModule mod_headers.c>
   # Clickjacking: don't allow the site to be embedded in a frame elsewhere.
   Header always set X-Frame-Options "SAMEORIGIN"
