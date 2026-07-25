@@ -1,0 +1,74 @@
+/* ============================================================
+   F1 TAXI — legal.css
+   Readable article layout for the Privacy Policy & Cookie Policy
+   pages. Light background, dark-green ink, green accents.
+   ============================================================ */
+
+.legal-page {
+  background: linear-gradient(180deg, #eef2e8 0%, #e4ebdd 100%);
+  color: #12261d;
+  font-family: Verdana, Geneva, sans-serif;
+  padding: calc(var(--nav-height, 64px) + clamp(36px, 7vh, 72px)) clamp(20px, 5vw, 48px) clamp(48px, 8vh, 90px);
+}
+
+.legal { width: min(820px, 100%); margin: 0 auto; }
+
+.legal__eyebrow {
+  display: inline-block;
+  font-size: 11px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+  color: #0e7a3a;
+}
+.legal__title {
+  margin: 8px 0 6px;
+  font-size: clamp(30px, 5vw, 48px); font-weight: 800; letter-spacing: -.02em; line-height: 1.05;
+  color: #0f3d2a;
+}
+.legal__updated {
+  margin: 0 0 8px;
+  font-size: 12.5px; color: #5b7267;
+}
+
+/* Disclaimer / note box */
+.legal__note {
+  margin: 20px 0 8px;
+  padding: 14px 18px;
+  border-left: 4px solid #12a150;
+  border-radius: 8px;
+  background: rgba(18, 161, 80, .08);
+  font-size: 13px; line-height: 1.6; color: #33473b;
+}
+
+.legal__body { margin-top: 20px; }
+
+.legal__body h2 {
+  margin: 34px 0 10px;
+  font-size: clamp(18px, 2.2vw, 23px); font-weight: 800; letter-spacing: -.01em;
+  color: #0f3d2a;
+}
+.legal__body h2 .num { color: #12a150; margin-right: 8px; }
+
+.legal__body p,
+.legal__body li {
+  font-size: 14.5px; line-height: 1.75; color: #24382e;
+}
+.legal__body p { margin: 0 0 12px; }
+
+.legal__body ul { margin: 0 0 14px; padding-left: 22px; }
+.legal__body li { margin: 0 0 7px; }
+
+.legal__body a { color: #0e7a3a; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.legal__body a:hover { color: #12a150; }
+
+.legal__body strong { color: #12261d; }
+
+/* Small print at the end */
+.legal__foot {
+  margin-top: 30px; padding-top: 18px;
+  border-top: 1px solid rgba(15, 61, 42, .16);
+  font-size: 13px; color: #5b7267;
+}
+.legal__foot a { color: #0e7a3a; font-weight: 700; }
+
+@media (max-width: 560px) {
+  .legal__body h2 { margin-top: 26px; }
+}

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Politika e Privatësisë e F1 Taxi — si i mbledhim, përdorim dhe mbrojmë të dhënat tuaja personale, në përputhje me legjislacionin shqiptar për mbrojtjen e të dhënave.">
+  <title>F1 Taxi — Politika e Privatësisë</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="../assets/media/favicon.ico">
+  <link rel="icon" type="image/png" sizes="256x256" href="../assets/media/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/media/apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Expanded:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/navbar.css">
+  <link rel="stylesheet" href="../css/menu.css">
+  <link rel="stylesheet" href="../css/footer.css">
+  <link rel="stylesheet" href="../css/legal.css">
+
+  <!-- Libraries -->
+  <script defer src="../js/vendor/gsap.min.js"></script>
+  <script defer src="../js/vendor/ScrollTrigger.min.js"></script>
+  <script defer src="../js/vendor/lenis.min.js"></script>
+
+  <!-- Scripts -->
+  <script defer src="../js/navbar.js"></script>
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="nav is-scrolled" id="nav">
+    <a class="nav__logo" href="../index.html#kreu" data-page="kreu" aria-label="F1 Taxi">
+      <img src="../assets/media/logo.webp" alt="F1 Taxi">
+    </a>
+    <button class="nav__toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ============ FULLSCREEN MENU OVERLAY ============ -->
+  <div class="menu" id="menu" aria-hidden="true">
+    <div class="menu__panel">
+      <div class="menu__grid"></div>
+      <div class="menu__accent"></div>
+      <div class="menu__car-wrap">
+        <div class="menu__car">
+          <img class="menu__car-img menu__car-img--open" src="../assets/media/car-open.png" alt="">
+          <img class="menu__car-img menu__car-img--close" src="../assets/media/car-lights.png" alt="">
+          <span class="menu__glow"></span>
+          <span class="menu__headlight menu__headlight--l"></span>
+          <span class="menu__headlight menu__headlight--r"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu__content">
+      <nav class="menu__links" aria-label="Navigimi kryesor">
+        <a class="menu__link" href="../index.html#kreu" data-page="kreu">
+          <span class="menu__dash"></span>
+          <span class="menu__label" data-sq="Kreu" data-en="Home">Kreu</span>
+        </a>
+        <a class="menu__link" href="sherbimet.html#sherbimet" data-page="sherbimet">
+          <span class="menu__dash"></span>
+          <span class="menu__label" data-sq="Shërbimet" data-en="Services">Shërbimet</span>
+        </a>
+        <a class="menu__link" href="rreth-nesh.html#rreth-nesh" data-page="rreth-nesh">
+          <span class="menu__dash"></span>
+          <span class="menu__label" data-sq="Rreth Nesh" data-en="About Us">Rreth Nesh</span>
+        </a>
+        <a class="menu__link" href="rezervo.html#rezervo" data-page="rezervo">
+          <span class="menu__dash"></span>
+          <span class="menu__label" data-sq="Rezervo Taxi" data-en="Book a Taxi">Rezervo Taxi</span>
+        </a>
+        <a class="menu__link" href="kontakt.html#kontakt" data-page="kontakt">
+          <span class="menu__dash"></span>
+          <span class="menu__label" data-sq="Kontakt" data-en="Contact">Kontakt</span>
+        </a>
+      </nav>
+
+      <div class="menu__social">
+        <a href="#" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5A1.94 1.94 0 1 1 5 3.06 1.94 1.94 0 0 1 6.94 5ZM5.34 8.5h3.2V21h-3.2Zm5.2 0h3.07v1.71h.04a3.36 3.36 0 0 1 3-1.66c3.22 0 3.81 2.12 3.81 4.87V21h-3.2v-5.55c0-1.32 0-3-1.85-3s-2.13 1.44-2.13 2.93V21h-3.2Z"/></svg>
+        </a>
+        <a href="#" aria-label="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.9c0-.74.5-.9.85-.9H17V3.05L14.2 3c-2.9 0-3.54 2.17-3.54 3.56V8.5H9v3h1.66V21H14v-9.5h2.5l.34-3Z"/></svg>
+        </a>
+      </div>
+
+      <div class="menu__lang">
+        <button class="menu__lang-btn is-active" data-lang="SQ">SQ</button>
+        <span class="menu__lang-sep"></span>
+        <button class="menu__lang-btn" data-lang="EN">EN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ LEGAL ARTICLE ============ -->
+  <main class="legal-page">
+    <article class="legal">
+      <span class="legal__eyebrow" data-sq="Ligjore" data-en="Legal">Ligjore</span>
+      <h1 class="legal__title" data-sq="Politika e Privatësisë" data-en="Privacy Policy">Politika e Privatësisë</h1>
+      <p class="legal__updated" data-sq="Përditësuar së fundmi: 24 Korrik 2026" data-en="Last updated: 24 July 2026">Përditësuar së fundmi: 24 Korrik 2026</p>
+
+      <div class="legal__body">
+
+        <p data-sq="F1 Taxi (“ne”, “jona”, “kompania”) e vlerëson privatësinë tuaj. Kjo Politikë shpjegon se cilat të dhëna personale mbledhim, si i përdorim dhe cilat janë të drejtat tuaja, në përputhje me Ligjin nr. 9887, datë 10.03.2008 “Për Mbrojtjen e të Dhënave Personale” (i ndryshuar) dhe aktet nënligjore të nxjerra nga Komisioneri për të Drejtën e Informimit dhe Mbrojtjen e të Dhënave Personale (IDP)." data-en="F1 Taxi (“we”, “our”, “the company”) values your privacy. This Policy explains what personal data we collect, how we use it and what your rights are, in accordance with Law No. 9887, dated 10.03.2008 “On the Protection of Personal Data” (as amended) and the by-laws issued by the Commissioner for the Right to Information and the Protection of Personal Data (IDP).">F1 Taxi (“ne”, “jona”, “kompania”) e vlerëson privatësinë tuaj. Kjo Politikë shpjegon se cilat të dhëna personale mbledhim, si i përdorim dhe cilat janë të drejtat tuaja, në përputhje me Ligjin nr. 9887, datë 10.03.2008 “Për Mbrojtjen e të Dhënave Personale” (i ndryshuar) dhe aktet nënligjore të nxjerra nga Komisioneri për të Drejtën e Informimit dhe Mbrojtjen e të Dhënave Personale (IDP).</p>
+
+        <h2><span class="num">1.</span><span data-sq="Kontrolluesi i të Dhënave" data-en="Data Controller">Kontrolluesi i të Dhënave</span></h2>
+        <p data-sq="Kontrolluesi i të dhënave personale është F1 Taxi, me seli në Tiranë, Shqipëri. Për çdo pyetje mbi këtë Politikë ose të dhënat tuaja, na kontaktoni në info@f1taxi.al ose në +355 68 255 0000." data-en="The controller of personal data is F1 Taxi, based in Tirana, Albania. For any question about this Policy or your data, contact us at info@f1taxi.al or +355 68 255 0000.">Kontrolluesi i të dhënave personale është F1 Taxi, me seli në Tiranë, Shqipëri. Për çdo pyetje mbi këtë Politikë ose të dhënat tuaja, na kontaktoni në info@f1taxi.al ose në +355 68 255 0000.</p>
+
+        <h2><span class="num">2.</span><span data-sq="Të dhënat që mbledhim" data-en="Data we collect">Të dhënat që mbledhim</span></h2>
+        <p data-sq="Mbledhim vetëm të dhënat e nevojshme për të ofruar shërbimin tonë, duke përfshirë:" data-en="We only collect the data necessary to provide our service, including:">Mbledhim vetëm të dhënat e nevojshme për të ofruar shërbimin tonë, duke përfshirë:</p>
+        <ul>
+          <li data-sq="Emrin dhe mbiemrin tuaj;" data-en="Your first and last name;">Emrin dhe mbiemrin tuaj;</li>
+          <li data-sq="Numrin e telefonit dhe adresën e email-it;" data-en="Your phone number and email address;">Numrin e telefonit dhe adresën e email-it;</li>
+          <li data-sq="Vendndodhjen e marrjes dhe destinacionin, datën dhe orën e udhëtimit;" data-en="Pickup and drop-off location, date and time of the ride;">Vendndodhjen e marrjes dhe destinacionin, datën dhe orën e udhëtimit;</li>
+          <li data-sq="Numrin e pasagjerëve dhe çdo shënim që na jepni për rezervimin;" data-en="Number of passengers and any notes you provide with the booking;">Numrin e pasagjerëve dhe çdo shënim që na jepni për rezervimin;</li>
+          <li data-sq="Përmbajtjen e mesazheve që na dërgoni përmes formularit të kontaktit ose WhatsApp;" data-en="The content of messages you send us via the contact form or WhatsApp;">Përmbajtjen e mesazheve që na dërgoni përmes formularit të kontaktit ose WhatsApp;</li>
+          <li data-sq="Të dhëna teknike bazë (p.sh. lloji i shfletuesit) të nevojshme për funksionimin e faqes." data-en="Basic technical data (e.g. browser type) needed for the website to function.">Të dhëna teknike bazë (p.sh. lloji i shfletuesit) të nevojshme për funksionimin e faqes.</li>
+        </ul>
+
+        <h2><span class="num">3.</span><span data-sq="Si i përdorim të dhënat" data-en="How we use your data">Si i përdorim të dhënat</span></h2>
+        <ul>
+          <li data-sq="Për të pranuar, konfirmuar dhe kryer rezervimet tuaja të taksisë;" data-en="To receive, confirm and fulfil your taxi bookings;">Për të pranuar, konfirmuar dhe kryer rezervimet tuaja të taksisë;</li>
+          <li data-sq="Për të komunikuar me ju rreth udhëtimit dhe për t'iu përgjigjur pyetjeve ose raportimeve;" data-en="To communicate with you about your ride and respond to questions or reports;">Për të komunikuar me ju rreth udhëtimit dhe për t'iu përgjigjur pyetjeve ose raportimeve;</li>
+          <li data-sq="Për të përmirësuar cilësinë dhe sigurinë e shërbimit tonë;" data-en="To improve the quality and safety of our service;">Për të përmirësuar cilësinë dhe sigurinë e shërbimit tonë;</li>
+          <li data-sq="Për të përmbushur detyrimet ligjore, kur është e zbatueshme." data-en="To comply with legal obligations, where applicable.">Për të përmbushur detyrimet ligjore, kur është e zbatueshme.</li>
+        </ul>
+
+        <h2><span class="num">4.</span><span data-sq="Baza ligjore e përpunimit" data-en="Legal basis for processing">Baza ligjore e përpunimit</span></h2>
+        <p data-sq="Të dhënat tuaja i përpunojmë mbi bazën e: (a) pëlqimit tuaj; (b) ekzekutimit të një kontrate ose masave paraprake me kërkesën tuaj (rezervimi i udhëtimit); dhe (c) interesit tonë të ligjshëm për të ofruar e përmirësuar shërbimin, gjithnjë në respekt të të drejtave tuaja." data-en="We process your data on the basis of: (a) your consent; (b) the performance of a contract or pre-contractual steps at your request (the booking of a ride); and (c) our legitimate interest in providing and improving the service, always respecting your rights.">Të dhënat tuaja i përpunojmë mbi bazën e: (a) pëlqimit tuaj; (b) ekzekutimit të një kontrate ose masave paraprake me kërkesën tuaj (rezervimi i udhëtimit); dhe (c) interesit tonë të ligjshëm për të ofruar e përmirësuar shërbimin, gjithnjë në respekt të të drejtave tuaja.</p>
+
+        <h2><span class="num">5.</span><span data-sq="Ndarja me palë të treta" data-en="Sharing with third parties">Ndarja me palë të treta</span></h2>
+        <p data-sq="Nuk i shesim të dhënat tuaja. Ato mund të ndahen vetëm në masën e nevojshme me: shoferët tanë, për të kryer udhëtimin; ofruesin e shërbimit të mesazheve WhatsApp (Meta Platforms), kur zgjidhni të komunikoni me ne në atë kanal; dhe autoritetet kompetente, kur kërkohet me ligj." data-en="We do not sell your data. It may be shared only to the extent necessary with: our drivers, to carry out the ride; the WhatsApp messaging provider (Meta Platforms), when you choose to communicate with us there; and competent authorities, where required by law.">Nuk i shesim të dhënat tuaja. Ato mund të ndahen vetëm në masën e nevojshme me: shoferët tanë, për të kryer udhëtimin; ofruesin e shërbimit të mesazheve WhatsApp (Meta Platforms), kur zgjidhni të komunikoni me ne në atë kanal; dhe autoritetet kompetente, kur kërkohet me ligj.</p>
+
+        <h2><span class="num">6.</span><span data-sq="Ruajtja e të dhënave" data-en="Data retention">Ruajtja e të dhënave</span></h2>
+        <p data-sq="I ruajmë të dhënat tuaja vetëm për aq kohë sa është e nevojshme për qëllimet e përshkruara më sipër ose sa parashikon ligji, dhe më pas i fshijmë ose i anonimizojmë ato në mënyrë të sigurt." data-en="We keep your data only for as long as necessary for the purposes described above or as required by law, after which we securely delete or anonymise it.">I ruajmë të dhënat tuaja vetëm për aq kohë sa është e nevojshme për qëllimet e përshkruara më sipër ose sa parashikon ligji, dhe më pas i fshijmë ose i anonimizojmë ato në mënyrë të sigurt.</p>
+
+        <h2><span class="num">7.</span><span data-sq="Siguria" data-en="Security">Siguria</span></h2>
+        <p data-sq="Marrim masa të arsyeshme teknike dhe organizative për të mbrojtur të dhënat tuaja nga qasja, humbja ose keqpërdorimi i paautorizuar. Megjithatë, asnjë transmetim përmes internetit nuk është 100% i sigurt." data-en="We take reasonable technical and organisational measures to protect your data from unauthorised access, loss or misuse. However, no transmission over the internet is 100% secure.">Marrim masa të arsyeshme teknike dhe organizative për të mbrojtur të dhënat tuaja nga qasja, humbja ose keqpërdorimi i paautorizuar. Megjithatë, asnjë transmetim përmes internetit nuk është 100% i sigurt.</p>
+
+        <h2><span class="num">8.</span><span data-sq="Të drejtat tuaja" data-en="Your rights">Të drejtat tuaja</span></h2>
+        <p data-sq="Sipas legjislacionit shqiptar për mbrojtjen e të dhënave, ju keni të drejtën: të kërkoni qasje në të dhënat tuaja; të korrigjoni ose përditësoni ato; të kërkoni fshirjen ose bllokimin e tyre; të kundërshtoni përpunimin; dhe të tërhiqni pëlqimin në çdo kohë. Gjithashtu keni të drejtë të paraqisni ankesë pranë Komisionerit për të Drejtën e Informimit dhe Mbrojtjen e të Dhënave Personale (idp.al)." data-en="Under Albanian data-protection law you have the right to: request access to your data; rectify or update it; request its deletion or blocking; object to processing; and withdraw consent at any time. You also have the right to lodge a complaint with the Commissioner for the Right to Information and the Protection of Personal Data (idp.al).">Sipas legjislacionit shqiptar për mbrojtjen e të dhënave, ju keni të drejtën: të kërkoni qasje në të dhënat tuaja; të korrigjoni ose përditësoni ato; të kërkoni fshirjen ose bllokimin e tyre; të kundërshtoni përpunimin; dhe të tërhiqni pëlqimin në çdo kohë. Gjithashtu keni të drejtë të paraqisni ankesë pranë Komisionerit për të Drejtën e Informimit dhe Mbrojtjen e të Dhënave Personale (idp.al).</p>
+
+        <h2><span class="num">9.</span><span data-sq="Cookies" data-en="Cookies">Cookies</span></h2>
+        <p><span data-sq="Faqja jonë përdor cookies dhe teknologji të ngjashme. Për më shumë, lexoni " data-en="Our website uses cookies and similar technologies. For more, read our ">Faqja jonë përdor cookies dhe teknologji të ngjashme. Për më shumë, lexoni </span><a href="cookies.html" data-sq="Politikën e Cookie-t" data-en="Cookie Policy">Politikën e Cookie-t</a>.</p>
+
+        <h2><span class="num">10.</span><span data-sq="Ndryshimet e kësaj Politike" data-en="Changes to this Policy">Ndryshimet e kësaj Politike</span></h2>
+        <p data-sq="Mund ta përditësojmë këtë Politikë herë pas here. Versioni më i fundit do të publikohet gjithmonë në këtë faqe me datën e përditësimit." data-en="We may update this Policy from time to time. The latest version will always be published on this page with its update date.">Mund ta përditësojmë këtë Politikë herë pas here. Versioni më i fundit do të publikohet gjithmonë në këtë faqe me datën e përditësimit.</p>
+
+        <div class="legal__foot">
+          <p><span data-sq="Për të ushtruar të drejtat tuaja ose për çdo pyetje mbi privatësinë, na shkruani në " data-en="To exercise your rights or for any privacy question, write to us at ">Për të ushtruar të drejtat tuaja ose për çdo pyetje mbi privatësinë, na shkruani në </span><a href="mailto:info@f1taxi.al">info@f1taxi.al</a>.</p>
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer" id="footer">
+    <div class="footer__inner">
+
+      <div class="footer__brand">
+        <a class="footer__logo" href="../index.html#kreu" data-page="kreu" aria-label="F1 Taxi">
+          <img src="../assets/media/logo.webp" alt="F1 Taxi">
+        </a>
+        <p class="footer__tagline" data-sq="Standardi i ri i udhëtimit në Tiranë dhe në gjithë Shqipërinë. 24/7 në shërbimin tuaj." data-en="The new standard of travel in Tirana and across Albania. 24/7 at your service.">Standardi i ri i udhëtimit në Tiranë dhe në gjithë Shqipërinë. 24/7 në shërbimin tuaj.</p>
+      </div>
+
+      <nav class="footer__col" aria-label="Navigim">
+        <h4 class="footer__col-title" data-sq="Navigim" data-en="Navigation">Navigim</h4>
+        <a href="../index.html#kreu" data-sq="Kreu" data-en="Home">Kreu</a>
+        <a href="../index.html#faq" data-sq="Pyetjet e Shpeshta" data-en="FAQ">Pyetjet e Shpeshta</a>
+        <a href="../index.html#reviews" data-sq="Vlerësimet" data-en="Reviews">Vlerësimet</a>
+        <a href="sherbimet.html#sherbimet" data-sq="Shërbimet" data-en="Services">Shërbimet</a>
+      </nav>
+
+      <nav class="footer__col" aria-label="Kompania">
+        <h4 class="footer__col-title" data-sq="Kompania" data-en="Company">Kompania</h4>
+        <a href="rreth-nesh.html#rreth-nesh" data-sq="Rreth Nesh" data-en="About Us">Rreth Nesh</a>
+        <a href="rezervo.html#rezervo" data-sq="Rezervo Taxi" data-en="Book a Taxi">Rezervo Taxi</a>
+        <a href="kontakt.html#kontakt" data-sq="Kontakt" data-en="Contact">Kontakt</a>
+      </nav>
+
+      <div class="footer__col footer__contact">
+        <h4 class="footer__col-title" data-sq="Kontakt" data-en="Contact">Kontakt</h4>
+        <a class="footer__contact-row" href="tel:+355682550000"><span class="footer__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C4 14 10 20 18.5 20a1.6 1.6 0 0 0 1.6-1.4l.3-2a1.5 1.5 0 0 0-1-1.6l-2.4-.8a1.5 1.5 0 0 0-1.6.5l-.7.9a11 11 0 0 1-4.4-4.4l.9-.7a1.5 1.5 0 0 0 .5-1.6l-.8-2.4A1.5 1.5 0 0 0 7.9 4l-2 .3A1.6 1.6 0 0 0 4 5.5Z"/></svg></span> +355 68 255 0000</a>
+        <a class="footer__contact-row" href="mailto:info@f1taxi.al"><span class="footer__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.4"/><path d="m4 7 8 6 8-6"/></svg></span> info@f1taxi.al</a>
+        <p class="footer__contact-row footer__contact-row--muted"><span class="footer__ico footer__ico--red" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg></span> <span data-sq="Tiranë, Shqipëri" data-en="Tirana, Albania">Tiranë, Shqipëri</span></p>
+      </div>
+
+    </div>
+
+    <div class="footer__bar">
+      <span class="footer__copy">&copy; 2026 F1 TAXI. <span data-sq="Të gjitha të drejtat e rezervuara." data-en="All rights reserved.">Të gjitha të drejtat e rezervuara.</span></span>
+      <div class="footer__legal">
+        <a href="privatesia.html" data-sq="Politika e Privatësisë" data-en="Privacy Policy">Politika e Privatësisë</a>
+        <a href="cookies.html" data-sq="Politika e Cookie-t" data-en="Cookie Policy">Politika e Cookie-t</a>
+      </div>
+    </div>
+
+    <div class="footer__hero" aria-hidden="true">
+      <h2 class="footer__watermark">F1 TAXI</h2>
+      <img class="footer__car" src="../assets/media/footer-car.png" alt="">
+    </div>
+  </footer>
+
+</body>
+</html>

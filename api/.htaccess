@@ -1,0 +1,7 @@
+# Block direct web access to the config and schema files.
+<FilesMatch "(config\.local(\.example)?\.php|\.sql)$">
+  Require all denied
+</FilesMatch>
+
+# Don't list directory contents.
+Options -Indexes

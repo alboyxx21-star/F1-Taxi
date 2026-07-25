@@ -1,0 +1,94 @@
+/* ============================================================
+   F1 TAXI — newsletter.css
+   Compact subscribe band between the reviews and the footer.
+   Dark forest panel with a faint green glow; cornsilk pill
+   controls that sit on a green drop-edge.
+   ============================================================ */
+
+.newsletter {
+  padding: clamp(48px, 8vh, 92px) clamp(20px, 5vw, 64px);
+  font-family: Verdana, Geneva, sans-serif;
+  background:
+    radial-gradient(120% 160% at 12% 0%, rgba(0, 255, 57, .10) 0%, transparent 55%),
+    linear-gradient(120deg, #0b120c 0%, #16200f 100%);
+  text-align: center;
+}
+
+.newsletter__inner {
+  width: min(560px, 92vw);
+  margin: 0 auto;
+}
+
+.newsletter__title {
+  margin: 0;
+  color: var(--c-cornsilk);
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+
+.newsletter__sub {
+  margin: 8px 0 24px;
+  color: color-mix(in srgb, var(--c-cornsilk) 68%, transparent);
+  font-size: clamp(13px, 1.1vw, 15px);
+  line-height: 1.55;
+}
+
+.newsletter__form {
+  display: grid;
+  gap: 16px;
+}
+
+/* Cornsilk pills sitting on a green drop-edge, like the reference */
+.newsletter__input,
+.newsletter__btn {
+  width: 100%;
+  padding: 16px 24px;
+  border: 0;
+  border-radius: 999px;
+  font: 500 15px Verdana, Geneva, sans-serif;
+  background: var(--c-cornsilk);
+  color: #12261d;
+  box-shadow: 0 5px 0 #0e7a3a;
+  outline: none;
+}
+
+.newsletter__input::placeholder { color: #7a9186; }
+
+.newsletter__input:focus {
+  box-shadow: 0 5px 0 #0e7a3a, 0 0 0 3px rgba(0, 255, 57, .3);
+}
+
+.newsletter__btn {
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .16s ease, background .2s ease, box-shadow .16s ease;
+}
+
+.newsletter__btn:hover {
+  background: var(--c-accent);
+  box-shadow: 0 7px 0 #0e6b3a;
+  transform: translateY(-1px);
+}
+
+.newsletter__btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #0e7a3a;
+}
+
+/* Only flag a bad email after a submit attempt */
+.newsletter__form.is-validated .newsletter__input:invalid {
+  box-shadow: 0 5px 0 #c0392b, 0 0 0 3px rgba(192, 57, 43, .28);
+}
+
+.newsletter__done {
+  margin: 0;
+  color: var(--c-accent);
+  font-weight: 700;
+  font-size: clamp(14px, 1.2vw, 16px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .newsletter__btn { transition: none; }
+  .newsletter__btn:hover, .newsletter__btn:active { transform: none; }
+}

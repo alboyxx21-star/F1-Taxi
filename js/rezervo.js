@@ -174,6 +174,18 @@
       var isAirport = card.getAttribute('data-mode') === 'airport';
       var data = new FormData(form);
 
+      // Save to the backend (best-effort; WhatsApp stays the guaranteed channel)
+      if (window.f1ApiPost) window.f1ApiPost('/booking.php', {
+        source: 'rezervo',
+        service: isAirport ? 'airport' : 'city',
+        name: data.get('name'), phone: data.get('phone'),
+        from: data.get('from'), to: data.get('to'),
+        date: data.get('date'), time: data.get('time'),
+        passengers: data.get('pax'),
+        price: price || '',
+        note: data.get('note') || ''
+      });
+
       // Hand the booking to WhatsApp
       var lines = [
         'Rezervim F1 Taxi',

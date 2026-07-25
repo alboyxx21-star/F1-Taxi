@@ -16,10 +16,15 @@ dl-*.jpg
 /city pictures/
 /Taxi Booking Page Design/
 /Taxi F1 FAQ Design/
+/F1 Taxi footer design/
 
 # Loose design / palette reference images in the project root
 /operator.png
 /Rinas.jpg
 /tirana.jpg
+/f1 taxi footer.png
 /*pallete*.jpg
 /*pallete*.png
+
+# Deployment bundle (upload to hosting, don't commit)
+*.zip

@@ -1,184 +1,153 @@
 /* ============================================================
-   F1 TAXI — footer.css (Clean Mobile Stack Fix)
+   F1 TAXI — footer.css
+   Dark footer: brand + 3 link columns, a legal bar, and a big
+   "F1 TAXI" watermark with the taxi cutout parked in front of it.
    ============================================================ */
 
 .footer {
   position: relative;
   z-index: 1;
-  font-family: Verdana, Geneva, sans-serif;
-  color: var(--c-cornsilk);
-  background:
-    radial-gradient(120% 90% at 12% 0%, rgba(0, 255, 57, .10) 0%, transparent 55%),
-    linear-gradient(180deg, #1b2610 0%, #0d1408 100%);
-  border-top: 1px solid rgba(254, 250, 224, .14);
+  overflow: hidden;
+  padding: clamp(56px, 8vh, 80px) clamp(20px, 5vw, 64px) 0;
+  background: #0B0D0C;
+  color: #E9EDEA;
+  font-family: 'Archivo', Verdana, system-ui, sans-serif;
+  border-top: 1px solid rgba(255, 255, 255, .06);
 }
 
+/* ---- Top grid: brand + columns ---- */
 .footer__inner {
-  width: min(1180px, 92vw);
+  position: relative;
+  z-index: 2;
+  max-width: 1240px;
   margin: 0 auto;
-  padding: clamp(48px, 8vh, 84px) 0 clamp(30px, 4vh, 48px);
   display: grid;
-  grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
-  gap: clamp(28px, 4vw, 56px);
+  grid-template-columns: 1.6fr 1fr 1fr 1.3fr;
+  gap: clamp(32px, 4vw, 48px);
 }
 
-/* ---- Brand column ---- */
-.footer__brand {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
+/* Brand */
+.footer__brand { display: flex; flex-direction: column; gap: 22px; max-width: 360px; }
+.footer__logo { display: inline-flex; }
+.footer__logo img { height: 42px; width: auto; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .5)); }
+.footer__tagline { margin: 0; font-size: 15px; line-height: 1.6; color: #9BA39E; }
 
-.footer__logo {
-  display: inline-flex;
-  margin-bottom: 18px;
-}
-
-.footer__logo img {
-  height: 40px;
-  width: auto;
-  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .4));
-}
-
-.footer__tagline {
-  margin: 0 0 22px;
-  max-width: 34ch;
-  font-size: 14px;
-  line-height: 1.7;
-  color: color-mix(in oklch, var(--c-cornsilk), transparent 22%);
-}
-
-.footer__social {
-  display: flex;
-  gap: 12px;
-}
-
-.footer__social a {
-  display: grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(254, 250, 224, .22);
-  color: var(--c-cornsilk);
-  transition: color .3s ease, border-color .3s ease, background .3s ease, transform .3s ease;
-}
-
-.footer__social a:hover {
-  color: var(--c-accent);
-  border-color: var(--c-accent);
-  background: rgba(0, 255, 57, .1);
-  transform: translateY(-2px);
-}
-
-/* ---- Link columns ---- */
-.footer__col {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
+/* Link columns */
+.footer__col { display: flex; flex-direction: column; gap: 16px; }
 .footer__col-title {
-  display: block;
-  margin-top: 0;
-  margin-bottom: 8px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--c-accent);
+  margin: 0;
+  font-size: 12px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: #6A736E;
 }
-
 .footer__col a {
-  display: block;
-  color: color-mix(in oklch, var(--c-cornsilk), transparent 18%);
-  font-size: 14.5px;
-  width: fit-content;
+  display: block; width: fit-content;
+  font-size: 15px; color: #C8D0CB;
   transition: color .25s ease, transform .25s ease;
 }
+.footer__col a:hover { color: #14E24A; transform: translateX(3px); }
 
-.footer__col a:hover {
-  color: var(--c-cornsilk);
-  transform: translateX(3px);
+/* Contact column */
+.footer__contact { gap: 14px; }
+/* Higher specificity than `.footer__col a` so the icon stays inline, not block */
+.footer__contact .footer__contact-row {
+  display: flex; align-items: center; gap: 12px;
+  width: auto;
+  font-size: 15px; color: #C8D0CB;
 }
+.footer__contact .footer__contact-row:hover { transform: none; }
+.footer__contact-row--muted { margin: 0; color: #9BA39E; }
+.footer__ico { flex: none; display: grid; place-items: center; color: #14E24A; }
+.footer__ico svg { width: 19px; height: 19px; display: block; }
+.footer__ico--red { color: #FF3B3B; }
 
-/* ---- Contact ---- */
-.footer__contact {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.footer__cta {
+  align-self: flex-start; margin-top: 4px;
+  padding: 13px 26px; border-radius: 999px;
+  background: #14E24A; color: #06120A;
+  font-size: 15px; font-weight: 700; letter-spacing: .02em;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
 }
+.footer__cta:hover { color: #06120A; background: #2bf560; transform: translateY(-2px); box-shadow: 0 12px 26px -10px rgba(20, 226, 74, .6); }
 
-.footer__contact p {
-  margin: 0;
-  font-size: 14px;
-  color: color-mix(in oklch, var(--c-cornsilk), transparent 22%);
-}
-
-.footer__phone {
-  font-size: 18px !important;
-  font-weight: 700;
-  color: var(--c-cornsilk) !important;
-}
-
-/* ---- Bottom bar ---- */
+/* ---- Legal bar ---- */
 .footer__bar {
-  width: min(1180px, 92vw);
-  margin: 0 auto;
-  padding: 20px 0 clamp(24px, 4vh, 40px);
-  border-top: 1px solid rgba(254, 250, 224, .12);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+  max-width: 1240px;
+  margin: clamp(40px, 6vh, 56px) auto 0;
+  padding: 24px 0;
+  border-top: 1px solid rgba(255, 255, 255, .08);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 16px;
 }
+.footer__copy { font-size: 14px; color: #6A736E; }
+.footer__legal { display: flex; flex-wrap: nowrap; gap: 32px; }
+.footer__legal a {
+  font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+  white-space: nowrap; color: #9BA39E; transition: color .25s ease;
+}
+.footer__legal a:hover { color: #14E24A; }
 
-.footer__copy {
+/* ---- Watermark + car hero ---- */
+.footer__hero {
+  position: relative;
+  z-index: 1;
+  max-width: 1600px;
+  margin: clamp(8px, 2vh, 24px) auto 0;
+  height: clamp(120px, 17vw, 240px);
+}
+.footer__watermark {
   margin: 0;
-  font-size: 13px;
-  color: color-mix(in oklch, var(--c-cornsilk), transparent 34%);
+  font-family: 'Archivo Expanded', 'Archivo', Verdana, sans-serif;
+  font-weight: 900;
+  /* Sized so the full "F1 TAXI" fits the viewport (was clipping the last "I") */
+  font-size: 17.5vw;
+  line-height: .72;
+  letter-spacing: -.03em;
+  white-space: nowrap;
+  text-align: center;
+  transform: translateY(24%);
+  background: linear-gradient(180deg, #1B221E 0%, #0F1411 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  user-select: none;
 }
-
-.footer__top {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: .04em;
-  color: var(--c-accent);
-  transition: opacity .25s ease;
+.footer__car {
+  position: absolute;
+  left: 50%; bottom: -2%;
+  transform: translateX(-50%);
+  width: min(52%, 720px);
+  height: auto;
+  z-index: 3;
+  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, .6));
+  pointer-events: none;
 }
-
-.footer__top:hover { opacity: .75; }
 
 /* ---- Responsive ---- */
 @media (max-width: 900px) {
-  .footer__inner {
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-  }
-  .footer__brand { 
-    grid-column: 1 / -1; 
-  }
+  .footer__inner { grid-template-columns: 1fr 1fr; }
+  .footer__brand { grid-column: 1 / -1; }
+  .footer__car { width: 68%; }
 }
 
-@media (max-width: 520px) {
-  .footer__inner { 
-    grid-template-columns: 1fr; 
-    gap: 36px; /* Generous gap between stacked grid sections to prevent overlapping */
-  }
-  
-  .footer__col {
-    gap: 10px;
-  }
+@media (max-width: 560px) {
+  .footer__inner { grid-template-columns: 1fr; gap: 32px; }
 
-  /* Force clear spacing above titles when layout switches to a single mobile column */
-  .footer__col + .footer__col,
-  .footer__contact {
-    margin-top: 12px; 
-  }
+  /* Stack the copyright over the two policy links, centered */
+  .footer__bar { flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 12px; margin-top: 40px; }
+  .footer__legal { gap: 24px; }
 
-  .footer__bar { 
-    justify-content: center; 
-    text-align: center; 
+  /* Stack the watermark and the car so the car never covers the text */
+  .footer__hero {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 18px;
+  }
+  .footer__watermark { transform: none; }
+  .footer__car {
+    position: relative; left: auto; bottom: auto; transform: none;
+    width: 90%; margin-top: -4%;
   }
 }
