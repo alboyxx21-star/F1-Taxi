@@ -5,121 +5,144 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Taksi-24%2F7-00FF39?style=for-the-badge&labelColor=283618" alt="24/7">
   <img src="https://img.shields.io/badge/Tiranë-Shqipëri-fefae0?style=for-the-badge&labelColor=181f0d" alt="Tiranë, Shqipëri">
-  <img src="https://img.shields.io/badge/Stack-HTML%20%C2%B7%20CSS%20%C2%B7%20JS-ee1c25?style=for-the-badge&labelColor=283618" alt="Stack">
+  <img src="https://img.shields.io/badge/Frontend-HTML%20%C2%B7%20CSS%20%C2%B7%20JS-ee1c25?style=for-the-badge&labelColor=283618" alt="Frontend stack">
+  <img src="https://img.shields.io/badge/Backend-PHP%20%C2%B7%20MySQL-777bb4?style=for-the-badge&labelColor=283618" alt="Backend stack">
 </p>
 
 # F1 Taxi
 
-This is the website I'm building for **F1 Taxi**, a taxi service in **Tirana, Albania**. It's a
-one-page site — you scroll through it top to bottom, one full-screen section per menu item —
-with a fixed glass navbar and a fullscreen menu that animates a car driving in when you open it.
+This is the website I'm building for **F1 Taxi**, a taxi service in **Tirana, Albania**. It started
+as a single scrolling page and has grown into a small **multi-page site with a real backend** —
+customers can book a ride, report a problem, or subscribe to updates, and those submissions land in
+a database and ping me by email and WhatsApp.
 
-The whole thing is plain **HTML, CSS and vanilla JavaScript**. No React, no build step, no
-`npm install` to look at it. I wanted it to stay light and to just open in a browser, so the
-only "libraries" are GSAP, ScrollTrigger and Lenis, and I've vendored those locally under
-`js/vendor/` instead of pulling them from a CDN.
+The frontend is plain **HTML, CSS and vanilla JavaScript** — no React, no build step. The only
+"libraries" are GSAP, ScrollTrigger and Lenis, vendored locally under `js/vendor/` instead of a CDN.
+The backend is plain **PHP + MySQL**, made to run on the same shared (Plesk) hosting as the site.
 
-The site is in **Albanian** (`lang="sq"`) with a **SQ / EN toggle** in the menu.
+The whole site is **bilingual** — Albanian (`lang="sq"`) by default with a **SQ / EN toggle** in the
+menu that swaps every piece of text.
 
-## What's on the page
+## Pages
 
-The site scrolls through six sections, in this order:
+The home page (`index.html`) is the scrolling one — Kreu (hero), Rreth Nesh (about), FAQ, customer
+reviews carousel, a newsletter sign-up band, and the footer. Everything else is its own page under
+`html/`, all sharing one auto-routing navbar and the redesigned footer:
 
-| # | Section        | id           | What it is                                             |
-|---|----------------|--------------|--------------------------------------------------------|
-| 1 | Kreu           | `kreu`       | Hero / landing — typewriter intro + social icons       |
-| 2 | Rreth Nesh     | `rreth-nesh` | About us                                               |
-| 3 | Shërbimet      | `sherbimet`  | Services                                               |
-| 4 | Çmimet         | `cmimet`     | Prices **+ the live fare calculator** (the fun part)   |
-| 5 | Rezervo        | `rezervo`    | Booking                                                |
-| 6 | Kontakt        | `kontakt`    | Contact                                                |
+| Page                    | What it is                                                        |
+|-------------------------|-------------------------------------------------------------------|
+| `index.html`            | Home — hero, about, FAQ, reviews, newsletter, footer              |
+| `html/sherbimet.html`   | Shërbimet — services (cards + features)                           |
+| `html/rezervo.html`     | Rezervo — booking (City ride / Airport transfer, live fare)       |
+| `html/kontakt.html`     | Kontakt — "report a problem" form + Google Maps embed             |
+| `html/rreth-nesh.html`  | Rreth Nesh — standalone about page                                |
+| `html/privatesia.html`  | Privacy Policy (Albanian law)                                     |
+| `html/cookies.html`     | Cookie Policy (Albanian law)                                      |
+
+The **fixed prices brochure** (Çmimet tona fikse nga Tirana) with per-destination photos lives on the
+booking flow, and the **live fare calculator** estimates fares from Tirana's municipal taxi tariffs.
 
 ## The fare calculator
 
-This is the piece I'm proudest of and the reason there's so much JavaScript. In **Çmimet** you
-type where you're going, and it estimates the fare based on Tirana's municipal taxi tariffs.
+Still the piece I'm proudest of. You type where you're going and it estimates the fare. It works in
+two modes and degrades gracefully:
 
-It works in two modes, and it degrades gracefully:
+- **Free mode (default, no keys, no billing).** `js/fare.js` takes your origin (GPS or typed) and
+  destination, asks **OSRM** for the fastest driving route, and applies the Tirana tariff. `js/al-places.js`
+  is a hand-made list of Albanian/Kosovo places with coordinates for instant autocomplete, with live
+  **OpenStreetMap** search on top. No API key needed.
+- **Google mode (optional upgrade).** Paste a Google **browser key** into `js/maps-config.js` and
+  `js/fare-map.js` swaps in a real embedded Google map with Places Autocomplete + Directions. Leave
+  the key empty and it quietly falls back to the free version.
 
-- **Free mode (default, no keys, no billing).** `js/fare.js` takes your origin (GPS or typed)
-  and destination, asks **OSRM** for the fastest driving route, gets the km + time back, and
-  applies the Tirana tariff to get a price. `js/al-places.js` is a hand-made list of real
-  Albanian (and a few Kosovo) places with coordinates so autocomplete feels instant, and live
-  **OpenStreetMap** search runs on top for full street-level coverage. None of this needs an
-  API key.
-- **Google mode (optional upgrade).** If you paste a Google **browser key** into
-  `js/maps-config.js`, `js/fare-map.js` swaps the calculator over to a real embedded Google map
-  that draws the route with Places Autocomplete + Directions. Leave the key empty and it quietly
-  falls back to the free OpenStreetMap version above — nothing breaks.
+## The backend (`api/`)
+
+Plain PHP talking to MySQL over PDO. Three public endpoints, all fire-and-forget from the frontend
+(the site also keeps its WhatsApp hand-off, so forms work even if the API is down):
+
+| Endpoint              | Does                                                              |
+|-----------------------|------------------------------------------------------------------|
+| `api/booking.php`     | Stores a booking, then emails + WhatsApps me an alert            |
+| `api/report.php`      | Stores a "report a problem" submission from the contact page     |
+| `api/newsletter.php`  | Stores a newsletter e-mail (deduplicated)                        |
+| `api/admin/`          | Password-protected dashboard to read bookings / reports / subs   |
+
+- **Notifications** — `api/notify.php` sends email through the hosting's SMTP (with a `mail()`
+  fallback) and, optionally, a WhatsApp message via the **WhatsApp Cloud API**.
+- **Secrets** — every secret (DB, mailbox, admin, WhatsApp token) lives in `api/config.local.php`,
+  which is **git-ignored and never committed**. `api/config.local.example.php` is the placeholder
+  template. `api/schema.sql` creates the tables; `api/.htaccess` blocks direct access to config/SQL.
+- Setup and deploy notes are in **`api/README.md`**.
 
 ## How it's put together
 
 ```
 taxi f1/
-├── index.html            The whole page — semantic markup, no inline styles/scripts
-├── css/
-│   ├── base.css          Design tokens (the palette lives here in :root), reset
-│   ├── navbar.css        Fixed top bar: logo + hamburger that morphs into an X
-│   ├── menu.css          Fullscreen overlay: circle reveal, car drive-in, links, SQ/EN toggle
-│   ├── stage.css         The scrolling sections' base layout
-│   ├── about.css         Rreth Nesh styling (the sage/cornsilk look I reuse elsewhere)
-│   ├── services.css      Shërbimet
-│   └── pricing.css       Çmimet + calculator UI
+├── index.html            Home page (hero, about, FAQ, reviews, newsletter, footer)
+├── html/                 Sub-pages (services, booking, contact, about, privacy, cookies)
+├── css/                  base/tokens, navbar, menu, stage, section styles, footer, legal…
 ├── js/
-│   ├── navbar.js         Menu open/close, active link, language toggle (saved to localStorage)
-│   ├── main.js           Bootstrap — smooth in-page scrolling + active-link tracking
-│   ├── hero.js           Kreu typewriter intro + social icon reveal
-│   ├── scroll.js         GSAP ScrollTrigger cinematics (+ optional Lenis smoothing)
-│   ├── al-places.js      Curated Albanian/Kosovo places dataset for autocomplete
-│   ├── fare.js           Free fare estimator (OSRM route + Tirana tariffs)
-│   ├── fare-map.js       Optional Google Maps version of the calculator
-│   ├── maps-config.js    Where you paste the Google browser key (empty by default)
+│   ├── navbar.js         Menu open/close, active link, SQ/EN toggle (saved to localStorage)
+│   ├── main.js           Bootstrap — smooth scrolling + active-link tracking
+│   ├── hero.js           Kreu typewriter intro
+│   ├── scroll.js         GSAP ScrollTrigger cinematics (+ optional Lenis)
+│   ├── fare.js           Free fare estimator (OSRM + Tirana tariffs)
+│   ├── fare-map.js       Optional Google Maps version
+│   ├── rezervo.js        Booking page logic → POSTs to api/booking.php
+│   ├── kontakt.js        Contact form → POSTs to api/report.php
+│   ├── newsletter.js     Newsletter band → POSTs to api/newsletter.php
+│   ├── api-config.js     Small helper (base URL + fire-and-forget POST)
 │   └── vendor/           gsap, ScrollTrigger, lenis (all local)
-└── assets/
-    └── media/            logo.webp, favicon set, car images, video, section backgrounds
+├── api/                  PHP + MySQL backend (see above)
+└── assets/media/         logo, favicons, destination photos, car images, backgrounds
 ```
 
-There's also a separate **`map-app/`** folder — a small Node backend I started for doing Google
-Maps search safely (a two-key setup so the private key never ends up in the browser). It's not
-wired into the site yet and it's parked until I sort out the Google Cloud keys.
+There's also a separate **`map-app/`** folder — a small Node backend for doing Google Maps search
+safely (two-key setup so the private key never reaches the browser). Not wired into the site; parked
+until the Google Cloud keys are sorted.
 
-## A few conventions I stuck to
+## Conventions
 
-- **CSS** uses BEM-ish names (`block__element--modifier`), state classes are `is-*` (like
-  `.menu.is-open`), and all the colours/tokens live in `:root` in `base.css`. The palette is
-  signature green `#00FF39`, red `#ee1c25`, cornsilk `#fefae0`, and dark forest greens.
-- **JS** files are plain classic scripts (so they even work over `file://`), one IIFE each,
-  everything hung off `window.F1`. `main.js` is the only place the pieces talk to each other.
-- **Bilingual text**: anything with both `data-sq` and `data-en` attributes gets swapped by the
-  language toggle, so any new copy just needs both attributes.
+- **CSS** uses BEM-ish names (`block__element--modifier`), state classes are `is-*`, and all tokens
+  live in `:root` in `base.css`. Palette: green `#00FF39`, red `#ee1c25`, cornsilk `#fefae0`, dark
+  forest greens.
+- **JS** files are classic scripts (work over `file://`), one IIFE each, hung off `window.F1`.
+- **Bilingual text**: anything with both `data-sq` and `data-en` gets swapped by the toggle — new copy
+  just needs both attributes. (A text node with a child link needs the text wrapped in a `<span>`.)
 
 ## Running it
 
-Easiest is to just open `index.html` in a browser. If you want it served (recommended, closer to
-production):
+Frontend only — just open `index.html`, or serve it:
 
 ```sh
 npx serve .
 ```
 
-## What I haven't done yet
+The **backend** needs PHP + MySQL. Copy `api/config.local.example.php` to `api/config.local.php`,
+fill in your values, import `api/schema.sql`, and serve the folder from a PHP host (see `api/README.md`).
 
-Being honest — this is still a work in progress:
+## Status — done ✅
 
-- [ ] **Real content.** Some sections (Shërbimet, Rezervo, Kontakt) are still mostly layout and
-      placeholder copy. Rreth Nesh and the calculator are the most finished.
-- [ ] **The booking form (Rezervo) doesn't submit anywhere.** It's UI only right now — no backend,
-      no email, no confirmation. Needs to actually send a request somewhere.
-- [ ] **Real contact details and social links.** The icons are there but not pointed at real
-      accounts yet.
-- [ ] **Google Maps key.** The calculator runs on the free OpenStreetMap fallback for now; the
-      `map-app/` backend is blocked until I set up the Google Cloud keys.
-- [ ] **SEO / share tags.** Only the basic `<meta name="description">` and favicon are done — still
-      need Open Graph / Twitter cards for nice link previews.
-- [ ] **Accessibility + cross-browser pass.** Want to properly test keyboard nav, reduced-motion,
-      and older browsers before calling it launch-ready.
-- [ ] **Content cleanup.** The places dataset still lists some Kosovo cities; needs to be trimmed
-      to whatever service area we actually cover.
+- [x] **Multi-page site**, fully **bilingual** (SQ/EN toggle on every text)
+- [x] **Booking** (Rezervo) — city / airport, live fare, submits to the backend + WhatsApp
+- [x] **Contact** — "report a problem" form + Google Maps embed, submits to the backend
+- [x] **Newsletter** sign-up band, stored in the database
+- [x] **Backend** — PHP/MySQL, email + WhatsApp notifications, admin dashboard
+- [x] **Legal** — Privacy Policy + Cookie Policy pages (Albanian law)
+- [x] **Reviews** carousel, **FAQ**, redesigned dark footer, fixed-price brochure with photos
+
+## Status — still to do 🚧
+
+- [ ] **Go live.** Site is built and tested on the hosting IP, but the domain's DNS still points to
+      the old host — nameservers need to move to the hosting provider so `f1taxi.al` serves this site.
+- [ ] **SSL + mail once DNS moves.** Enable Let's Encrypt for `f1taxi.al` / `www`, and confirm
+      `booking@f1taxi.al` sends/receives (WhatsApp Cloud API also has a 24-hour messaging window to mind).
+- [ ] **Rotate the secrets** that were used during setup, as a hygiene step before launch.
+- [ ] **Google Maps key.** Calculator runs on the free OpenStreetMap fallback; `map-app/` is parked
+      until the Google Cloud keys are set up.
+- [ ] **SEO / share tags.** Basic `<meta description>` + favicons are done; still want Open Graph /
+      Twitter cards for link previews.
+- [ ] **Accessibility + cross-browser pass** — keyboard nav, reduced-motion, older browsers.
 
 ## Notes
 
