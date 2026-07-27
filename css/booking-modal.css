@@ -696,7 +696,15 @@
   .bkm__input-wrap { height: 44px; padding: 0 12px; border-radius: 11px; }
   .bkm__stepper { height: 44px; border-radius: 11px; }
   .bkm__step { width: 28px; height: 28px; }
-  .bkm__input { font-size: .88rem; }
+
+  /* 16px is a hard threshold, not a preference: iOS Safari zooms the whole
+     page on focus for anything smaller, and because fixed elements size to the
+     LAYOUT viewport, that zoom shunts the sheet sideways and clips it. Must
+     stay >= 16px on every focusable field, including the date and the country
+     search. Use px, not rem — a user-set root size could drop rem under 16. */
+  .bkm__input,
+  .bkm__input[type="datetime-local"],
+  .bkm__cc-search { font-size: 16px; }
 
   .bkm__submit { height: 48px; margin-top: 2px; font-size: .94rem; }
   .bkm__foot { font-size: .68rem; }

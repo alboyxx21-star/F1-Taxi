@@ -176,3 +176,13 @@
   .kontakt__submit { transition: none; }
   .kontakt__submit:hover, .kontakt__submit:active { transform: none; }
 }
+
+/* ---- iOS: never let a focusable field drop below 16px ----
+   Safari force-zooms the page on focus for anything smaller, and since fixed
+   elements size to the layout viewport that zoom shifts overlays sideways and
+   clips them. 16px is the threshold, not a style choice. */
+@media (max-width: 767px) {
+  .kontakt__input,
+  .kontakt__select,
+  .kontakt__textarea { font-size: 16px; }
+}

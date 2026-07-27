@@ -340,3 +340,11 @@
   .rez__check path { stroke-dashoffset: 0; animation: none; }
   .rez__submit, .rez__step, .rez__mode, .rez__photo { transition: none; }
 }
+
+/* ---- iOS: never let a focusable field drop below 16px ----
+   Below it Safari force-zooms on focus, which shifts and clips fixed overlays. */
+@media (max-width: 767px) {
+  .rez__input,
+  .rez__select,
+  .rez__textarea { font-size: 16px; }
+}

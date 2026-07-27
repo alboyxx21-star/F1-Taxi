@@ -536,3 +536,8 @@
 @media (max-width: 640px) {
   .pricing__dests { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* iOS force-zooms on focus below 16px — see the note in kontakt.css. */
+@media (max-width: 767px) {
+  .fare-calc__input { font-size: 16px; }
+}

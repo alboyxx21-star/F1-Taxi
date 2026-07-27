@@ -92,3 +92,8 @@
   .newsletter__btn { transition: none; }
   .newsletter__btn:hover, .newsletter__btn:active { transform: none; }
 }
+
+/* iOS force-zooms on focus below 16px — see the note in kontakt.css. */
+@media (max-width: 767px) {
+  .newsletter__input { font-size: 16px; }
+}

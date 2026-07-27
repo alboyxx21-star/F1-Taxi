@@ -101,7 +101,13 @@
       root.classList.toggle('bkm--kb', kbOpen);
       root.classList.toggle('bkm--kb-tight', kbOpen && h < 420);
 
-      if (kbOpen) {
+      // When the page is zoomed (iOS pinch, or a focus-zoom we failed to
+      // prevent) a fixed element still spans the LAYOUT viewport, which is
+      // wider than what's on screen — the sheet hangs off the side. Pin it to
+      // the visible box horizontally too.
+      var zoomed = vv.scale && vv.scale > 1.01;
+
+      if (kbOpen || zoomed) {
         // inset:0 pins top AND bottom; with a height as well the box is
         // over-constrained, so drop bottom explicitly and let height rule.
         root.style.top = vv.offsetTop + 'px';
@@ -111,6 +117,16 @@
         root.style.top = '';
         root.style.bottom = '';
         root.style.height = '';
+      }
+
+      if (zoomed) {
+        root.style.left = vv.offsetLeft + 'px';
+        root.style.right = 'auto';
+        root.style.width = vv.width + 'px';
+      } else {
+        root.style.left = '';
+        root.style.right = '';
+        root.style.width = '';
       }
 
       // For the fixed-position country popup, which can't see the clamp.
@@ -164,6 +180,9 @@
       root.style.top = '';
       root.style.bottom = '';
       root.style.height = '';
+      root.style.left = '';
+      root.style.right = '';
+      root.style.width = '';
       root.style.removeProperty('--bkm-vv-top');
       root.style.removeProperty('--bkm-vv-h');
       baseH = 0;
