@@ -251,3 +251,16 @@
 @media (max-width: 767px) {
   .f1-dest-search__input { font-size: 16px; }
 }
+
+/* ---- Android/Samsung: headings collided into each other ----
+   These headings are Verdana with very tight negative tracking (-.07em to
+   -.09em), which only works because Verdana's glyphs are unusually wide.
+   Android ships no Verdana, so it substitutes Roboto / One UI Sans — much
+   narrower — and that same tracking drags the letters on top of one another.
+   Desktop (Windows/macOS, where Verdana really exists) keeps the tight design;
+   below 768px back off to a value that is safe in any substituted font. */
+@media (max-width: 767px) {
+  .f1-showcase__title { letter-spacing: -.02em; }
+  .f1-dest-toolbar h3 { letter-spacing: -.02em; }
+  .pricing__title     { letter-spacing: -.02em; }
+}
