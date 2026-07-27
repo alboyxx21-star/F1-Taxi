@@ -92,6 +92,14 @@
 .kontakt__map iframe { width: 100%; height: clamp(240px, 34vh, 320px); border: 0; display: block; }
 
 /* ---- Right: form ---- */
+
+/* A class-level `display` beats the UA stylesheet's [hidden] { display: none },
+   so every block that is toggled via the hidden attribute has to opt back out
+   explicitly — otherwise the thank-you state shows on page load and the form
+   never goes away on submit. */
+.kontakt__form[hidden],
+.kontakt__done[hidden] { display: none; }
+
 .kontakt__form {
   display: grid;
   grid-template-columns: 1fr 1fr;

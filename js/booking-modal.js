@@ -86,19 +86,87 @@
        card (docked to the bottom) ends up hidden behind it. We use the
        visualViewport API to clamp the overlay to the actually-visible area. */
     var vv = window.visualViewport;
+    // Tallest viewport seen while this sheet has been open — the keyboard-closed
+    // height. Comparing against window.innerHeight instead would miss Android,
+    // where the layout viewport shrinks with the keyboard too and the difference
+    // is always ~0.
+    var baseH = 0;
+
     function fitViewport() {
       if (!vv || root.hidden) return;
-      var kbOpen = (window.innerHeight - vv.height) > 120;
+      var h = vv.height;
+      if (h > baseH) baseH = h;
+
+      var kbOpen = (baseH - h) > 120;
       root.classList.toggle('bkm--kb', kbOpen);
-      root.style.height = kbOpen ? vv.height + 'px' : '';
-      root.style.top = kbOpen ? vv.offsetTop + 'px' : '';
+      root.classList.toggle('bkm--kb-tight', kbOpen && h < 420);
+
+      if (kbOpen) {
+        // inset:0 pins top AND bottom; with a height as well the box is
+        // over-constrained, so drop bottom explicitly and let height rule.
+        root.style.top = vv.offsetTop + 'px';
+        root.style.bottom = 'auto';
+        root.style.height = h + 'px';
+      } else {
+        root.style.top = '';
+        root.style.bottom = '';
+        root.style.height = '';
+      }
+
+      // For the fixed-position country popup, which can't see the clamp.
+      root.style.setProperty('--bkm-vv-top', (kbOpen ? vv.offsetTop : 0) + 'px');
+      root.style.setProperty('--bkm-vv-h', h + 'px');
     }
-    function bindViewport() { if (vv) { vv.addEventListener('resize', fitViewport); vv.addEventListener('scroll', fitViewport); } }
+
+    // Reset the baseline: on open, and on rotation (where the real
+    // keyboard-closed height genuinely changes).
+    function resetViewportBase() {
+      baseH = vv ? vv.height : 0;
+      fitViewport();
+    }
+
+    /* The clamp gives the field somewhere visible to be; this puts it there.
+       Deferred because on focus the keyboard is still animating in and the
+       viewport hasn't resized yet. */
+    var scrollTimer = null;
+    function revealFocused(e) {
+      var el = e.target;
+      if (!el || !card.contains(el)) return;
+      if (!/^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)) return;
+      if (ccPop.contains(el)) return;   // the popup is fixed; it doesn't scroll with the form
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(function () {
+        if (root.hidden || document.activeElement !== el) return;
+        var wrap = el.closest ? (el.closest('.bkm__field, .bkm__row') || el) : el;
+        if (wrap.scrollIntoView) wrap.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      }, 300);
+    }
+
+    function bindViewport() {
+      if (vv) {
+        vv.addEventListener('resize', fitViewport);
+        vv.addEventListener('scroll', fitViewport);
+        window.addEventListener('orientationchange', resetViewportBase);
+      }
+      root.addEventListener('focusin', revealFocused);
+      resetViewportBase();
+    }
+
     function unbindViewport() {
-      if (vv) { vv.removeEventListener('resize', fitViewport); vv.removeEventListener('scroll', fitViewport); }
-      root.classList.remove('bkm--kb');
-      root.style.height = '';
+      if (vv) {
+        vv.removeEventListener('resize', fitViewport);
+        vv.removeEventListener('scroll', fitViewport);
+        window.removeEventListener('orientationchange', resetViewportBase);
+      }
+      root.removeEventListener('focusin', revealFocused);
+      clearTimeout(scrollTimer);
+      root.classList.remove('bkm--kb', 'bkm--kb-tight');
       root.style.top = '';
+      root.style.bottom = '';
+      root.style.height = '';
+      root.style.removeProperty('--bkm-vv-top');
+      root.style.removeProperty('--bkm-vv-h');
+      baseH = 0;
     }
 
     // The CDN stylesheet may still be in flight when deferred scripts run, so

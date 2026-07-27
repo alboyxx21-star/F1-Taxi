@@ -14,8 +14,9 @@
 This is the website for **F1 Taxi**, a taxi service in **Tirana, Albania** — **live at
 [f1taxi.al](https://f1taxi.al)** over HTTPS. It started as a single scrolling page and grew into a
 small **multi-page site with a real backend**: customers can book a ride, report a problem, or
-subscribe to updates, and every submission is stored in a database and **sent to us automatically by
-the server** (email + WhatsApp) — the customer never has to open their own WhatsApp.
+subscribe to updates, and every submission is stored in a database and **emailed to us automatically
+by the server** — the customer never has to open their own WhatsApp. (WhatsApp alerts are wired up
+in the code but not switched on — see [WhatsApp alerts](#whatsapp-alerts-still-open) below.)
 
 The frontend is plain **HTML, CSS and vanilla JavaScript** — no React, no build step. The only
 "libraries" are GSAP, ScrollTrigger and Lenis, vendored locally under `js/vendor/` instead of a CDN.
@@ -68,15 +69,35 @@ the customer's own WhatsApp is never opened:
 | `api/report.php`      | Stores a contact "report a problem" and emails it to the team             |
 | `api/newsletter.php`  | Stores a subscriber, sends them a branded **welcome email**, pings the biz |
 | `api/admin/`          | Password-protected dashboard to read bookings / reports / subscribers     |
+| `api/whatsapp-webhook.php` | Meta's verification handshake + inbound message/status events (logged) |
 
-- **Notifications** — `api/notify.php` sends email through the hosting's SMTP (with a `mail()`
-  fallback) and, optionally, a WhatsApp message via the **WhatsApp Cloud API**. `send_email()` takes
-  an optional recipient + HTML flag, so business alerts go out as plain text while a new subscriber
-  gets an HTML welcome layout.
+- **Notifications** — `api/notify.php` sends email through the hosting's SMTP and, optionally, a
+  WhatsApp message via the **WhatsApp Cloud API**. `mail()` is **disabled on this host**
+  (`disable_functions`), so SMTP is the primary path and `mail()` only a guarded fallback.
+  `send_email()` takes an optional recipient + HTML flag, so business alerts go out as plain text
+  while a new subscriber gets an HTML welcome layout.
 - **Secrets** — every secret (DB, mailbox, admin, WhatsApp token) lives in `api/config.local.php`,
   which is **git-ignored and never committed**. `api/config.local.example.php` is the placeholder
   template. `api/schema.sql` creates the tables; `api/.htaccess` blocks direct access to config/SQL.
 - Setup and deploy notes are in **`api/README.md`**.
+
+## WhatsApp alerts (still open)
+
+Email works and is the reliable channel. The WhatsApp leg in `send_whatsapp()` is written and
+correct, but **not switched on** — the Cloud API needs a token that doesn't expire and, for a message
+the *server* starts rather than the customer, an **approved template**. Parked for now; the options,
+so future-me doesn't have to re-derive them:
+
+| Option | Keys needed | Automatic? | Notes |
+|--------|-------------|-----------|-------|
+| **`wa.me` deep link** | none | no — customer taps send | Just a URL with the booking pre-typed in `text=`. Nothing to expire or approve. Arrives from the customer's number, which also opens the free 24-hour reply window. |
+| **Telegram bot** | one permanent token | yes | Free, no approval, ~15 lines next to `send_whatsapp()`. Instant push to the dispatcher — but it's Telegram, not WhatsApp. |
+| **Meta Cloud API** | System User token + template | yes | The code is already here; it's Business Manager paperwork, not development. |
+| **Unofficial bridge** (Baileys, whatsapp-web.js) | none | yes | Needs an always-on Node process (a VPS — Plesk shared hosting won't run it), breaks WhatsApp's terms, and **the business number can be banned**. Not worth the risk for the main dispatch line. |
+
+Watching the Roundcube inbox over IMAP was considered and rejected: `api/booking.php` already has the
+booking data at submit time, so polling email is a slower, lossier trigger for the *same* blocked
+send step.
 
 ## How it's put together
 
@@ -181,7 +202,8 @@ fill in your values, import `api/schema.sql`, and serve the folder from a PHP ho
       domain, `www` and `webmail`.
 - [x] **Multi-page site** at **clean URLs** (`/rezervo`, `/kontakt`, …), fully **bilingual** (SQ/EN)
 - [x] **Booking** (Rezervo) — city / airport, fixed-price brochure; server-side notify on confirm
-- [x] **Contact** — "report a problem" form; server emails the team, thank-you state on submit
+- [x] **Contact** — "report a problem" form; server emails the team, thank-you state shown **only
+      after a successful submit** (a class-level `display` was overriding the `hidden` attribute)
 - [x] **Newsletter** — subscribers stored + a branded **HTML welcome email** sent automatically
 - [x] **Backend** — PHP/MySQL, server-side email + WhatsApp notifications, admin dashboard
 - [x] **Abuse protection** — honeypot + time-trap, per-IP rate limiting, admin brute-force lockout
@@ -191,13 +213,15 @@ fill in your values, import `api/schema.sql`, and serve the folder from a PHP ho
 - [x] **SEO** — titles/descriptions, `robots.txt` + `sitemap.xml`, canonicals, Open Graph + Twitter,
       `TaxiService`/`LocalBusiness` JSON-LD, one H1 per page, keyword-rich image alt
 - [x] **Performance** — compressed hero video + poster, image dimensions (CLS), browser caching
-- [x] **Mobile fixes** — booking sheet stays above the on-screen keyboard; Lenis pauses on input focus
+- [x] **Mobile fixes** — the booking sheet is a flex column (fixed header + scrolling `.bkm__body`),
+      clamped to the visual viewport so the **on-screen keyboard can't break the layout**; the focused
+      field scrolls itself into view; Lenis pauses on input focus
 
 ## Status — still to do 🚧
 
 - [ ] **Rotate the secrets** used during setup (DB / mailbox / admin passwords, WhatsApp token).
-- [ ] **WhatsApp template** — the Cloud API only sends free-form to a number that messaged the business
-      in the last 24h; email always works, so add an approved template for reliable WhatsApp alerts.
+- [ ] **Decide the WhatsApp route** — see [WhatsApp alerts](#whatsapp-alerts-still-open). Email always
+      works, so this is an upgrade, not a blocker.
 - [ ] **Google Business Profile** + submit the sitemap in **Google Search Console** (biggest local-SEO
       wins now that the site is live).
 - [ ] **Convert destination photos to WebP** — the last chunk of mobile page weight.

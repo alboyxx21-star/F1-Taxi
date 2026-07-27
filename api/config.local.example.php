@@ -33,4 +33,7 @@ return [
   'whatsapp_token'    => '',
   'whatsapp_phone_id' => '',
   'whatsapp_to'       => '',           // e.g. 355682550000
+  // Any secret string you invent; must match the "Verify token" field in
+  // Meta → WhatsApp → Configuration → Webhook.
+  'whatsapp_verify_token' => '',
 ];

@@ -48,9 +48,13 @@
   max-width: 460px;
   max-height: 90vh;
   max-height: 90dvh;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
+  /* Column, not a scroll box: the header is a fixed row and .bkm__body takes
+     the rest and scrolls on its own. When the keyboard shrinks the sheet it is
+     the body that loses height, so the header never scrolls out of reach and
+     nothing overflows the card. */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   border-radius: 22px 22px 0 0;
   background: #fff;
   box-shadow: 0 -10px 30px rgba(0, 0, 0, .2);
@@ -73,7 +77,13 @@
 
 /* Mobile keyboard open (JS clamps .bkm to the visible viewport): let the card
    fill that clamped area and scroll internally, so no field hides behind it. */
-.bkm.bkm--kb .bkm__card { max-height: 100%; }
+.bkm.bkm--kb .bkm__card { height: 100%; max-height: 100%; }
+
+/* Very little room left (small phone in landscape with the keyboard up) —
+   the header alone would eat the sheet, so collapse it to just the close
+   button rather than letting the form disappear. */
+.bkm.bkm--kb-tight .bkm__header { padding-top: 8px; padding-bottom: 8px; }
+.bkm.bkm--kb-tight .bkm__brand-sub { display: none; }
 
 /* ---- Desktop: same slide-up, but it settles in the middle ---- */
 
@@ -101,6 +111,7 @@
 
 .bkm__header {
   position: relative;
+  flex: none;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -158,7 +169,18 @@
 
 /* ---- Body ---- */
 
-.bkm__body { padding: 24px 20px 20px; }
+/* min-height:0 is what actually lets this shrink — a flex item's default
+   min-height:auto would keep it at its content height and push the card past
+   the clamped viewport instead of scrolling. */
+.bkm__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 24px 20px 20px;
+  padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
 
 .bkm__title {
   margin: 0;
@@ -422,6 +444,14 @@
 
 .bkm__cc-pop[hidden] { display: none; }
 
+/* With the keyboard up, "centre of the layout viewport" is behind the keyboard.
+   JS publishes the visible band as --bkm-vv-top/--bkm-vv-h; centre in that. */
+.bkm.bkm--kb .bkm__cc-pop {
+  top: calc(var(--bkm-vv-top, 0px) + var(--bkm-vv-h, 100vh) / 2);
+}
+
+.bkm.bkm--kb .bkm__cc-list { max-height: calc(var(--bkm-vv-h, 100vh) - 120px); }
+
 @keyframes bkm-pop-in {
   from { opacity: 0; transform: translate(-50%, -46%) scale(.97); }
   to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
@@ -649,7 +679,10 @@
   .bkm__brand-sub { margin-top: 3px; font-size: .68rem; }
   .bkm__close { width: 30px; height: 30px; }
 
-  .bkm__body { padding: 16px 16px 14px; }
+  .bkm__body {
+    padding: 16px 16px 14px;
+    padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  }
   .bkm__title { font-size: 1.28rem; }
   .bkm__subtitle { margin-top: 3px; font-size: .78rem; }
   .bkm__fare { margin-top: 8px; padding: 4px 10px; font-size: .7rem; }
